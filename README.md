@@ -1,5 +1,5 @@
 # Team Challenge
-Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and synced data in real time.
+Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and syncing data in real time.
 
 Sample challenge: Fitness Challenge
 - 5 people, 30 days, 10 categories
@@ -9,13 +9,15 @@ Sample challenge: Fitness Challenge
 ### Wireframes
 - signup page
   - should only appear once - no logout necessary
+  - request access to contact list
 - challenge setup page
   - invite members
-  - set up challenge categories
+  - set up challenge categories - type in or choose?
+  - require same-day points tallying (bonus)
 - challenges page
   - list current and past challenges
 - page for adding category completion points
-  - allow only for that day or allow multi-day?
+  -
   - simple slide button toggle should suffice
 - settings page
   - standings notifications
@@ -36,25 +38,42 @@ https://firebase.google.com/docs/database/web/structure-data
 
       Database Model: INCOMPLETE
       {
-        users: {
-          John: {
-            name: "John Doe",
-            email: "JohnDoe@gmail.com",
-            challenges: {
-              0000001: true,
-              1212121: true
+        "users": {
+          "John": {
+            "name": "John Doe",
+            "email": "JohnDoe@gmail.com",
+            "contacts": { ... },
+            "challenges": {
+              "0000001": true,
+              "1212121": true
             }
           },
-          Jane: {
-
-          }
+          Jane: { ... }
         }
-
-        challenges: {
-          0000001: {
-            name: "workout challenge",
-            members: ,
-            admin: ,
-          }
+        "challenges": {
+          "0000001": {
+            "name": "Workout Challenge",
+            "admin": "John",
+            "members": {
+              "John": true,
+              "Jane": true,
+              ...
+              },
+            "data": {
+              "John": {
+                "60 sit-ups": {
+                  "date1": true,
+                  "date2": false,
+                  "date3": true
+                },
+                "walk to work": {
+                  "date1": false,
+                  "date2": true,
+                  "date3": true
+                },
+              }
+            }
+          },
+          "1212121": { ... }
         }
       }
