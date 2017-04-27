@@ -8,19 +8,19 @@ Sample challenge: Fitness Challenge
 
 ### Wireframes
 - signup page
- - should only appear once - no logout necessary
+  - should only appear once - no logout necessary
 - challenge setup page
- - invite members
- - set up challenge categories
+  - invite members
+  - set up challenge categories
 - challenges page
- - list current and past challenges
+  - list current and past challenges
 - page for adding category completion points
- - allow only for that day or allow multi-day?
- - simple slide button toggle should suffice
+  - allow only for that day or allow multi-day?
+  - simple slide button toggle should suffice
 - settings page
- - standings notifications
- - point tally reminder
- - hints/encouragements
+  - standings notifications
+  - point tally reminder
+  - hints/encouragements
 
 ### Tasks
 - figure out firebase authentication
