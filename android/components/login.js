@@ -1,7 +1,6 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   Button,
@@ -128,5 +127,3 @@ const styles = StyleSheet.create({
     color: 'red',
   }
 });
-
-AppRegistry.registerComponent('Login', () => Login);
