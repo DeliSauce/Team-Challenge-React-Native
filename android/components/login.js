@@ -13,7 +13,7 @@ import {
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: "test@gmail.com", pass: "1234567", authStatus: false};
+    this.state = {email: "test" + (Math.floor(Math.random() * (10000))) + "@gmail.com", pass: "1234567", authStatus: false};
 
     this.signup = this.signup.bind(this);
   }
