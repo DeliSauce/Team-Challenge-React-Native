@@ -45,7 +45,7 @@ export default class TeamChallenge extends Component {
         );
       } else {
         return (
-          <Login/>
+          <Login />
         );
       }
     // });

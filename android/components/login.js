@@ -10,18 +10,6 @@ import {
   View
 } from 'react-native';
 
-// Initialize Firebase
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCd1k9W7IWnry1C51UTWAERUqDNZoeZwdI",
-//   authDomain: "teamchallenge-7823a.firebaseapp.com",
-//   databaseURL: "https://teamchallenge-7823a.firebaseio.com",
-//   projectId: "teamchallenge-7823a",
-//   storageBucket: "teamchallenge-7823a.appspot.com",
-//   messagingSenderId: "99575308379"
-// };
-// const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +30,7 @@ export default class Login extends Component {
         this.setState({authStatus: error.toString()});
     }
   }
-
+  // LOGIN AND LOGOUT METHODS -- WE MAY HAVE SOME USE FOR THESE DOWN THE ROAD
   // async login(email, pass) {
   //   try {
   //       await firebase.auth()
@@ -93,11 +81,10 @@ export default class Login extends Component {
           {this.state.authStatus ? this.state.authStatus : ""}
         </TextInput>
 
-        <Button
-          onPress={this.signup}
-          title="Sign Up"
-          color="#841584"
-        />
+        <TouchableOpacity onPress={this.signup}
+        style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
+          <Text> Sign Up </Text>
+        </TouchableOpacity>
 
         <Text style={styles.instructions}>
           When in testing mode, shake phone to reload app.
@@ -110,11 +97,13 @@ export default class Login extends Component {
     );
   }
 }
-// <TouchableOpacity onPress={this.signup}
-//   style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
-//   <Text> Sign Up </Text>
-// </TouchableOpacity>
 
+//
+// <Button
+// onPress={this.signup}
+// title="Sign Up"
+// color="#841584"
+// />
 
 const styles = StyleSheet.create({
   container: {
