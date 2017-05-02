@@ -4,13 +4,7 @@
  * @flow
  */
 
- // This import loads the firebase namespace along with all its type information.
- import * as firebase from 'firebase/app';
-
- // These imports load individual services into the firebase namespace.
- import 'firebase/auth';
- import 'firebase/database';
-
+import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -37,7 +31,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 export default class TeamChallenge extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: "", pass: ""};
+    this.state = {email: "test@gmail.com", pass: "1234567", authError: false};
 
     this.signup = this.signup.bind(this);
   }
@@ -49,7 +43,8 @@ export default class TeamChallenge extends Component {
         console.log("Account created");
         // Navigate to the Home page, the user is auto logged in
     } catch (error) {
-        console.log(error.toString())
+        console.log("getting an auth error", error.toString());
+        this.setState({authError: error.toString()});
     }
   }
 
@@ -97,8 +92,11 @@ export default class TeamChallenge extends Component {
           value={this.state.pass}
           />
 
-        <Text> {this.state.email} </Text>
-        <Text> {this.state.pass} </Text>
+        <TextInput
+          style={styles.errors}
+          >
+          {this.state.authError ? this.state.authError : ""}
+        </TextInput>
 
           <Button
             onPress={this.signup}
@@ -141,6 +139,11 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  errors: {
+    textAlign: 'center',
+    alignSelf: "stretch",
+    color: 'red',
+  }
 });
 
 AppRegistry.registerComponent('TeamChallenge', () => TeamChallenge);
