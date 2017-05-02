@@ -17,7 +17,6 @@ Sample challenge: Fitness Challenge
 - challenges page
   - list current and past challenges
 - page for adding category completion points
-  -
   - simple slide button toggle should suffice
 - settings page
   - standings notifications

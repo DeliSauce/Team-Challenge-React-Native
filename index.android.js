@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
+import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -12,7 +12,22 @@ import {
   View
 } from 'react-native';
 
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCd1k9W7IWnry1C51UTWAERUqDNZoeZwdI",
+  authDomain: "teamchallenge-7823a.firebaseapp.com",
+  databaseURL: "https://teamchallenge-7823a.firebaseio.com",
+  projectId: "teamchallenge-7823a",
+  storageBucket: "teamchallenge-7823a.appspot.com",
+  messagingSenderId: "99575308379"
+};
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+
 export default class TeamChallenge extends Component {
+
+
+
   render() {
     return (
       <View style={styles.container}>
