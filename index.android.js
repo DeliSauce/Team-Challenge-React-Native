@@ -31,7 +31,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 export default class TeamChallenge extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: "test@gmail.com", pass: "1234567", authError: false};
+    this.state = {email: "test@gmail.com", pass: "1234567", authStatus: false};
 
     this.signup = this.signup.bind(this);
   }
@@ -41,10 +41,11 @@ export default class TeamChallenge extends Component {
         await firebase.auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.pass);
         console.log("Account created");
+        this.setState({authStatus: "Account created"});
         // Navigate to the Home page, the user is auto logged in
     } catch (error) {
         console.log("getting an auth error", error.toString());
-        this.setState({authError: error.toString()});
+        this.setState({authStatus: error.toString()});
     }
   }
 
@@ -95,18 +96,17 @@ export default class TeamChallenge extends Component {
         <TextInput
           style={styles.errors}
           >
-          {this.state.authError ? this.state.authError : ""}
+          {this.state.authStatus ? this.state.authStatus : ""}
         </TextInput>
 
-          <Button
-            onPress={this.signup}
-            title="Sign Up"
-            color="#841584"
-          />
-
+        <Button
+          onPress={this.signup}
+          title="Sign Up"
+          color="#841584"
+        />
 
         <Text style={styles.instructions}>
-          Shake phone to reload
+          When in testing mode, shake phone to reload app.
         </Text>
 
         <View>
