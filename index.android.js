@@ -1,11 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
+import Login from './android/components/login';
+
 import {
   AppRegistry,
   StyleSheet,
@@ -31,87 +27,34 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 export default class TeamChallenge extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: "test@gmail.com", pass: "1234567", authStatus: false};
-
-    this.signup = this.signup.bind(this);
   }
 
-  async signup() {
-    try {
-        await firebase.auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.pass);
-        console.log("Account created");
-        this.setState({authStatus: "Account created"});
-        // Navigate to the Home page, the user is auto logged in
-    } catch (error) {
-        console.log("getting an auth error", error.toString());
-        this.setState({authStatus: error.toString()});
-    }
+  getPage() {
+    // firebase.auth().onAuthStateChanged(function(user) {
+    var user = firebase.auth().currentUser;
+      if (user) {
+        return (
+          <View style={styles.container}>
+            <Text style={styles.welcome}>
+              Welcome to TeamChallenge App
+            </Text>
+            <Text style={styles.instructions}>
+              Here are the current challenges for user: {user.email}
+            </Text>
+          </View>
+        );
+      } else {
+        return (
+          <Login/>
+        );
+      }
+    // });
   }
-
-  // async login(email, pass) {
-  //   try {
-  //       await firebase.auth()
-  //           .signInWithEmailAndPassword(email, pass);
-  //       console.log("Logged In!");
-  //       // Navigate to the Home page
-  //   } catch (error) {
-  //       console.log(error.toString())
-  //   }
-  // }
-  //
-  // async logout() {
-  //   try {
-  //       await firebase.auth().signOut();
-  //       // Navigate to login view
-  //   } catch (error) {
-  //       console.log(error);
-  //   }
-  // }
-
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to TeamChallenge App
-        </Text>
-        <Text style={styles.instructions}>
-          Enter email and password
-        </Text>
-        <TextInput
-          placeholder={"email address"}
-          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(email) => this.setState({email})}
-          value={this.state.email}
-          keyboardType="email-address"
-          />
-        <TextInput
-          placeholder={"password"}
-          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(pass) => this.setState({pass})}
-          value={this.state.pass}
-          />
-
-        <TextInput
-          style={styles.errors}
-          >
-          {this.state.authStatus ? this.state.authStatus : ""}
-        </TextInput>
-
-        <Button
-          onPress={this.signup}
-          title="Sign Up"
-          color="#841584"
-        />
-
-        <Text style={styles.instructions}>
-          When in testing mode, shake phone to reload app.
-        </Text>
-
-        <View>
-
-        </View>
+        {this.getPage()}
       </View>
     );
   }
@@ -138,11 +81,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
-  },
-  errors: {
-    textAlign: 'center',
-    alignSelf: "stretch",
-    color: 'red',
   }
 });
 
