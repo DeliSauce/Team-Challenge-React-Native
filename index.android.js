@@ -1,14 +1,12 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import Login from './android/components/login';
+import Main from './android/components/main';
 
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  Button,
-  TextInput,
-  TouchableOpacity,
   View
 } from 'react-native';
 
@@ -34,18 +32,11 @@ export default class TeamChallenge extends Component {
     var user = firebase.auth().currentUser;
       if (user) {
         return (
-          <View style={styles.container}>
-            <Text style={styles.welcome}>
-              Welcome to TeamChallenge App
-            </Text>
-            <Text style={styles.instructions}>
-              Here are the current challenges for user: {user.email}
-            </Text>
-          </View>
+          <Main user={user}/>
         );
       } else {
         return (
-          <Login />
+          <Login/>
         );
       }
     // });
