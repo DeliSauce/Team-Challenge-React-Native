@@ -1,0 +1,18 @@
+Run a Local Web Server for Development
+
+If you are building a web app, you will find that some parts of the Firebase JavaScript SDK require that your web app be served from a server rather than from the local filesystem. You can use the Firebase CLI to run a local server like this:
+
+$ npm install -g firebase-tools
+$ firebase init
+$ firebase serve
+
+
+
+//install firebase
+npm install firebase --save
+
+//open emulators
+react-native run-ios
+react-native run-android
+
+react-native log-android
