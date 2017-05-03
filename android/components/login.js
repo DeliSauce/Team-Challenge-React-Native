@@ -19,10 +19,19 @@ export default class Login extends Component {
 
   async signup() {
     try {
-        await firebase.auth()
+        const user = await firebase.auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.pass);
-        console.log("Account created");
-        this.setState({authStatus: "Account created"});
+        console.log(user);
+        this.setState({authStatus: user.email});
+
+        //add new user to JSON database
+        firebase.database().ref().child('users').child(user.uid).set({
+          provider: user.providerData[0].providerId,
+          name: user.providerData[0].displayName,
+          email: user.providerData[0].email,
+          photo: user.providerData[0].photoURL
+        });
+
         // Navigate to the Home page, the user is auto logged in
     } catch (error) {
         console.log("getting an auth error", error.toString());

@@ -1,0 +1,24 @@
+{
+  "challenges" : [ null, {
+    "admin" : "John",
+    "data" : {
+      "John" : {
+        "60 sit-ups" : {
+          "01-01-2017" : true,
+          "01-02-2017" : false,
+          "01-03-2017" : false
+        }
+      }
+    },
+    "members" : {
+      "Jane" : true,
+      "John" : true
+    },
+    "name" : "Fitness challenge"
+  } ],
+  "users" : {
+    "a" : {
+      "name" : "Adam"
+    }
+  }
+}

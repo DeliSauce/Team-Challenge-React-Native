@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
+import {StackNavigator} from 'react-navigation';
 import Login from './android/components/login';
 import Main from './android/components/main';
 
@@ -21,14 +22,17 @@ const firebaseConfig = {
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-
 export default class TeamChallenge extends Component {
   constructor(props) {
     super(props);
   }
 
+  //checks for current user and display login or main accordingly
   getPage() {
+    //onAuthStateChanged is the preferred method for checking current user but
+    // I could not get it to work correctly. May require lifecycle methods?
     // firebase.auth().onAuthStateChanged(function(user) {
+    // });
     var user = firebase.auth().currentUser;
       if (user) {
         return (
@@ -39,7 +43,6 @@ export default class TeamChallenge extends Component {
           <Login/>
         );
       }
-    // });
   }
 
   render() {
