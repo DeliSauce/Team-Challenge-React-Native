@@ -6,22 +6,29 @@ import {
   Button,
   TouchableOpacity,
   ListView,
+  ListItem,
+  FlatList,
   View,
   Text,
   StyleSheet
 } from 'react-native';
 
+
 export default class CurrentChallenges extends Component {
   constructor(props) {
     super(props);
-    this.state = {challenges: this.getChallenges()};
+    this.testChallenges = [{id: 'ID001', name: 'Fitness Challenge'}, {id: 'ID002', name: 'Health Challenge'}];
+    this.state = {
+      challenges: this.testChallenges,
+      getChallenges: this.getChallenges()
+    };
     // this.state = {dataSource: '', challenges: []};
   }
 
   getChallenges() {
     // const challenges = [];
-    // const userID = firebase.auth().currentUser.uid;
-    // const challengesRef = firebase.database().ref('users/' + userID + '/challenges');
+    const userID = firebase.auth().currentUser.uid;
+    return firebase.database().ref('users/' + userID + '/challenges');
   }
 
   listenForItems() {
@@ -45,7 +52,21 @@ export default class CurrentChallenges extends Component {
   }
 
   componentDidMount() {
-    this.listenForItems();
+    // this.listenForItems();
+    console.log("get challenges: ", this.state.getChallenges);
+  }
+
+  renderChallenge = ({item, index}) => {
+    const {navigate} = this.props.navigation;
+
+    return (
+      <TouchableOpacity
+        key={item.id}
+        onPress={() => navigate('Details', {name: item.name})}
+        style={{height: 70, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
+        <Text> {item.name} </Text>
+      </TouchableOpacity>
+    );
   }
 
   // //TODO needs a lot of work; need to test the firebase function; doesn't render anything
@@ -69,23 +90,23 @@ export default class CurrentChallenges extends Component {
   //   );
   // }
 
+
   render() {
-    const {navigate} = this.props.navigation;
     return (
       <View>
-        <Button
-          onPress={() => navigate('Details', {name: 'Test Challenge Details'})}
-          title={'TEMP - Get Challenge details'}>
-        </Button>
+        <View>
+          <Text>
+            List of Challenges
+          </Text>
+        </View>
+        <FlatList
+          data={this.state.challenges}
+          renderItem={(obj) => this.renderChallenge(obj)}
+        />
       </View>
     );
   }
 }
-// <ListView
-//   dataSource={this.state.dataSource}
-//   renderRow={(rowData) => <Text>{rowData}</Text>}
-//   />
-
 
 const styles = StyleSheet.create({
   container: {
