@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 
-export const createChallenge = (name, admin, users, categories, startDate, days) => {
+export const createChallenge = (name, adminID, users, categories, startDate, days) => {
   let date = new Date(startDate);
   let dates = [];
 
@@ -22,7 +22,7 @@ export const createChallenge = (name, admin, users, categories, startDate, days)
 
   const data = {
     name,
-    admin,
+    adminID,
     dates,
     categories,
     userData
@@ -32,6 +32,8 @@ export const createChallenge = (name, admin, users, categories, startDate, days)
   console.log(newChallengeKey);
   let updates = {};
   updates['challenges/' + newChallengeKey] = data;
-  //updates['users/' + currentUserID + '/challenges/' + newChallengeID] = true;
+
+  //TODO need to update this for all users, not just admin
+  updates['users/' + adminID + '/challenges/' + newChallengeKey] = true;
   return firebase.database().ref().update(updates);
 };

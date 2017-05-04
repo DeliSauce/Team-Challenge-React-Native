@@ -14,14 +14,20 @@ export default class Challenges extends Component {
     super(props);
   }
 
+  //TODO add userIDs for users other than admin
   createChallenge() {
-    const admin = firebase.auth().currentUser.uid;
-    const users = [admin, 'John'];
+    const userID = firebase.auth().currentUser.uid;
+    const adminID = userID;
+    const users = [adminID, 'John'];
     const categories = ['pushups', 'run', 'walk'];
     const startDate = '01-23-2017';
     const days = 10;
-    const name = "Fitness Challenge";
-    actions.createChallenge(name, admin, users, categories, startDate, days);
+    const name = "Health Challenge";
+    actions.createChallenge(name, adminID, users, categories, startDate, days);
+  }
+
+  showChallenges() {
+
   }
 
   render() {
