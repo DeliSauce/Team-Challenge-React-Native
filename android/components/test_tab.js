@@ -1,25 +1,20 @@
 import * as firebase from 'firebase';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
-  StyleSheet,
+  View,
   Text,
-  View
+  StyleSheet
 } from 'react-native';
 
-export default class Main extends Component {
-  constructor(props) {
-    super(props);
-  }
+
+export default class TestTab extends Component {
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to TeamChallenge App
-        </Text>
-        <Text style={styles.instructions}>
-          ..............
-        </Text>
+        <Text>
+          Test Tab
+         </Text>
       </View>
     );
   }
@@ -41,5 +36,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  errors: {
+    textAlign: 'center',
+    alignSelf: "stretch",
+    color: 'red',
   }
 });

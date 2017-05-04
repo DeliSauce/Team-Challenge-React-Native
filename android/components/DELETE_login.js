@@ -12,7 +12,8 @@ import {
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: "test" + (Math.floor(Math.random() * (10000))) + "@gmail.com", pass: "1234567", authStatus: false};
+    this.randomEmail = "test" + (Math.floor(Math.random() * (10000))) + "@gmail.com";
+    this.state = {email: this.randomEmail, pass: "123456", authStatus: false};
 
     this.signup = this.signup.bind(this);
   }
@@ -32,7 +33,7 @@ export default class Login extends Component {
           photo: user.providerData[0].photoURL
         });
 
-        // Navigate to the Home page, the user is auto logged in
+        // Need to Navigate to the Home page, the user is auto logged in
     } catch (error) {
         console.log("getting an auth error", error.toString());
         this.setState({authStatus: error.toString()});

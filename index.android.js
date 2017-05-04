@@ -1,13 +1,14 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
-import {StackNavigator} from 'react-navigation';
-import Login from './android/components/login';
-import Main from './android/components/main';
+import {Navigator} from './android/components/navigator';
 
 import {
   AppRegistry,
   StyleSheet,
   Text,
+  Button,
+  TextInput,
+  TouchableOpacity,
   View
 } from 'react-native';
 
@@ -25,38 +26,112 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 export default class TeamChallenge extends Component {
   constructor(props) {
     super(props);
+    this.randomEmail = "test" + (Math.floor(Math.random() * (10000))) + "@gmail.com";
+
+    this.state = {email: this.randomEmail, pass: "123456", authStatus: this.getAuthStatus()};
+
+    this.signup = this.signup.bind(this);
   }
 
-  //checks for current user and display login or main accordingly
-  getPage() {
+  async signup() {
+    try {
+        const user = await firebase.auth()
+            .createUserWithEmailAndPassword(this.state.email, this.state.pass);
+        console.log(user);
+        this.setState({authStatus: user});
+
+        //add new user to JSON database
+        firebase.database().ref().child('users').child(user.uid).set({
+          provider: user.providerData[0].providerId,
+          name: user.providerData[0].displayName,
+          email: user.providerData[0].email,
+          photo: user.providerData[0].photoURL
+        });
+
+        // Need to Navigate to the Home page, the user is auto logged in
+    } catch (error) {
+        console.log("getting an auth error", error.toString());
+        this.setState({authStatus: error.toString()});
+    }
+  }
+
+  getAuthStatus() {
+    //TODO delete this line of code
+    return true;
+    var user = firebase.auth().currentUser;
+      if (user) {
+        return user;
+      } else {
+        return false;
+      }
+  }
+
+
+  renderLogin() {
+    console.log("renderLogin");
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to TeamChallenge App
+        </Text>
+        <Text style={styles.instructions}>
+          Enter email and password
+        </Text>
+        <TextInput
+          placeholder={"email address"}
+          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(email) => this.setState({email})}
+          value={this.state.email}
+          keyboardType="email-address"
+          />
+        <TextInput
+          placeholder={"password"}
+          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(pass) => this.setState({pass})}
+          value={this.state.pass}
+          />
+
+        <TextInput
+          style={styles.errors}
+          >
+          {this.state.authStatus ? this.state.authStatus : ""}
+        </TextInput>
+
+        <TouchableOpacity onPress={this.signup}
+        style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
+          <Text> Sign Up </Text>
+        </TouchableOpacity>
+
+        <Text style={styles.instructions}>
+          When in testing mode, shake phone to reload app.
+        </Text>
+
+        <View>
+
+        </View>
+      </View>
+    );
+  }
     //onAuthStateChanged is the preferred method for checking current user but
     // I could not get it to work correctly. May require lifecycle methods?
     // firebase.auth().onAuthStateChanged(function(user) {
     // });
-    var user = firebase.auth().currentUser;
-      if (user) {
-        return (
-          <Main user={user}/>
-        );
-      } else {
-        return (
-          <Login/>
-        );
-      }
+
+  renderNavigator(){
+    console.log("render main", this.state.authStatus);
+    return (
+      <Navigator/>
+    )
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        {this.getPage()}
-      </View>
-    );
+    if (this.state.authStatus) {
+      return this.renderNavigator()
+    } else {
+      return this.renderLogin()
+    }
   }
 }
-// <TouchableOpacity onPress={this.signup}
-//   style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
-//   <Text> Sign Up </Text>
-// </TouchableOpacity>
 
 
 const styles = StyleSheet.create({
@@ -75,6 +150,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  errors: {
+    textAlign: 'center',
+    alignSelf: "stretch",
+    color: 'red',
   }
 });
 
