@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
-import {Navigator} from './android/components/navigator';
+import {Tabs} from './android/components/navigator';
 
 import {
   AppRegistry,
@@ -147,7 +147,7 @@ export default class TeamChallenge extends Component {
   renderNavigator(){
     console.log("render main", this.state.authStatus);
     return (
-      <Navigator/>
+      <Tabs/>
     )
   }
 
