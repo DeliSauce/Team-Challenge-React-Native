@@ -1,5 +1,6 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
+import Main from './android/components/main';
 import {Tabs} from './android/components/navigator';
 
 import {
@@ -31,6 +32,7 @@ export default class TeamChallenge extends Component {
     this.state = {email: 'john@gmail.com', pass: "123456", authStatus: this.getAuthStatus(), authMessage: ''};
 
     this.signup = this.signup.bind(this);
+    this.login = this.login.bind(this);
   }
 
   async signup() {
@@ -77,8 +79,6 @@ export default class TeamChallenge extends Component {
 
 
   getAuthStatus() {
-    //TODO delete this line of code
-    // return true;
     var user = firebase.auth().currentUser;
       if (user) {
         return true;
@@ -144,16 +144,16 @@ export default class TeamChallenge extends Component {
     // firebase.auth().onAuthStateChanged(function(user) {
     // });
 
-  renderNavigator(){
+  renderMain(){
     console.log("render main", this.state.authStatus);
     return (
-      <Tabs/>
-    )
+      <Main/>
+    );
   }
 
   render() {
     if (this.state.authStatus) {
-      return this.renderNavigator()
+      return this.renderMain()
     } else {
       return this.renderLogin()
     }

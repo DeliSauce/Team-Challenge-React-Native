@@ -17,7 +17,7 @@ export default class CurrentChallenges extends Component {
   //TODO needs a lot of work; need to test the firebase function; doesn't render anything
   showChallenges() {
     const user = firebase.auth().currentUser;
-    console.log("show ch, user: ", user, user.uid);
+    console.log("show challenges, user: ", user, user.uid);
     if (user) {
       const userID = user.uid;
       const challengesRef = firebase.database().ref('users/' + userID + '/challenges');
@@ -34,7 +34,7 @@ export default class CurrentChallenges extends Component {
     );
   }
 
-  
+
 
   render() {
     return (
