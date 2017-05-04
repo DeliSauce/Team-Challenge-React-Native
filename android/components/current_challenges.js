@@ -9,37 +9,37 @@ import {
   StyleSheet
 } from 'react-native';
 
-export default class Challenges extends Component {
+export default class CurrentChallenges extends Component {
   constructor(props) {
     super(props);
   }
 
-  //TODO add userIDs for users other than admin
-  createChallenge() {
-    const userID = firebase.auth().currentUser.uid;
-    const adminID = userID;
-    const users = [adminID, 'John'];
-    const categories = ['pushups', 'run', 'walk'];
-    const startDate = '01-23-2017';
-    const days = 10;
-    const name = "Health Challenge";
-    actions.createChallenge(name, adminID, users, categories, startDate, days);
-  }
-
+  //TODO needs a lot of work; need to test the firebase function; doesn't render anything
   showChallenges() {
+    const user = firebase.auth().currentUser;
+    console.log("show ch, user: ", user, user.uid);
+    if (user) {
+      const userID = user.uid;
+      const challengesRef = firebase.database().ref('users/' + userID + '/challenges');
+      console.log("challengesref: ", challengesRef);
+      challengesRef.on('value', function(snapshot) {
+        console.log(snapshot.val());
+      });
+    }
 
+    return (
+      <View>
+
+      </View>
+    );
   }
+
+  
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          CHALLENGES
-         </Text>
-         <TouchableOpacity onPress={this.createChallenge}
-         style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
-           <Text> add challenge </Text>
-         </TouchableOpacity>
+         {this.showChallenges()}
       </View>
     );
   }

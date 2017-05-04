@@ -57,7 +57,7 @@ export default class TeamChallenge extends Component {
 
   getAuthStatus() {
     //TODO delete this line of code
-    return true;
+    // return true;
     var user = firebase.auth().currentUser;
       if (user) {
         return user;
