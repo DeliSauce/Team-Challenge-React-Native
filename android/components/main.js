@@ -11,22 +11,8 @@ export default class Main extends Component {
   constructor(props) {
     super(props);
     // this.state = {dataSource: ""};
-    this.state = {challenges: []};
+    // this.state = {challenges: []};
   }
-
-  listenForItems() {
-    const challenges = [];
-    const userID = firebase.auth().currentUser.uid;
-    const challengesRef = firebase.database().ref('users/' + userID + '/challenges');
-
-    challengesRef.on('value', (snapshot) => {
-      snapshot.forEach((child) => {
-        challenges.push(child.key);
-      });
-      this.setState({challenges});
-      console.log("STATE", this.state);
-    });
-
     // firebase.database().ref('users/' + firebase.auth().currentUser + '/challenges').on('value', (snapshot) => {
     //   var items = [];
     //   snapshot.forEach((child) => {
@@ -40,11 +26,7 @@ export default class Main extends Component {
     //     dataSource: this.state.dataSource.cloneWithRows(items)
     //   });
     // });
-  }
-
-  componentDidMount() {
-    this.listenForItems();
-  }
+  
 
   render() {
     return (

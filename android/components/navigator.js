@@ -5,20 +5,28 @@ import AddChallenges from './add_challenges';
 import Main from './main';
 import TestTab from './test_tab';
 import Details from './details';
+import DataEntry from './data_entry';
+import ChallengeResults from './challenge_results';
+
+export const DetailsTabs = TabNavigator({
+  'Enter Data': {
+    screen: DataEntry,
+  },
+  'Results': {
+    screen: ChallengeResults,
+  }
+});
 
 export const ChallengeStack = StackNavigator({
   Challenges: {
     screen: CurrentChallenges,
   },
   Details: {
-    screen: Details,
+    screen: DetailsTabs,
   }
 });
 
 export const Tabs = TabNavigator({
-  'Test Tab': {
-    screen: TestTab,
-  },
   'Challenges': {
     screen: ChallengeStack,
   },

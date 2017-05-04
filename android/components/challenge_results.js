@@ -7,14 +7,13 @@ import {
 } from 'react-native';
 
 
-export default class Details extends Component {
+export default class ChallengeResults extends Component {
 
   render() {
-    const {params} = this.props.navigation.state;
     return (
       <View style={styles.container}>
         <Text>
-          {params.name}
+          Challenge Results
          </Text>
       </View>
     );
