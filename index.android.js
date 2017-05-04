@@ -28,40 +28,62 @@ export default class TeamChallenge extends Component {
     super(props);
     this.randomEmail = "test" + (Math.floor(Math.random() * (10000))) + "@gmail.com";
 
-    this.state = {email: this.randomEmail, pass: "123456", authStatus: this.getAuthStatus()};
+    this.state = {email: 'john@gmail.com', pass: "123456", authStatus: this.getAuthStatus(), authMessage: ''};
 
     this.signup = this.signup.bind(this);
   }
 
   async signup() {
     try {
-        const user = await firebase.auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.pass);
-        console.log(user);
-        this.setState({authStatus: user});
+      const user = await firebase.auth()
+          .createUserWithEmailAndPassword(this.state.email, this.state.pass);
+      console.log("signup user: ", user);
+      this.setState({authStatus: true});
 
-        //add new user to JSON database
-        firebase.database().ref().child('users').child(user.uid).set({
-          provider: user.providerData[0].providerId,
-          name: user.providerData[0].displayName,
-          email: user.providerData[0].email,
-          photo: user.providerData[0].photoURL
-        });
-
-        // Need to Navigate to the Home page, the user is auto logged in
+      //add new user to JSON database
+      firebase.database().ref().child('users').child(user.uid).set({
+        provider: user.providerData[0].providerId,
+        name: user.providerData[0].displayName,
+        email: user.providerData[0].email,
+        photo: user.providerData[0].photoURL
+      });
     } catch (error) {
         console.log("getting an auth error", error.toString());
-        this.setState({authStatus: error.toString()});
+        this.setState({authMessage: error.toString()});
     }
   }
+
+  async login() {
+    try {
+      const user = await firebase.auth()
+          .signInWithEmailAndPassword(this.state.email, this.state.pass);
+      console.log("log in user: ", user);
+      this.setState({authStatus: true});
+    } catch (error) {
+        console.log("login error", error.toString());
+        this.setState({authMessage: error.toString()});
+    }
+  }
+  // LOGOUT METHOD -- WE MAY HAVE SOME USE FOR THIS DOWN THE ROAD
+  // async logout() {
+  //   try {
+  //       await firebase.auth().signOut();
+  //       // Navigate to login view
+  //   } catch (error) {
+  //       console.log(error);
+  //   }
+  // }
+
+
 
   getAuthStatus() {
     //TODO delete this line of code
     // return true;
     var user = firebase.auth().currentUser;
       if (user) {
-        return user;
+        return true;
       } else {
+        console.log("auth status: ", user);
         return false;
       }
   }
@@ -94,12 +116,17 @@ export default class TeamChallenge extends Component {
         <TextInput
           style={styles.errors}
           >
-          {this.state.authStatus ? this.state.authStatus : ""}
+          {this.state.authMessage}
         </TextInput>
 
-        <TouchableOpacity onPress={this.signup}
+        <TouchableOpacity onPress={() => this.signup()}
         style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
           <Text> Sign Up </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => this.login()}
+        style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
+          <Text> Log In </Text>
         </TouchableOpacity>
 
         <Text style={styles.instructions}>
