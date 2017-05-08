@@ -17,9 +17,9 @@ import {
 export default class CurrentChallenges extends Component {
   constructor(props) {
     super(props);
-    this.testChallenges = [{id: 'ID001', name: 'Fitness Challenge'}, {id: 'ID002', name: 'Health Challenge'}];
+    // this.testChallenges = [{id: 'ID001', name: 'Fitness Challenge'}, {id: 'ID002', name: 'Health Challenge'}];
+    // challenges: this.testChallenges
     this.state = {
-      challenges: this.testChallenges
     };
   }
 
@@ -44,7 +44,9 @@ export default class CurrentChallenges extends Component {
     // challengesRef.on('value', (snap) => console.log("chall value", snap.val()));
 
     myChallengesRef.on('child_added', (snap) => {
-      console.log("chall child added", snap.key)
+      // console.log("chall child added", snap.key);
+      challenges.push({id: snap.key, name: '???'});
+      this.setState({challenges});
     })
 
     // myChallengesRef.on('value', (snapshot) => {
@@ -66,15 +68,15 @@ export default class CurrentChallenges extends Component {
     this.listenForItems();
   }
 
-  renderChallenge = ({item, index}) => {
+  renderChallengeItem = ({item, index}) => {
     const {navigate} = this.props.navigation;
 
     return (
       <TouchableOpacity
         key={item.id}
-        onPress={() => navigate('Details', {name: item.name})}
+        onPress={() => navigate('Details', {id: item.id})}
         style={{height: 70, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
-        <Text> {item.name} </Text>
+        <Text> {item.id} </Text>
       </TouchableOpacity>
     );
   }
@@ -89,7 +91,7 @@ export default class CurrentChallenges extends Component {
         </View>
         <FlatList
           data={this.state.challenges}
-          renderItem={(obj) => this.renderChallenge(obj)}
+          renderItem={(obj) => this.renderChallengeItem(obj)}
         />
       </View>
     );
