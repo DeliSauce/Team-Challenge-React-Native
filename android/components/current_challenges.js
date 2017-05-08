@@ -17,10 +17,7 @@ import {
 export default class CurrentChallenges extends Component {
   constructor(props) {
     super(props);
-    // this.testChallenges = [{id: 'ID001', name: 'Fitness Challenge'}, {id: 'ID002', name: 'Health Challenge'}];
-    // challenges: this.testChallenges
-    this.state = {
-    };
+    this.state = {};
   }
 
   getChallenges() {
@@ -45,7 +42,11 @@ export default class CurrentChallenges extends Component {
 
     myChallengesRef.on('child_added', (snap) => {
       // console.log("chall child added", snap.key);
-      challenges.push({id: snap.key, name: '???'});
+      const challengeRef = firebase.database().ref('challenges/' + snap.key);
+      challengeRef.once('value', (snap) => {
+        console.log(snap.val());
+        challenges.push(snap.val());
+      })
       this.setState({challenges});
     })
 
@@ -73,10 +74,11 @@ export default class CurrentChallenges extends Component {
 
     return (
       <TouchableOpacity
-        key={item.id}
-        onPress={() => navigate('Details', {id: item.id})}
+        key={item.name}
+        onPress={() => navigate('Details', {challenge: item})}
         style={{height: 70, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
-        <Text> {item.id} </Text>
+        <Text> {item.name} </Text>
+
       </TouchableOpacity>
     );
   }
