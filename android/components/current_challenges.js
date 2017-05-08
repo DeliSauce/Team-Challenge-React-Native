@@ -19,41 +19,51 @@ export default class CurrentChallenges extends Component {
     super(props);
     this.testChallenges = [{id: 'ID001', name: 'Fitness Challenge'}, {id: 'ID002', name: 'Health Challenge'}];
     this.state = {
-      challenges: this.testChallenges,
-      getChallenges: this.getChallenges()
+      challenges: this.testChallenges
     };
-    // this.state = {dataSource: '', challenges: []};
   }
 
   getChallenges() {
-    // const challenges = [];
+    // const challenges;
     const userID = firebase.auth().currentUser.uid;
-    return firebase.database().ref('users/' + userID + '/challenges');
+
+    const challengesRef = firebase.database().ref('users/' + userID + '/challenges');
+    challengesRef.once('value', (snapshot) => {
+        console.log("challenges from db", Object.keys(snapshot.val()));
+        this.setState({challenges: Object.keys(snapshot.val())});
+      });
   }
 
   listenForItems() {
     const challenges = [];
     const userID = firebase.auth().currentUser.uid;
-    const challengesRef = firebase.database().ref('users/' + userID + '/challenges');
+    const myChallengesRef = firebase.database().ref('users/' + userID + '/challenges');
+    const challengesRef = firebase.database().ref('challenges');
 
-    challengesRef.on('value', (snapshot) => {
-      snapshot.forEach((child) => {
-        challenges.push(child.key);
-      });
+    // challengesRef.on('child_added', (snap) => console.log("chall child added", snap.val()));
+    // challengesRef.on('value', (snap) => console.log("chall value", snap.val()));
 
-      // this.setState({
-      //   dataSource: this.state.dataSource.cloneWithRows(items)
-      // });
+    myChallengesRef.on('child_added', (snap) => {
+      console.log("chall child added", snap.key)
+    })
 
-      this.setState({challenges});
-      console.log("STATE", this.state);
-    });
+    // myChallengesRef.on('value', (snapshot) => {
+    //   console.log('snapshot.foreach', snapshot.val());
+    //   challenges = Object.keys(snapshot.key);
+    //   snapshot.forEach((child) => {
+    //     challenges.push(child.key);
+    //   });
+    //   this.setState({challenges});
+    //   console.log("STATE", this.state);
+    // });
 
   }
 
   componentDidMount() {
-    // this.listenForItems();
-    console.log("get challenges: ", this.state.getChallenges);
+    console.log("get challenges: ", this.state.challenges);
+    // this.getChallenges();
+    console.log("get challenges: ", this.state.challenges);
+    this.listenForItems();
   }
 
   renderChallenge = ({item, index}) => {
@@ -68,28 +78,6 @@ export default class CurrentChallenges extends Component {
       </TouchableOpacity>
     );
   }
-
-  // //TODO needs a lot of work; need to test the firebase function; doesn't render anything
-  // showChallenges() {
-  //   const user = firebase.auth().currentUser;
-  //   console.log("show challenges, user: ", user, user.uid);
-  //   if (user) {
-  //     const userID = user.uid;
-  //     const challengesRef = firebase.database().ref('users/' + userID + '/challenges');
-  //     console.log("challengesref: ", challengesRef);
-  //     challengesRef.on('value', function(snapshot) {
-  //       console.log(snapshot.val());
-  //     });
-  //   }
-  //
-  //   return (
-  //     <ListView
-  //       dataSource={this.state.dataSource}
-  //       renderRow={(rowData) => <Text>{rowData}</Text>}
-  //     />
-  //   );
-  // }
-
 
   render() {
     return (
