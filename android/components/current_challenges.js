@@ -20,16 +20,16 @@ export default class CurrentChallenges extends Component {
     this.state = {};
   }
 
-  getChallenges() {
-    // const challenges;
-    const userID = firebase.auth().currentUser.uid;
-
-    const challengesRef = firebase.database().ref('users/' + userID + '/challenges');
-    challengesRef.once('value', (snapshot) => {
-        console.log("challenges from db", Object.keys(snapshot.val()));
-        this.setState({challenges: Object.keys(snapshot.val())});
-      });
-  }
+  // getChallenges() {
+  //   // const challenges;
+  //   const userID = firebase.auth().currentUser.uid;
+  //
+  //   const challengesRef = firebase.database().ref('users/' + userID + '/challenges');
+  //   challengesRef.once('value', (snapshot) => {
+  //       console.log("challenges from db", Object.keys(snapshot.val()));
+  //       this.setState({challenges: Object.keys(snapshot.val())});
+  //     });
+  // }
 
   listenForItems() {
     const challenges = [];
@@ -44,28 +44,14 @@ export default class CurrentChallenges extends Component {
       // console.log("chall child added", snap.key);
       const challengeRef = firebase.database().ref('challenges/' + snap.key);
       challengeRef.once('value', (snap) => {
-        console.log(snap.val());
-        challenges.push(snap.val());
+        console.log('hit a new challenge ref');
+        challenges.push({id: snap.key, challenge: snap.val()});
+        this.setState({challenges});
       })
-      this.setState({challenges});
     })
-
-    // myChallengesRef.on('value', (snapshot) => {
-    //   console.log('snapshot.foreach', snapshot.val());
-    //   challenges = Object.keys(snapshot.key);
-    //   snapshot.forEach((child) => {
-    //     challenges.push(child.key);
-    //   });
-    //   this.setState({challenges});
-    //   console.log("STATE", this.state);
-    // });
-
   }
 
   componentDidMount() {
-    console.log("get challenges: ", this.state.challenges);
-    // this.getChallenges();
-    console.log("get challenges: ", this.state.challenges);
     this.listenForItems();
   }
 
@@ -74,14 +60,17 @@ export default class CurrentChallenges extends Component {
 
     return (
       <TouchableOpacity
-        key={item.name}
-        onPress={() => navigate('Details', {challenge: item})}
+        key={item.id}
+        onPress={() => navigate('Details', {challenge: item.challenge})}
         style={{height: 70, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
-        <Text> {item.name} </Text>
+        <Text> Challenge Name: {item.challenge.name} </Text>
+        <Text> Categories: {item.challenge.categories.join(", ")} </Text>
 
       </TouchableOpacity>
     );
   }
+  // <Text> {item.userData} </Text>
+
 
   render() {
     return (
