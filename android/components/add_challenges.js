@@ -12,18 +12,21 @@ import {
 export default class AddChallenges extends Component {
   constructor(props) {
     super(props);
+    this.userID = firebase.auth().currentUser.uid;
+    this.defaultChallenge = {
+      name: "Health Challenge",
+      startDate: '01-23-2017',
+      days: 10,
+      adminID: this.userID,
+      users: [this.userID, 'TEST'],
+      categories: ['pushups', 'run', 'walk']
+    };
+    this.state = this.defaultChallenge;
   }
 
   //TODO add userIDs for users other than admin
   createChallenge() {
-    const userID = firebase.auth().currentUser.uid;
-    const adminID = userID;
-    const users = [adminID, 'John'];
-    const categories = ['pushups', 'run', 'walk'];
-    const startDate = '01-23-2017';
-    const days = 10;
-    const name = "Health Challenge";
-    actions.createChallenge(name, adminID, users, categories, startDate, days);
+    actions.createChallenge(this.state);
   }
 
   showChallenges() {
@@ -35,11 +38,46 @@ export default class AddChallenges extends Component {
       <View style={styles.container}>
         <Text>
           CHALLENGES
-         </Text>
-         <TouchableOpacity onPress={this.createChallenge}
-         style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
-           <Text> add challenge </Text>
-         </TouchableOpacity>
+        </Text>
+        <TextInput
+          placeholder={"Challenge Name"}
+          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(name) => this.setState({name})}
+          value={this.state.name}
+          />
+        <TextInput
+          placeholder={"Start Date"}
+          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(startDate) => this.setState({startDate})}
+          value={this.state.startDate}
+          />
+        <TextInput
+          placeholder={"Length of Challenge (days)"}
+          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+          onChangeText={(days) => this.setState({days})}
+          value={this.state.days}
+          />
+        <TextInput
+          placeholder={"Users"}
+          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+
+
+          />
+        <Button>
+        </Button>
+        <TextInput
+          placeholder={"Categories"}
+          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+
+
+          />
+        <Button>
+        </Button>
+
+        <TouchableOpacity onPress={this.createChallenge}
+        style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
+         <Text> add challenge </Text>
+        </TouchableOpacity>
       </View>
     );
   }
