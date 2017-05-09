@@ -3,9 +3,11 @@ import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 
 import {
+  Button,
   TouchableOpacity,
   View,
   Text,
+  TextInput,
   StyleSheet
 } from 'react-native';
 
@@ -16,7 +18,7 @@ export default class AddChallenges extends Component {
     this.defaultChallenge = {
       name: "Health Challenge",
       startDate: '01-23-2017',
-      days: 10,
+      days: '10',
       adminID: this.userID,
       users: [this.userID, 'TEST'],
       categories: ['pushups', 'run', 'walk']
@@ -63,7 +65,7 @@ export default class AddChallenges extends Component {
 
 
           />
-        <Button>
+        <Button title={'Add User'} onPress={() => {}}>
         </Button>
         <TextInput
           placeholder={"Categories"}
@@ -71,7 +73,7 @@ export default class AddChallenges extends Component {
 
 
           />
-        <Button>
+        <Button title={'Add User'} onPress={() => {}}>
         </Button>
 
         <TouchableOpacity onPress={this.createChallenge}
