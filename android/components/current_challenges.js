@@ -62,7 +62,7 @@ export default class CurrentChallenges extends Component {
       <TouchableOpacity
         key={item.id}
         onPress={() => navigate('Details', {challengeData: item.challenge})}
-        style={{height: 70, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
+        style={{height: 100, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
         <Text> Challenge Name: {item.challenge.name} </Text>
         <Text> Categories: {item.challenge.categories.join(", ")} </Text>
         <Text> Start Date: {item.challenge.startDate} </Text>
@@ -77,7 +77,7 @@ export default class CurrentChallenges extends Component {
     return (
       <View>
         <View>
-          <Text>
+          <Text style={{justifyContent: 'center', alignSelf: 'stretch'}}>
             List of Challenges
           </Text>
         </View>
