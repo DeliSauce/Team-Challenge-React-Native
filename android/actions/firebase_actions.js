@@ -25,6 +25,8 @@ export const createChallenge = (name, adminID, users, categories, startDate, day
   const data = {
     name,
     adminID,
+    startDate,
+    days,
     dates,
     categories,
     userData
