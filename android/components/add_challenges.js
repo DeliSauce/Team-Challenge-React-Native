@@ -6,6 +6,7 @@ import {
   Slider,
   Picker,
   Button,
+  FlatList,
   TouchableOpacity,
   View,
   Text,
@@ -20,12 +21,12 @@ export default class AddChallenges extends Component {
     this.defaultChallenge = {
       name: 'Health Challenge',
       startDate: '01-23-2017',
-      days: '10',
+      days: '30',
       adminID: this.userID,
       users: [this.userID, 'TEST'],
       categories: ['pushups', 'run', 'walk']
     };
-    this.state = {days: '30'};
+    this.state = this.defaultChallenge;
   }
 
   //TODO add userIDs for users other than admin
@@ -37,7 +38,7 @@ export default class AddChallenges extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{width: 300, height: 50, flexDirection: 'row', borderColor: 'gray', borderWidth: 1}}>
+        <View style={styles.input_container}>
           <Text> Challenge Name </Text>
           <TextInput
             placeholder={"Challenge Name"}
@@ -47,22 +48,21 @@ export default class AddChallenges extends Component {
             />
         </View>
 
-        <View style={{width: 300, height: 50, flexDirection: 'row', borderColor: 'gray', borderWidth: 1}}>
+        <View style={styles.input_container}>
           <Text> Start Date </Text>
           <TextInput
             placeholder={"Start Date"}
-            style={{height: 40, width: 160}}
+            style={styles.input}
             onChangeText={(startDate) => this.setState({startDate})}
             value={this.state.startDate}
             />
-
         </View>
 
-        <View style={{width: 300, height: 50, flexDirection: 'column', borderColor: 'gray', borderWidth: 1}}>
+        <View style={styles.slider_container}>
           <Text> Length of Challenge (days) </Text>
           <View style={{flexDirection: 'row'}}>
             <Slider
-              style={{height: 40, width: 160}}
+              style={{height: 40, width: 260}}
               onSlidingComplete={(days) => {}}
               onValueChange={(days) => this.setState({days})}
               minimumValue={1}
@@ -76,27 +76,35 @@ export default class AddChallenges extends Component {
           </View>
         </View>
 
-        <TextInput
-          placeholder={"Competitors"}
-          style={{height: 50, width: 300, borderColor: 'gray', borderWidth: 1}}
-          value={''}
+        <View style={styles.input_container}>
+          <Text> Competitors </Text>
+          <TextInput
+            placeholder={"Competitors"}
+            style={styles.input}
+            value={''}
 
-          />
-        <Button title={'Add User'} onPress={() => {}}>
-        </Button>
-        <TextInput
-          placeholder={"Categories"}
-          style={{height: 50, width: 300, borderColor: 'gray', borderWidth: 1}}
-          value={''}
+            />
+          <Button title={'Add User'} onPress={() => {}}>
+          </Button>
+        </View>
 
-          />
-        <Button title={'Add User'} onPress={() => {}}>
-        </Button>
+        <View style={styles.input_container}>
+          <Text> Categories </Text>
+          <TextInput
+            placeholder={"Categories"}
+            style={styles.input}
+            value={''}
+            />
+          <Button title={'Add User'} onPress={() => {}}>
+          </Button>
+        </View>
 
-        <TouchableOpacity onPress={() => this.createChallenge()}
-        style={{height: 40, width: 90, borderColor: 'skyblue', borderWidth: 1, backgroundColor: 'powderblue'}}>
+        <TouchableOpacity
+          onPress={() => this.createChallenge()}
+          style={styles.addChallengeButton}>
          <Text> Add Challenge </Text>
         </TouchableOpacity>
+
       </View>
     );
   }
@@ -104,11 +112,52 @@ export default class AddChallenges extends Component {
 
 
 const styles = StyleSheet.create({
+  addChallengeButton: {
+    height: 60,
+    width: 100,
+    borderColor: 'skyblue',
+    borderWidth: 1,
+    backgroundColor: 'powderblue',
+    marginTop: 40,
+    justifyContent: 'center',
+  },
+  input: {
+    height: 50,
+    width: 150,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: 10,
+  },
+  input_container: {
+    height: 50,
+    width: 400,
+    flexDirection: 'row',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: 10,
+    justifyContent: 'space-between',
+  },
+  slider_container: {
+    height: 50,
+    width: 400,
+    flexDirection: 'column',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: 10,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'pink',
+  },
+  default_style: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+    backgroundColor: 'grey',
+    borderColor: 'skyblue',
+    borderWidth: 1
   },
   welcome: {
     fontSize: 20,
