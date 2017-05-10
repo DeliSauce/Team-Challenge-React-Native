@@ -77,23 +77,23 @@ export default class AddChallenges extends Component {
         </View>
 
         <View style={styles.input_container}>
-          <Text> Competitors </Text>
+          <Text> Categories </Text>
           <TextInput
-            placeholder={"Competitors"}
+            placeholder={"Add a New Categories"}
             style={styles.input}
             value={''}
-
             />
-          <Button title={'Add User'} onPress={() => {}}>
+          <Button title={'Add Category'} onPress={() => {}}>
           </Button>
         </View>
 
         <View style={styles.input_container}>
-          <Text> Categories </Text>
+          <Text> Competitors </Text>
           <TextInput
-            placeholder={"Categories"}
+            placeholder={"Add/Search for Users"}
             style={styles.input}
             value={''}
+
             />
           <Button title={'Add User'} onPress={() => {}}>
           </Button>
