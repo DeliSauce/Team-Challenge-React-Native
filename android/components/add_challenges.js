@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 
 import {
+  Slider,
+  Picker,
   Button,
   TouchableOpacity,
   View,
@@ -23,7 +25,7 @@ export default class AddChallenges extends Component {
       users: [this.userID, 'TEST'],
       categories: ['pushups', 'run', 'walk']
     };
-    this.state = this.defaultChallenge;
+    this.state = {days: '30'};
   }
 
   //TODO add userIDs for users other than admin
@@ -35,47 +37,65 @@ export default class AddChallenges extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          CHALLENGES
-        </Text>
-        <TextInput
-          placeholder={"Challenge Name"}
-          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(name) => this.setState({name})}
-          value={this.state.name}
-          />
-        <TextInput
-          placeholder={"Start Date"}
-          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(startDate) => this.setState({startDate})}
-          value={this.state.startDate}
-          />
-        <TextInput
-          placeholder={"Length of Challenge (days)"}
-          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(days) => this.setState({days})}
-          value={this.state.days}
-          />
-        <TextInput
-          placeholder={"Users"}
-          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+        <View style={{width: 300, height: 50, flexDirection: 'row', borderColor: 'gray', borderWidth: 1}}>
+          <Text> Challenge Name </Text>
+          <TextInput
+            placeholder={"Challenge Name"}
+            style={{height: 40, width: 160}}
+            onChangeText={(name) => this.setState({name})}
+            value={this.state.name}
+            />
+        </View>
 
+        <View style={{width: 300, height: 50, flexDirection: 'row', borderColor: 'gray', borderWidth: 1}}>
+          <Text> Start Date </Text>
+          <TextInput
+            placeholder={"Start Date"}
+            style={{height: 40, width: 160}}
+            onChangeText={(startDate) => this.setState({startDate})}
+            value={this.state.startDate}
+            />
+
+        </View>
+
+        <View style={{width: 300, height: 50, flexDirection: 'column', borderColor: 'gray', borderWidth: 1}}>
+          <Text> Length of Challenge (days) </Text>
+          <View style={{flexDirection: 'row'}}>
+            <Slider
+              style={{height: 40, width: 160}}
+              onSlidingComplete={(days) => {}}
+              onValueChange={(days) => this.setState({days})}
+              minimumValue={1}
+              maximumValue={60}
+              value={30}
+              step={1}
+              >
+            </Slider>
+            <Text> {this.state.days} </Text>
+
+          </View>
+        </View>
+
+        <TextInput
+          placeholder={"Competitors"}
+          style={{height: 50, width: 300, borderColor: 'gray', borderWidth: 1}}
+          value={''}
 
           />
         <Button title={'Add User'} onPress={() => {}}>
         </Button>
         <TextInput
           placeholder={"Categories"}
-          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
-
+          style={{height: 50, width: 300, borderColor: 'gray', borderWidth: 1}}
+          value={''}
 
           />
         <Button title={'Add User'} onPress={() => {}}>
         </Button>
 
         <TouchableOpacity onPress={() => this.createChallenge()}
-        style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
-         <Text> add challenge </Text>
+        style={{height: 40, width: 90, borderColor: 'skyblue', borderWidth: 1, backgroundColor: 'powderblue'}}>
+         <Text> Add Challenge </Text>
         </TouchableOpacity>
       </View>
     );
