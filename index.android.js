@@ -29,7 +29,7 @@ export default class TeamChallenge extends Component {
     super(props);
     this.randomEmail = "test" + (Math.floor(Math.random() * (10000))) + "@gmail.com";
 
-    this.state = {email: 'john@gmail.com', pass: "123456", authStatus: this.getAuthStatus(), authMessage: ''};
+    this.state = {email: 'john.doe@gmail.com', pass: "123456", authStatus: this.getAuthStatus(), authMessage: ''};
 
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);

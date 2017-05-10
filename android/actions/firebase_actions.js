@@ -1,5 +1,21 @@
 import * as firebase from 'firebase';
 
+export const searchForUsers = (userStub) => {
+  const userSearchRef = firebase.database().ref()
+    .child('users')
+    .orderByChild('email')
+    .startAt(userStub)
+    .limitToFirst(1);
+  // const users = [];
+
+  userSearchRef.once('value', (snap) => {
+    // users.push(snap.val());
+    console.log("users search", snap.val());
+    return snap.val();
+  });
+};
+
+
 export const createChallenge = (challengeOptions) => {
   console.log('firebase createChallenge action', challengeOptions);
   const {name, adminID, users, categories, startDate, days} = challengeOptions;

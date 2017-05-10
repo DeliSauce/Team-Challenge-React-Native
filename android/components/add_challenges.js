@@ -35,9 +35,21 @@ export default class AddChallenges extends Component {
     actions.createChallenge(this.state);
   }
 
+  handleUserInput(userStub) {
+    let userSearch = actions.searchForUsers(userStub);
+    this.setState({userSearch});
+  }
+
   render() {
     return (
       <View style={styles.container}>
+
+        <TouchableOpacity
+          onPress={() => this.createChallenge()}
+          style={styles.addChallengeButton}>
+          <Text> Add Challenge </Text>
+        </TouchableOpacity>
+
         <View style={styles.input_container}>
           <Text> Challenge Name </Text>
           <TextInput
@@ -90,20 +102,14 @@ export default class AddChallenges extends Component {
         <View style={styles.input_container}>
           <Text> Competitors </Text>
           <TextInput
-            placeholder={"Add/Search for Users"}
+            placeholder={"Enter User Email"}
             style={styles.input}
             value={''}
-
+            onChangeText={(user_info) => this.handleUserInput(user_info)}
             />
           <Button title={'Add User'} onPress={() => {}}>
           </Button>
         </View>
-
-        <TouchableOpacity
-          onPress={() => this.createChallenge()}
-          style={styles.addChallengeButton}>
-         <Text> Add Challenge </Text>
-        </TouchableOpacity>
 
       </View>
     );
