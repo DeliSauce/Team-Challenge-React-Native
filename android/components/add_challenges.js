@@ -16,7 +16,7 @@ export default class AddChallenges extends Component {
     super(props);
     this.userID = firebase.auth().currentUser.uid;
     this.defaultChallenge = {
-      name: "Health Challenge",
+      name: 'Health Challenge',
       startDate: '01-23-2017',
       days: '10',
       adminID: this.userID,
@@ -28,11 +28,8 @@ export default class AddChallenges extends Component {
 
   //TODO add userIDs for users other than admin
   createChallenge() {
+    // console.log('creaete chall', this.state, this.defaultChallenge, this.userID);
     actions.createChallenge(this.state);
-  }
-
-  showChallenges() {
-
   }
 
   render() {
@@ -76,7 +73,7 @@ export default class AddChallenges extends Component {
         <Button title={'Add User'} onPress={() => {}}>
         </Button>
 
-        <TouchableOpacity onPress={this.createChallenge}
+        <TouchableOpacity onPress={() => this.createChallenge()}
         style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
          <Text> add challenge </Text>
         </TouchableOpacity>

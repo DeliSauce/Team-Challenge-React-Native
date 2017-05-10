@@ -2,7 +2,9 @@ import * as firebase from 'firebase';
 
 // export const getChallenges = () =>
 
-export const createChallenge = (name, adminID, users, categories, startDate, days) => {
+export const createChallenge = (challengeOptions) => {
+  console.log('firebase createChallenge action', challengeOptions);
+  const {name, adminID, users, categories, startDate, days} = challengeOptions;
   let date = new Date(startDate);
   let dates = [];
 
