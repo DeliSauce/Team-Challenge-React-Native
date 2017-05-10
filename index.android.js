@@ -35,6 +35,11 @@ export default class TeamChallenge extends Component {
     this.login = this.login.bind(this);
   }
 
+  //TODO remove this code -- only for testing purposes
+  componentWillMount() {
+    this.login();
+  }
+
   async signup() {
     try {
       const user = await firebase.auth()
