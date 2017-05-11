@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
+import merge from 'lodash/merge';
 
 import {
   Slider,
@@ -9,6 +10,7 @@ import {
   FlatList,
   TouchableOpacity,
   View,
+  Modal,
   Text,
   TextInput,
   StyleSheet
@@ -24,9 +26,15 @@ export default class AddChallenges extends Component {
       days: '30',
       adminID: this.userID,
       users: [this.userID, 'TEST'],
-      categories: ['pushups', 'run', 'walk']
+      categories: ['pushups', 'run', 'walk'],
     };
-    this.state = this.defaultChallenge;
+    this.otherProperties = {
+      modalVisible: false,
+      userSearch: '',
+      userSearchResults: [{id: '', email: ''}],
+    };
+
+    this.state = merge({}, this.defaultChallenge, this.otherProperties);
   }
 
   //TODO add userIDs for users other than admin
@@ -35,14 +43,53 @@ export default class AddChallenges extends Component {
     actions.createChallenge(this.state);
   }
 
-  handleUserInput(userStub) {
-    let userSearch = actions.searchForUsers(userStub);
-    this.setState({userSearch});
+  handleUserSearchInput(userSearch) {
+    console.log('hit handle ', userSearch);
+    const userSearchRef = firebase.database().ref()
+      .child('users')
+      .orderByChild('email')
+      .startAt(userSearch)
+      .limitToFirst(2);
+
+    let userSearchResults = [];
+    userSearchRef.once('value', (snap) => {
+      const searchObj = snap.val();
+      userSearchResults = Object.keys(searchObj);
+      userSearchResults = userSearchResults.map((key) => {
+        return {id: key, email: searchObj[key].email};
+      });
+      this.setState({userSearchResults});
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
+
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => this.setState({modalVisible: false})}
+          >
+          <Text style={styles.header_text}>
+            Search for Users
+          </Text>
+          <TextInput
+            placeholder={"Enter User Email (or Name?)"}
+            style={styles.input2}
+            value={this.state.userSearch}
+            onChangeText={(userSearch) => {
+              this.setState({userSearch});
+              this.handleUserSearchInput(userSearch);}
+            }
+            />
+          <View style={styles.search_container}>
+
+          </View>
+          <Button title={'Add User'} onPress={() => {}}>
+          </Button>
+        </Modal>
 
         <TouchableOpacity
           onPress={() => this.createChallenge()}
@@ -101,13 +148,7 @@ export default class AddChallenges extends Component {
 
         <View style={styles.input_container}>
           <Text> Competitors </Text>
-          <TextInput
-            placeholder={"Enter User Email"}
-            style={styles.input}
-            value={''}
-            onChangeText={(user_info) => this.handleUserInput(user_info)}
-            />
-          <Button title={'Add User'} onPress={() => {}}>
+          <Button title={'Add Users'} onPress={() => this.setState({modalVisible: true})}>
           </Button>
         </View>
 
@@ -118,6 +159,11 @@ export default class AddChallenges extends Component {
 
 
 const styles = StyleSheet.create({
+  header_text: {
+    fontSize: 20,
+    textAlign: 'center',
+  },
+
   addChallengeButton: {
     height: 60,
     width: 100,
@@ -130,6 +176,12 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     width: 150,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: 10,
+  },
+  input2: {
+    height: 50,
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 10,
@@ -153,6 +205,13 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'pink',
+  },
+  search_container: {
+    // flex: 1,
+    height: 300,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'pink',

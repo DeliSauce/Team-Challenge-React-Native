@@ -1,19 +1,25 @@
 import * as firebase from 'firebase';
 
-export const searchForUsers = (userStub) => {
-  const userSearchRef = firebase.database().ref()
-    .child('users')
-    .orderByChild('email')
-    .startAt(userStub)
-    .limitToFirst(1);
-  // const users = [];
-
-  userSearchRef.once('value', (snap) => {
-    // users.push(snap.val());
-    console.log("users search", snap.val());
-    return snap.val();
-  });
-};
+// export const searchForUsers = (userStub) => {
+//   const userSearchRef = firebase.database().ref()
+//     .child('users')
+//     .orderByChild('email')
+//     .startAt(userStub)
+//     .limitToFirst(2);
+//
+//   let users = [];
+//   userSearchRef.once('value', (snap) => {
+//     // users.push(snap.val());
+//     console.log("users search", snap.val());
+//
+//     users = Object.keys(snap.val());
+//     console.log(users);
+//     users.map((key) => {
+//       return {id: key, email: snap.val()[key].email};
+//     });
+//     return users;
+//   });
+// };
 
 
 export const createChallenge = (challengeOptions) => {
