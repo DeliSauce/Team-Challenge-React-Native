@@ -6,7 +6,6 @@ import {
   Button,
   TouchableOpacity,
   ListView,
-  ListItem,
   FlatList,
   View,
   Text,
@@ -55,7 +54,7 @@ export default class CurrentChallenges extends Component {
     this.listenForItems();
   }
 
-  renderChallengeItem = ({item, index}) => {
+  renderChallengeItem({item, index}) {
     const {navigate} = this.props.navigation;
 
     return (

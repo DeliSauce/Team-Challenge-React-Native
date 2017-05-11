@@ -44,6 +44,7 @@ export default class AddChallenges extends Component {
   }
 
   handleUserSearchInput(userSearch) {
+    if (userSearch === '') return;
     console.log('hit handle ', userSearch);
     const userSearchRef = firebase.database().ref()
       .child('users')
@@ -59,6 +60,26 @@ export default class AddChallenges extends Component {
         return {id: key, email: searchObj[key].email};
       });
       this.setState({userSearchResults});
+      console.log(this.state.userSearchResults);
+    });
+  }
+
+  renderUserSearch({item, index}) {
+    return(
+      <TouchableOpacity
+        style={styles.user_search_result}
+        key={index}
+        >
+        <Text style={{fontSize: 20}}> {item.email + item.id} </Text>
+      </TouchableOpacity>
+    );
+  }
+
+  closeModal() {
+    this.setState({
+      modalVisible: false,
+      userSearch: '',
+      userSearchResults: []
     });
   }
 
@@ -70,7 +91,7 @@ export default class AddChallenges extends Component {
           animationType={"slide"}
           transparent={false}
           visible={this.state.modalVisible}
-          onRequestClose={() => this.setState({modalVisible: false})}
+          onRequestClose={() => this.closeModal()}
           >
           <Text style={styles.header_text}>
             Search for Users
@@ -80,12 +101,16 @@ export default class AddChallenges extends Component {
             style={styles.input2}
             value={this.state.userSearch}
             onChangeText={(userSearch) => {
-              this.setState({userSearch});
+              this.setState({userSearch, userSearchResults: []});
               this.handleUserSearchInput(userSearch);}
             }
             />
           <View style={styles.search_container}>
-
+            <FlatList
+              data={this.state.userSearchResults}
+              renderItem={userObj => this.renderUserSearch(userObj)}
+              >
+            </FlatList>
           </View>
           <Button title={'Add User'} onPress={() => {}}>
           </Button>
@@ -162,6 +187,12 @@ const styles = StyleSheet.create({
   header_text: {
     fontSize: 20,
     textAlign: 'center',
+  },
+  user_search_result: {
+
+    marginBottom: 10,
+    borderColor: 'grey',
+    borderWidth: 1,
   },
 
   addChallengeButton: {
