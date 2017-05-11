@@ -50,6 +50,7 @@ export default class AddChallenges extends Component {
       .child('users')
       .orderByChild('email')
       .startAt(userSearch)
+      .endAt(userSearch + '\uf8ff')
       .limitToFirst(2);
 
     let userSearchResults = [];
