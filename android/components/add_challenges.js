@@ -13,25 +13,32 @@ import {
   Modal,
   Text,
   TextInput,
-  StyleSheet
+  StyleSheet,
+  Switch
 } from 'react-native';
 
 export default class AddChallenges extends Component {
   constructor(props) {
     super(props);
     this.userID = firebase.auth().currentUser.uid;
+    // this.defaulCategories = [{'pushups': false}, {'walk': true}];
+    this.defaulCategories = [{name: 'pushups', status: false}, {name: 'run', status: false}, {name: 'walk', status: true}];
+
     this.defaultChallenge = {
       name: 'Health Challenge',
       startDate: '01-23-2017',
       days: '30',
       adminID: this.userID,
       users: [this.userID, 'TEST'],
-      categories: ['pushups', 'run', 'walk'],
+      categories: this.defaulCategories,
     };
+
     this.otherProperties = {
-      modalVisible: false,
+      categoriesModalVisible: false,
+      usersModalVisible: false,
       userSearch: '',
       userSearchResults: [{id: '', email: ''}],
+      TESTswitch: false,
     };
 
     this.state = merge({}, this.defaultChallenge, this.otherProperties);
@@ -76,9 +83,53 @@ export default class AddChallenges extends Component {
     );
   }
 
+  handleCatSwitch(catObj, idx, bool) {
+    // console.log('cats', this.state.categories);
+    // console.log('idx: ', idx);
+    // console.log('cat obj index', this.state.categories.indexOf(catObj));
+    // // let updatedCat = merge({}, catObj);
+    // catObj.status = !catObj.status;
+    // // updatedCat.status = !updatedCat.status;
+    //
+    // console.log('cats', this.state.categories);
+    // let categories = this.state.categories;
+    // this.setState({categories});
+    // console.log('cats', this.state.categories);
+
+    let TESTswitch = !bool;
+    this.setState({TESTswitch});
+    // console.log(catObj, idx);
+    // this.setState((previousState) => {
+    //   previousState.categories[idx].status = !previousState.categories[idx].status;
+    //   return previousState;
+    // });
+  }
+
+  renderCategories({item, index}) {
+    // const cat = Object.keys(item)[0];
+    // this.state.categories[index][cat]
+    // console.log(this.state.categories[index].status);
+    // value={this.state.categories[index].status}
+    // onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
+
+    return(
+      <View
+        style={styles.default}
+        key={index}
+        >
+        <Text style={{fontSize: 20}}> {item.name} </Text>
+        <Switch
+          value={this.state.TESTswitch}
+          onValueChange={(value) => this.setState({TESTswitch: value})}
+          />
+      </View>
+    );
+  }
+
   closeModal() {
     this.setState({
-      modalVisible: false,
+      usersModalVisible: false,
+      categoriesModalVisible: false,
       userSearch: '',
       userSearchResults: []
     });
@@ -91,7 +142,7 @@ export default class AddChallenges extends Component {
         <Modal
           animationType={"slide"}
           transparent={false}
-          visible={this.state.modalVisible}
+          visible={this.state.usersModalVisible}
           onRequestClose={() => this.closeModal()}
           >
           <Text style={styles.header_text}>
@@ -114,6 +165,32 @@ export default class AddChallenges extends Component {
             </FlatList>
           </View>
           <Button title={'Add User'} onPress={() => {}}>
+          </Button>
+        </Modal>
+
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.categoriesModalVisible}
+          onRequestClose={() => this.closeModal()}
+          >
+          <Text style={styles.header_text}>
+            Choose Categoies for Your Challenge
+          </Text>
+          <TextInput
+            placeholder={"Enter a New Category (not currently working)"}
+            style={styles.input2}
+            value={this.state.newCat}
+            onChangeText={(newCat) => {}}
+            />
+          <View style={styles.search_container}>
+            <FlatList
+              data={this.state.categories}
+              renderItem={(cat) => this.renderCategories(cat)}
+              >
+            </FlatList>
+          </View>
+          <Button title={'Add Categories'} onPress={() => {}}>
           </Button>
         </Modal>
 
@@ -163,18 +240,13 @@ export default class AddChallenges extends Component {
 
         <View style={styles.input_container}>
           <Text> Categories </Text>
-          <TextInput
-            placeholder={"Add a New Categories"}
-            style={styles.input}
-            value={''}
-            />
-          <Button title={'Add Category'} onPress={() => {}}>
+          <Button title={'Add Categories'} onPress={() => this.setState({categoriesModalVisible: true})}>
           </Button>
         </View>
 
         <View style={styles.input_container}>
           <Text> Competitors </Text>
-          <Button title={'Add Users'} onPress={() => this.setState({modalVisible: true})}>
+          <Button title={'Add Users'} onPress={() => this.setState({usersModalVisible: true})}>
           </Button>
         </View>
 
