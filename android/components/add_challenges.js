@@ -4,9 +4,13 @@ import * as actions from '../actions/firebase_actions';
 import merge from 'lodash/merge';
 
 import {
+  CheckboxGroup,
+  Button,
+} from 'react-native-material-design';
+
+import {
   Slider,
   Picker,
-  Button,
   FlatList,
   TouchableOpacity,
   View,
@@ -109,6 +113,7 @@ export default class AddChallenges extends Component {
     // const cat = Object.keys(item)[0];
     // this.state.categories[index][cat]
     // console.log(this.state.categories[index].status);
+
     // value={this.state.categories[index].status}
     // onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
 
@@ -125,6 +130,7 @@ export default class AddChallenges extends Component {
       </View>
     );
   }
+
 
   closeModal() {
     this.setState({
@@ -177,6 +183,7 @@ export default class AddChallenges extends Component {
           <Text style={styles.header_text}>
             Choose Categoies for Your Challenge
           </Text>
+
           <TextInput
             placeholder={"Enter a New Category (not currently working)"}
             style={styles.input2}
@@ -240,13 +247,19 @@ export default class AddChallenges extends Component {
 
         <View style={styles.input_container}>
           <Text> Categories </Text>
-          <Button title={'Add Categories'} onPress={() => this.setState({categoriesModalVisible: true})}>
+          <Button
+            text='Add Categories'
+            raised={true}
+            onPress={() => this.setState({categoriesModalVisible: true})}>
           </Button>
         </View>
 
         <View style={styles.input_container}>
           <Text> Competitors </Text>
-          <Button title={'Add Users'} onPress={() => this.setState({usersModalVisible: true})}>
+          <Button
+            text='Add Users'
+            raised={true}
+            onPress={() => this.setState({usersModalVisible: true})}>
           </Button>
         </View>
 
@@ -254,6 +267,10 @@ export default class AddChallenges extends Component {
     );
   }
 }
+
+
+
+
 
 
 const styles = StyleSheet.create({
