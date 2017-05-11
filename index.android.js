@@ -2,6 +2,7 @@ import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import Main from './android/components/main';
 import {Tabs} from './android/components/navigator';
+import firebaseConfig from './env';
 
 import {
   AppRegistry,
@@ -13,15 +14,6 @@ import {
   View
 } from 'react-native';
 
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyCd1k9W7IWnry1C51UTWAERUqDNZoeZwdI",
-  authDomain: "teamchallenge-7823a.firebaseapp.com",
-  databaseURL: "https://teamchallenge-7823a.firebaseio.com",
-  projectId: "teamchallenge-7823a",
-  storageBucket: "teamchallenge-7823a.appspot.com",
-  messagingSenderId: "99575308379"
-};
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 export default class TeamChallenge extends Component {

@@ -42,12 +42,12 @@ export default class CurrentChallenges extends Component {
     myChallengesRef.on('child_added', (snap) => {
       // console.log("chall child added", snap.key);
       const challengeRef = firebase.database().ref('challenges/' + snap.key);
-      challengeRef.once('value', (snap) => {
+      challengeRef.once('value', (snapshot) => {
         console.log('hit a new challenge ref');
-        challenges.push({id: snap.key, challenge: snap.val()});
+        challenges.push({id: snapshot.key, challenge: snapshot.val()});
         this.setState({challenges});
-      })
-    })
+      });
+    });
   }
 
   componentDidMount() {

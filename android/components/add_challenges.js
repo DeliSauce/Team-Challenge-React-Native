@@ -44,7 +44,7 @@ export default class AddChallenges extends Component {
   }
 
   handleUserSearchInput(userSearch) {
-    if (userSearch === '') return;
+    if (userSearch.length <= 2) return;
     console.log('hit handle ', userSearch);
     const userSearchRef = firebase.database().ref()
       .child('users')
