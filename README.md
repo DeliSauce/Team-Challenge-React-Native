@@ -76,3 +76,17 @@ https://firebase.google.com/docs/database/web/structure-data
           "1212121": { ... }
         }
       }
+
+
+
+Modules
+- some packages require further instructions (see below)
+
+- react-native-material-design
+https://github.com/react-native-material-design/react-native-material-design#installation
+
+
+- react-native-vector-icons
+   -- did not have to use rnpm as it is now a merged into React Native Core
+   (just need to enter in CLI: <react-native link>)
+https://github.com/oblador/react-native-vector-icons#installation
