@@ -89,42 +89,20 @@ export default class AddChallenges extends Component {
   }
 
   handleCatSwitch(catObj, idx, bool) {
-    // console.log('cats', this.state.categories);
-    // console.log('idx: ', idx);
-    // console.log('cat obj index', this.state.categories.indexOf(catObj));
-    // // let updatedCat = merge({}, catObj);
-    // catObj.status = !catObj.status;
-    // // updatedCat.status = !updatedCat.status;
-    //
-    // console.log('cats', this.state.categories);
-    let categories = this.state.categories;
-    categories[idx].status = bool;
-    this.setState({categories});
-    // console.log('cats', this.state.categories);
-
-    // let TESTswitch = !bool;
-    // this.setState({TESTswitch});
-
-    // console.log(catObj, idx);
-
-
-    // this.setState((previousState) => {
-    //   previousState.categories[idx].status = bool;
-    //   return previousState;
-    // });
-    // this.state.categories[idx].status = bool;
-    // this.forceUpdate();
+    this.setState((previousState) => {
+      previousState.categories[idx].status = bool;
+      return previousState;
+    });
   }
 
   renderCategories({item, index}) {
     console.log('HIT RENDER CATEGORIES');
-
     return(
       <View
         style={styles.default}
         key={index}
         >
-        <Text style={{fontSize: 20}}> {item.name + item.status} </Text>
+        <Text style={{fontSize: 20}}> {item.name} </Text>
         <Switch
           value={this.state.categories[index].status}
           onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
@@ -146,7 +124,6 @@ export default class AddChallenges extends Component {
 
   render() {
     console.log('HIT RENDER');
-
     return (
       <View style={styles.container}>
         <Modal
@@ -187,7 +164,7 @@ export default class AddChallenges extends Component {
           onRequestClose={() => this.closeModal()}
           >
           <Text style={styles.header_text}>
-            Choose Categoies for Your Challenge
+            Choose Categories for Your Challenge
           </Text>
 
           <TextInput
