@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 // import {Button} from 'react-native-material-design';
 
 import {
@@ -28,17 +29,14 @@ export default class CurrentChallenges extends Component {
 
     return {
       headerRight: (<Text>List of Challenges</Text>),
-      title: '--------------',
+      title: 'My Challenges',
       headerTintColor: 'blue',
       headerBackgroundColor: 'red',
       headerLeft:(
         <TouchableOpacity
           onPress={() => navigation.navigate('DrawerOpen')}>
-          <Image
-            style={{width: 20, height: 20}}
-            resizeMode={'cover'}
-            source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-          />
+          <Icon name="menu" size={30} color="#900" />
+
         </TouchableOpacity>),
     };
   };
@@ -103,9 +101,19 @@ export default class CurrentChallenges extends Component {
   }
 
 
+  // <Icon.TabBarItem
+  //   title="Home"
+  //   iconName="ios-home-outline"
+  //   selectedIconName="ios-home"
+  //   >
+  //   <View style={styles.tabContent}><Text>Home Tab</Text></View>
+  // </Icon.TabBarItem>
+
   render() {
     return (
       <View>
+
+
         <View>
           <Text style={{justifyContent: 'center', alignSelf: 'stretch'}}>
             List of Challenges
