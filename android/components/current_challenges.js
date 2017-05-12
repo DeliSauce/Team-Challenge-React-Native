@@ -33,14 +33,13 @@ export default class CurrentChallenges extends Component {
       headerBackgroundColor: 'red',
       headerLeft:(
         <TouchableOpacity
-
           onPress={() => navigation.navigate('DrawerOpen')}>
           <Image
-            style={{width: 50, height: 50}}
-
-                source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-                />
-          </TouchableOpacity>),
+            style={{width: 20, height: 20}}
+            resizeMode={'cover'}
+            source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+          />
+        </TouchableOpacity>),
     };
   };
 
@@ -107,13 +106,6 @@ export default class CurrentChallenges extends Component {
   render() {
     return (
       <View>
-
-        <Image
-          style={{width: 20, height: 20}}
-
-              source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-              />
-
         <View>
           <Text style={{justifyContent: 'center', alignSelf: 'stretch'}}>
             List of Challenges
