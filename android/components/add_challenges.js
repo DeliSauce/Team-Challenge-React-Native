@@ -126,6 +126,8 @@ export default class AddChallenges extends Component {
     console.log('HIT RENDER');
     return (
       <View style={styles.container}>
+        <Button text={'drawer'} onPress={() => this.props.navigation.navigate('DrawerOpen')}></Button>
+
         <Modal
           animationType={"slide"}
           transparent={false}
@@ -176,7 +178,6 @@ export default class AddChallenges extends Component {
             <FlatList
               data={this.state.categories}
               extraData={this.state}
-              removeClippedSubviews={false}
               renderItem={(catObj) => this.renderCategories(catObj)}
               >
             </FlatList>

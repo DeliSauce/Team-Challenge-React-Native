@@ -4,6 +4,7 @@ import * as actions from '../actions/firebase_actions';
 
 import {
   Button,
+  Image,
   TouchableOpacity,
   ListView,
   FlatList,
@@ -18,6 +19,23 @@ export default class CurrentChallenges extends Component {
     super(props);
     this.state = {};
   }
+
+  static navigationOptions = {
+    title: 'Home',
+    headerTintColor: 'red',
+    drawerIcon: () => {
+      <Image
+        source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+      />
+    }
+  };
+
+  // drawerIcon: ({ tintColor }) => (
+  //   <Image
+  //     source={require('./chats-icon.png')}
+  //     style={[styles.icon, {tintColor: tintColor}]}
+  //   />
+  // ),
 
   // getChallenges() {
   //   // const challenges;
@@ -75,6 +93,10 @@ export default class CurrentChallenges extends Component {
   render() {
     return (
       <View>
+
+
+
+        <Button title={'drawer'} onPress={() => this.props.navigation.navigate('DrawerOpen')}></Button>
         <View>
           <Text style={{justifyContent: 'center', alignSelf: 'stretch'}}>
             List of Challenges

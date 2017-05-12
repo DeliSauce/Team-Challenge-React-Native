@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
-import Main from './android/components/main';
-import {Tabs} from './android/components/navigator';
+// import Main from './android/components/main';
+import {MainNav} from './android/components/navigator';
 import firebaseConfig from './env';
 
 import {
@@ -144,7 +144,11 @@ export default class TeamChallenge extends Component {
   renderMain(){
     console.log("render main", this.state.authStatus);
     return (
-      <Main/>
+      <MainNav
+        drawerWidth={100}
+        drawerPosition={'right'}
+
+        />
     );
   }
 
