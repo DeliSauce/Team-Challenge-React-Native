@@ -42,7 +42,8 @@ export default class AddChallenges extends Component {
       usersModalVisible: false,
       userSearch: '',
       userSearchResults: [{id: '', email: ''}],
-      TESTswitch: false,
+      TESTswitch: [false, true],
+      TESTcat: ['Trun', 'Tpushups']
     };
 
     this.state = merge({}, this.defaultChallenge, this.otherProperties);
@@ -96,36 +97,37 @@ export default class AddChallenges extends Component {
     // // updatedCat.status = !updatedCat.status;
     //
     // console.log('cats', this.state.categories);
-    // let categories = this.state.categories;
-    // this.setState({categories});
+    let categories = this.state.categories;
+    categories[idx].status = bool;
+    this.setState({categories});
     // console.log('cats', this.state.categories);
 
-    let TESTswitch = !bool;
-    this.setState({TESTswitch});
+    // let TESTswitch = !bool;
+    // this.setState({TESTswitch});
+
     // console.log(catObj, idx);
+
+
     // this.setState((previousState) => {
-    //   previousState.categories[idx].status = !previousState.categories[idx].status;
+    //   previousState.categories[idx].status = bool;
     //   return previousState;
     // });
+    // this.state.categories[idx].status = bool;
+    // this.forceUpdate();
   }
 
   renderCategories({item, index}) {
-    // const cat = Object.keys(item)[0];
-    // this.state.categories[index][cat]
-    // console.log(this.state.categories[index].status);
-
-    // value={this.state.categories[index].status}
-    // onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
+    console.log('HIT RENDER CATEGORIES');
 
     return(
       <View
         style={styles.default}
         key={index}
         >
-        <Text style={{fontSize: 20}}> {item.name} </Text>
+        <Text style={{fontSize: 20}}> {item.name + item.status} </Text>
         <Switch
-          value={this.state.TESTswitch}
-          onValueChange={(value) => this.setState({TESTswitch: value})}
+          value={this.state.categories[index].status}
+          onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
           />
       </View>
     );
@@ -141,10 +143,12 @@ export default class AddChallenges extends Component {
     });
   }
 
+
   render() {
+    console.log('HIT RENDER');
+
     return (
       <View style={styles.container}>
-
         <Modal
           animationType={"slide"}
           transparent={false}
@@ -170,7 +174,9 @@ export default class AddChallenges extends Component {
               >
             </FlatList>
           </View>
-          <Button title={'Add User'} onPress={() => {}}>
+          <Button
+            text={'Add User'}
+            onPress={() => {}}>
           </Button>
         </Modal>
 
@@ -190,14 +196,16 @@ export default class AddChallenges extends Component {
             value={this.state.newCat}
             onChangeText={(newCat) => {}}
             />
-          <View style={styles.search_container}>
             <FlatList
               data={this.state.categories}
-              renderItem={(cat) => this.renderCategories(cat)}
+              extraData={this.state}
+              removeClippedSubviews={false}
+              renderItem={(catObj) => this.renderCategories(catObj)}
               >
             </FlatList>
-          </View>
-          <Button title={'Add Categories'} onPress={() => {}}>
+          <Button
+            text={'Add Categories'}
+            onPress={() => {}}>
           </Button>
         </Modal>
 
