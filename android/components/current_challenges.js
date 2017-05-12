@@ -1,11 +1,13 @@
 import * as firebase from 'firebase';
 import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
+// import {Button} from 'react-native-material-design';
 
 import {
   Button,
   Image,
   TouchableOpacity,
+  TouchableHighlight,
   ListView,
   FlatList,
   View,
@@ -20,14 +22,26 @@ export default class CurrentChallenges extends Component {
     this.state = {};
   }
 
-  static navigationOptions = {
-    title: 'Home',
-    headerTintColor: 'red',
-    drawerIcon: () => {
-      <Image
-        source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-      />
-    }
+  static navigationOptions = ({navigation}) => {
+    // drawerIcon: ({tintColor}) => {
+    // }
+
+    return {
+      headerRight: (<Text>List of Challenges</Text>),
+      title: '--------------',
+      headerTintColor: 'blue',
+      headerBackgroundColor: 'red',
+      headerLeft:(
+        <TouchableOpacity
+
+          onPress={() => navigation.navigate('DrawerOpen')}>
+          <Image
+            style={{width: 50, height: 50}}
+
+                source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+                />
+          </TouchableOpacity>),
+    };
   };
 
   // drawerIcon: ({ tintColor }) => (
@@ -94,9 +108,12 @@ export default class CurrentChallenges extends Component {
     return (
       <View>
 
+        <Image
+          style={{width: 20, height: 20}}
 
+              source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+              />
 
-        <Button title={'drawer'} onPress={() => this.props.navigation.navigate('DrawerOpen')}></Button>
         <View>
           <Text style={{justifyContent: 'center', alignSelf: 'stretch'}}>
             List of Challenges

@@ -36,7 +36,17 @@ export const MainNav = DrawerNavigator({
 },
 {
   drawerWidth: 150,
+  contentOptions: {
+    activeTintColor: '#e91e63',
+    activeBackgroundColor: 'blue',
+    inactiveTintColor: 'black',
+    inactiveBackgroundColor: 'white',
+    style: {
+      marginVertical: 0,
+    }
+  },
   drawerPosition: 'left',
+
 });
 
 //
