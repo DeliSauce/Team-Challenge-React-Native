@@ -26,16 +26,19 @@ export default class CurrentChallenges extends Component {
   static navigationOptions = ({navigation}) => {
     return {
       headerLeft:(
-        <TouchableOpacity
-          style={{marginLeft: 10}}
-          onPress={() => navigation.navigate('DrawerOpen')}>
-          <Icon name="menu" size={40} color="#900" />
-        </TouchableOpacity>
-      ),
-      headerRight:(
-        <Text style={{marginRight: 140, fontSize: 25}}>
-          My Challenges
-        </Text>
+        <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{marginLeft: 10}}
+            onPress={() => navigation.navigate('DrawerOpen')}>
+            <Icon name="menu" size={40} color="#900" />
+          </TouchableOpacity>
+          <Text style={{marginLeft: 40, fontSize: 25}}>
+            My Challenges
+          </Text>
+          <View>
+
+          </View>
+        </View>
       ),
     };
   };
