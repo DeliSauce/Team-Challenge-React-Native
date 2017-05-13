@@ -29,13 +29,13 @@ export default class AddChallenges extends Component {
     this.defaulCategories = [{name: 'pushups', status: false}, {name: 'run', status: false}, {name: 'walk', status: true}];
 
     this.defaultChallenge = {
-      name: 'Health Challenge',
-      startDate: '01-23-2017',
+      name: 'TEST Challenge',
+      startDate: '05-10-2017',
       days: '10',
       adminID: this.userID,
       users: [this.userID, 'TEST'],
       categoryOptions: this.defaulCategories,
-      categories: ['catA', 'catB']
+      categories: ['catA', 'catB', 'catC']
     };
 
     this.otherProperties = {
@@ -100,7 +100,7 @@ export default class AddChallenges extends Component {
     console.log('HIT RENDER CATEGORIES');
     return(
       <View
-        style={styles.default}
+        style={styles.default_style}
         key={index}
         >
         <Text style={{fontSize: 20}}> {item.name} </Text>
@@ -176,12 +176,12 @@ export default class AddChallenges extends Component {
             value={this.state.newCat}
             onChangeText={(newCat) => {}}
             />
-            <FlatList
-              data={this.state.categoryOptions}
-              extraData={this.state}
-              renderItem={(catObj) => this.renderCategories(catObj)}
-              >
-            </FlatList>
+          <FlatList
+            data={this.state.categoryOptions}
+            extraData={this.state}
+            renderItem={(catObj) => this.renderCategories(catObj)}
+            >
+          </FlatList>
           <Button
             text={'Add Categories'}
             onPress={() => {}}>
