@@ -26,8 +26,8 @@ export const createChallenge = (challengeOptions) => {
   // console.log('firebase createChallenge action', challengeOptions);
   const {name, adminID, users, categories, startDate, days} = challengeOptions;
 
-  let dateEntries = Array(parseInt(days)).fill(false);
-  let entries = Array(categories.length).fill(dateEntries);
+  let catEntries = Array(categories.length).fill(false);
+  let entries = Array(parseInt(days)).fill(catEntries);
 
   let userData = {};
   users.forEach((user) => {
