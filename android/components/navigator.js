@@ -27,7 +27,7 @@ export const ChallengeStack = StackNavigator({
 });
 
 export const MainNav = DrawerNavigator({
-  'Home': {
+  'My Challenges': {
     screen: ChallengeStack,
   },
   'Add New Challenge': {

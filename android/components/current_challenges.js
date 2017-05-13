@@ -24,29 +24,21 @@ export default class CurrentChallenges extends Component {
   }
 
   static navigationOptions = ({navigation}) => {
-    // drawerIcon: ({tintColor}) => {
-    // }
-
     return {
-      headerRight: (<Text>List of Challenges</Text>),
-      title: 'My Challenges',
-      headerTintColor: 'blue',
-      headerBackgroundColor: 'red',
       headerLeft:(
         <TouchableOpacity
+          style={{marginLeft: 10}}
           onPress={() => navigation.navigate('DrawerOpen')}>
-          <Icon name="menu" size={30} color="#900" />
-
-        </TouchableOpacity>),
+          <Icon name="menu" size={40} color="#900" />
+        </TouchableOpacity>
+      ),
+      headerRight:(
+        <Text style={{marginRight: 140, fontSize: 25}}>
+          My Challenges
+        </Text>
+      ),
     };
   };
-
-  // drawerIcon: ({ tintColor }) => (
-  //   <Image
-  //     source={require('./chats-icon.png')}
-  //     style={[styles.icon, {tintColor: tintColor}]}
-  //   />
-  // ),
 
   // getChallenges() {
   //   // const challenges;

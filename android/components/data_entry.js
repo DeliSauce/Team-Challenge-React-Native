@@ -65,7 +65,7 @@ export default class DataEntry extends Component {
       days: 12,
       cats: 7
     };
-    this.days = this.data.dates.length;
+    this.days = this.data.days;
     this.cats = this.data.categories.length;
     this.state = {
 
