@@ -24,10 +24,10 @@ import * as firebase from 'firebase';
 
 export const createChallenge = (challengeOptions) => {
   // console.log('firebase createChallenge action', challengeOptions);
-  const {name, adminID, users, selectedCategories, startDate, days} = challengeOptions;
+  const {name, adminID, users, categories, startDate, days} = challengeOptions;
 
   let dateEntries = Array(parseInt(days)).fill(false);
-  let entries = Array(selectedCategories.length).fill(dateEntries);
+  let entries = Array(categories.length).fill(dateEntries);
 
   let userData = {};
   users.forEach((user) => {
@@ -47,7 +47,7 @@ export const createChallenge = (challengeOptions) => {
     adminID,
     startDate,
     days,
-    selectedCategories,
+    categories,
     userData
   };
 

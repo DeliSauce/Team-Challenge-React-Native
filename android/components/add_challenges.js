@@ -34,8 +34,8 @@ export default class AddChallenges extends Component {
       days: '10',
       adminID: this.userID,
       users: [this.userID, 'TEST'],
-      categories: this.defaulCategories,
-      selectedCategories: ['catA', 'catB']
+      categoryOptions: this.defaulCategories,
+      categories: ['catA', 'catB']
     };
 
     this.otherProperties = {
@@ -91,7 +91,7 @@ export default class AddChallenges extends Component {
 
   handleCatSwitch(catObj, idx, bool) {
     this.setState((previousState) => {
-      previousState.categories[idx].status = bool;
+      previousState.categoryOptions[idx].status = bool;
       return previousState;
     });
   }
@@ -105,7 +105,7 @@ export default class AddChallenges extends Component {
         >
         <Text style={{fontSize: 20}}> {item.name} </Text>
         <Switch
-          value={this.state.categories[index].status}
+          value={this.state.categoryOptions[index].status}
           onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
           />
       </View>
@@ -177,7 +177,7 @@ export default class AddChallenges extends Component {
             onChangeText={(newCat) => {}}
             />
             <FlatList
-              data={this.state.categories}
+              data={this.state.categoryOptions}
               extraData={this.state}
               renderItem={(catObj) => this.renderCategories(catObj)}
               >
