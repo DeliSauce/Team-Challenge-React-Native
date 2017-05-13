@@ -90,35 +90,26 @@ export default class CurrentChallenges extends Component {
       <TouchableOpacity
         key={item.id}
         onPress={() => navigate('Details', {challengeData: item.challenge})}
-        style={{height: 100, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
-        <Text> Challenge Name: {item.challenge.name} </Text>
-        <Text> Categories: {item.challenge.categories.join(", ")} </Text>
-        <Text> Start Date: {item.challenge.startDate} </Text>
-        <Text> Total Days: {item.challenge.days} </Text>
+        style={{flexDirection: 'row', justifyContent: 'space-between', height: 100, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
+
+        <View>
+          <Text> Challenge Name: {item.challenge.name} </Text>
+          <Text> Categories: {item.challenge.categories.join(", ")} </Text>
+          <Text> Start Date: {item.challenge.startDate} </Text>
+          <Text> Total Days: {item.challenge.days} </Text>
+        </View>
+
+        <View style={{flexDirection: 'column', justifyContent:'center'}}>
+          <Icon name="chevron-right" size={30} color="#900" />
+        </View>
 
       </TouchableOpacity>
     );
   }
 
-
-  // <Icon.TabBarItem
-  //   title="Home"
-  //   iconName="ios-home-outline"
-  //   selectedIconName="ios-home"
-  //   >
-  //   <View style={styles.tabContent}><Text>Home Tab</Text></View>
-  // </Icon.TabBarItem>
-
   render() {
     return (
       <View>
-
-
-        <View>
-          <Text style={{justifyContent: 'center', alignSelf: 'stretch'}}>
-            List of Challenges
-          </Text>
-        </View>
         <FlatList
           data={this.state.challenges}
           renderItem={(obj) => this.renderChallengeItem(obj)}

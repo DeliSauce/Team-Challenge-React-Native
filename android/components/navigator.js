@@ -30,12 +30,12 @@ export const MainNav = DrawerNavigator({
   'Home': {
     screen: ChallengeStack,
   },
-  'Add': {
+  'Add New Challenge': {
     screen: AddChallenges,
   },
 },
 {
-  drawerWidth: 150,
+  drawerWidth: 200,
   contentOptions: {
     activeTintColor: '#e91e63',
     activeBackgroundColor: 'blue',
