@@ -57,7 +57,7 @@ const RowComponent = ({row, numCols, boxSize}) => {
   );
 };
 
-export default class DataEntry extends Component {
+export default class ChallengeOverview extends Component {
   constructor(props) {
     super(props);
     this.data = this.props.navigation.state.params.challengeData;

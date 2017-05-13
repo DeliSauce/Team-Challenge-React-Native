@@ -4,16 +4,20 @@ import CurrentChallenges from './current_challenges';
 import AddChallenges from './add_challenges';
 // import Main from './main';
 // import TestTab from './test_tab';
-import Details from './details';
-import DataEntry from './data_entry';
-import ChallengeResults from './challenge_results';
+// import Details from './details';
+import ChallengeDataEntry from './challenge_data_entry';
+import ChallengeOverview from './challenge_overview';
+import ChallengeStandings from './challenge_standings';
 
 export const DetailsTabs = TabNavigator({
   'Enter Data': {
-    screen: DataEntry,
+    screen: ChallengeDataEntry,
   },
-  'Results': {
-    screen: ChallengeResults,
+  'Overview': {
+    screen: ChallengeOverview,
+  },
+  'Standings': {
+    screen: ChallengeStandings,
   }
 });
 

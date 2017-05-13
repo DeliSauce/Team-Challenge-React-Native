@@ -7,13 +7,13 @@ import {
 } from 'react-native';
 
 
-export default class ChallengeResults extends Component {
+export default class ChallengeStandings extends Component {
 
   render() {
     return (
       <View style={styles.container}>
         <Text>
-          Challenge Results
+          Challenge Standings
          </Text>
       </View>
     );
