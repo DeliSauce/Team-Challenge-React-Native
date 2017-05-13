@@ -23,39 +23,35 @@ import * as firebase from 'firebase';
 
 
 export const createChallenge = (challengeOptions) => {
-  console.log('firebase createChallenge action', challengeOptions);
-  const {name, adminID, users, categories, startDate, days} = challengeOptions;
-  let date = new Date(startDate);
-  let dates = [];
+  // console.log('firebase createChallenge action', challengeOptions);
+  const {name, adminID, users, selectedCategories, startDate, days} = challengeOptions;
 
-  let dateEntries = new Array(days).fill(false);
-  let entries = new Array(categories.length).fill(dateEntries);
+  let dateEntries = Array(parseInt(days)).fill(false);
+  let entries = Array(selectedCategories.length).fill(dateEntries);
 
   let userData = {};
   users.forEach((user) => {
     userData[user] = entries;
   });
 
-  for(let i = 0; i < days; i++) {
-    date.setDate(date.getDate() + 1);
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    dates.push(day + '-' + month + '-' + year);
-  }
+  // for(let i = 0; i < days; i++) {
+  //   date.setDate(date.getDate() + 1);
+  //   let day = date.getDate();
+  //   let month = date.getMonth() + 1;
+  //   let year = date.getFullYear();
+  //   dates.push(day + '-' + month + '-' + year);
+  // }
 
   const data = {
     name,
     adminID,
     startDate,
     days,
-    dates,
-    categories,
+    selectedCategories,
     userData
   };
 
   const newChallengeKey = firebase.database().ref().child('challenges').push().key;
-  console.log(newChallengeKey);
   let updates = {};
   updates['challenges/' + newChallengeKey] = data;
 

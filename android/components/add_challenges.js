@@ -31,10 +31,11 @@ export default class AddChallenges extends Component {
     this.defaultChallenge = {
       name: 'Health Challenge',
       startDate: '01-23-2017',
-      days: '30',
+      days: '10',
       adminID: this.userID,
       users: [this.userID, 'TEST'],
       categories: this.defaulCategories,
+      selectedCategories: ['catA', 'catB']
     };
 
     this.otherProperties = {
