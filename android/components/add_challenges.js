@@ -100,11 +100,14 @@ export default class AddChallenges extends Component {
     console.log('HIT RENDER CATEGORIES');
     return(
       <View
-        style={styles.default_style}
+        style={styles.catContainer}
         key={index}
         >
-        <Text style={{fontSize: 20}}> {item.name} </Text>
+        <Text style={styles.catText}>
+          {item.name}
+        </Text>
         <Switch
+          style={styles.toggle}
           value={this.state.categoryOptions[index].status}
           onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
           />
@@ -135,7 +138,7 @@ export default class AddChallenges extends Component {
           visible={this.state.usersModalVisible}
           onRequestClose={() => this.closeModal()}
           >
-          <Text style={styles.header_text}>
+          <Text style={styles.headerText}>
             Search for Users
           </Text>
           <TextInput
@@ -147,7 +150,7 @@ export default class AddChallenges extends Component {
               this.handleUserSearchInput(userSearch);}
             }
             />
-          <View style={styles.search_container}>
+          <View style={styles.searchContainer}>
             <FlatList
               data={this.state.userSearchResults}
               renderItem={userObj => this.renderUserSearch(userObj)}
@@ -166,7 +169,7 @@ export default class AddChallenges extends Component {
           visible={this.state.categoriesModalVisible}
           onRequestClose={() => this.closeModal()}
           >
-          <Text style={styles.header_text}>
+          <Text style={styles.headerText}>
             Choose Categories for Your Challenge
           </Text>
 
@@ -194,7 +197,7 @@ export default class AddChallenges extends Component {
           <Text> Add Challenge </Text>
         </TouchableOpacity>
 
-        <View style={styles.input_container}>
+        <View style={styles.inputContainer}>
           <Text> Challenge Name </Text>
           <TextInput
             placeholder={"Challenge Name"}
@@ -204,7 +207,7 @@ export default class AddChallenges extends Component {
             />
         </View>
 
-        <View style={styles.input_container}>
+        <View style={styles.inputContainer}>
           <Text> Start Date </Text>
           <TextInput
             placeholder={"Start Date"}
@@ -232,7 +235,7 @@ export default class AddChallenges extends Component {
           </View>
         </View>
 
-        <View style={styles.input_container}>
+        <View style={styles.inputContainer}>
           <Text> Categories </Text>
           <Button
             text='Add Categories'
@@ -241,7 +244,7 @@ export default class AddChallenges extends Component {
           </Button>
         </View>
 
-        <View style={styles.input_container}>
+        <View style={styles.inputContainer}>
           <Text> Competitors </Text>
           <Button
             text='Add Users'
@@ -261,7 +264,7 @@ export default class AddChallenges extends Component {
 
 
 const styles = StyleSheet.create({
-  header_text: {
+  headerText: {
     fontSize: 20,
     textAlign: 'center',
   },
@@ -294,7 +297,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 10,
   },
-  input_container: {
+  inputContainer: {
     height: 50,
     width: 400,
     flexDirection: 'row',
@@ -317,33 +320,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'pink',
   },
-  search_container: {
+  searchContainer: {
     // flex: 1,
     height: 300,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'pink',
   },
-  default_style: {
-    textAlign: 'center',
+
+  catContainer: {
+    height: 80,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     margin: 10,
-    backgroundColor: 'grey',
+    backgroundColor: 'lightgrey',
     borderColor: 'skyblue',
     borderWidth: 1
   },
-  welcome: {
+  catText: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    marginLeft: 15,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  toggle: {
+    marginRight: 15,
   },
-  errors: {
-    textAlign: 'center',
-    alignSelf: "stretch",
-    color: 'red',
-  }
 });

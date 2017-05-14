@@ -28,7 +28,7 @@ export default class ChallengeDataEntry extends Component {
     console.log("day of cycle", this.dayOfCycle);
   }
 
-  //TODO need to actually get this method working
+  //TODO need to make sure to actually get challengeKey & userID
   handleCatSwitch(catObj, idx, bool) {
     this.setState((previousState) => {
       previousState.adminUserData[idx][this.dayOfCycle] = bool;
@@ -38,17 +38,18 @@ export default class ChallengeDataEntry extends Component {
     actions.changeChallengeData({challengKeyUPDATE: '-Kk3DLbPNg_BnAyWyisY', userIDUPDATE: 'ky1CIuRwJsg3CdwRFbnMyRex50p2', dayIdx: this.dayOfCycle, catIdx: idx, boolVal: bool});
   }
 
-  // value={this.state.userData[index][3]}
-  //TODO need to actually get this method working
   renderCategories({item, index}) {
     console.log('HIT RENDER CATEGORIES');
     return(
       <View
-        style={styles.default}
+        style={styles.category_container}
         key={index}
         >
-        <Text style={{fontSize: 20}}> {item} </Text>
+        <Text style={styles.category_text}>
+          {item}
+        </Text>
         <Switch
+          style={styles.toggle}
           value={this.state.adminUserData[index][this.dayOfCycle]}
           onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
           />
@@ -69,17 +70,14 @@ export default class ChallengeDataEntry extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={{fontSize:30}}>Today: {this.today.format('ddd, MMMM Do YYYY')}</Text>
+        <Text style={{fontSize:30}}>
+          Today: {this.today.format('ddd, MMMM Do YYYY')}
+        </Text>
         <FlatList
         data={this.categories}
         extraData={this.state}
-        renderItem={catObj => this.renderCategories(catObj)}
-        >
+        renderItem={catObj => this.renderCategories(catObj)}>
         </FlatList>
-
-        <Text>
-          Challenge Data Entry
-         </Text>
       </View>
     );
   }
@@ -87,33 +85,28 @@ export default class ChallengeDataEntry extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
+
+  category_container: {
+    height: 80,
+    width: 350,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  errors: {
-    textAlign: 'center',
-    alignSelf: "stretch",
-    color: 'red',
-  },
-  default: {
-    width: 300,
-    textAlign: 'center',
-    alignSelf: "stretch",
-    margin: 10,
-    backgroundColor: 'grey',
+    backgroundColor: 'lightgrey',
     borderColor: 'skyblue',
     borderWidth: 1
-  }
+  },
+  category_text: {
+    fontSize: 20,
+    marginLeft: 15,
+  },
+  toggle: {
+    marginRight: 15,
+  },
 });
