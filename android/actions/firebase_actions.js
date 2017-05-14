@@ -21,6 +21,15 @@ import * as firebase from 'firebase';
 //   });
 // };
 
+export const changeChallengeData = (changeOptions) => {
+  console.log("hit change challenge data: ", changeOptions);
+  const {challengKeyUPDATE, userIDUPDATE, dayIdx, catIdx, boolVal} = changeOptions;
+
+  const updates = {};
+  updates['challenges/' + challengKeyUPDATE +'/userData/' + userIDUPDATE + '/' + dayIdx + '/' + catIdx] = boolVal;
+
+  firebase.database().ref().update(updates);
+};
 
 export const createChallenge = (challengeOptions) => {
   // console.log('firebase createChallenge action', challengeOptions);

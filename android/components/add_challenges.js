@@ -325,7 +325,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink',
   },
   default_style: {
-    fontSize: 20,
     textAlign: 'center',
     margin: 10,
     backgroundColor: 'grey',

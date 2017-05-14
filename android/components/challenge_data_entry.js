@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 import React, {Component} from 'react';
 import moment from 'moment';
+import * as actions from '../actions/firebase_actions';
 import {
   View,
   Text,
@@ -17,23 +18,27 @@ export default class ChallengeDataEntry extends Component {
     this.categories = this.data.categories;
     this.today = moment();
     this.begDate = moment(this.data.startDate);
-    this.endDate = moment(this.data.startDate).add(this.data.days, 'days');
+    this.endDate = moment(this.data.startDate).add(parseInt(this.data.days), 'days');
+    this.dayOfCycle = this.today.diff(this.begDate, 'days');
     // this.days = this.data.days;
     // this.cats = this.data.categories.length;
     this.state = {
-
+      adminUserData: this.data.userData[this.data.adminID]
     };
-    console.log(this.today, this.data.startDate, this.begDate, this.endDate);
+    console.log("day of cycle", this.dayOfCycle);
   }
 
   //TODO need to actually get this method working
   handleCatSwitch(catObj, idx, bool) {
     this.setState((previousState) => {
-      previousState.categoryOptions[idx].status = bool;
+      previousState.adminUserData[idx][this.dayOfCycle] = bool;
       return previousState;
     });
+
+    actions.changeChallengeData({challengKeyUPDATE: '-Kk3DLbPNg_BnAyWyisY', userIDUPDATE: 'ky1CIuRwJsg3CdwRFbnMyRex50p2', dayIdx: this.dayOfCycle, catIdx: idx, boolVal: bool});
   }
 
+  // value={this.state.userData[index][3]}
   //TODO need to actually get this method working
   renderCategories({item, index}) {
     console.log('HIT RENDER CATEGORIES');
@@ -44,7 +49,7 @@ export default class ChallengeDataEntry extends Component {
         >
         <Text style={{fontSize: 20}}> {item} </Text>
         <Switch
-          value={false}
+          value={this.state.adminUserData[index][this.dayOfCycle]}
           onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
           />
       </View>
@@ -104,7 +109,6 @@ const styles = StyleSheet.create({
   },
   default: {
     width: 300,
-    fontSize: 20,
     textAlign: 'center',
     alignSelf: "stretch",
     margin: 10,
