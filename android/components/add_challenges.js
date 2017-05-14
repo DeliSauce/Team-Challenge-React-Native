@@ -82,7 +82,6 @@ export default class AddChallenges extends Component {
     return(
       <TouchableOpacity
         style={styles.user_search_result}
-        key={index}
         >
         <Text style={{fontSize: 20}}> {item.email + item.id} </Text>
       </TouchableOpacity>
@@ -101,7 +100,6 @@ export default class AddChallenges extends Component {
     return(
       <View
         style={styles.catContainer}
-        key={index}
         >
         <Text style={styles.catText}>
           {item.name}
@@ -152,6 +150,7 @@ export default class AddChallenges extends Component {
             />
           <View style={styles.searchContainer}>
             <FlatList
+              keyExtractor={(item, index) => item.email}
               data={this.state.userSearchResults}
               renderItem={userObj => this.renderUserSearch(userObj)}
               >
@@ -180,6 +179,7 @@ export default class AddChallenges extends Component {
             onChangeText={(newCat) => {}}
             />
           <FlatList
+            keyExtractor={(item, index) => item.name}
             data={this.state.categoryOptions}
             extraData={this.state}
             renderItem={(catObj) => this.renderCategories(catObj)}

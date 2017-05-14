@@ -33,7 +33,6 @@ const HeaderComponent = ({categories, boxSize}) => {
 };
 
 const RowComponent = ({row, numCols, rowData, boxSize}) => {
-  console.log("print rowdata", row, rowData);
   const thisRow = [];
   let day = row + 1;
   let fillColor = '';
@@ -68,16 +67,14 @@ export default class ChallengeOverview extends Component {
     this.boxSize = 60;
     this.cats = this.data.categories.length;
     this.userData = this.data.userData[this.data.adminID];
-    // console.log(this.userData);
     this.state = {};
   }
 
   renderBoardViaComponent(numRows, numCols){
-    console.log('dataset: ', this.data);
     const board = [];
     for(let i = 0; i < numRows; i++) {
       board.push(
-        <RowComponent row={i} numCols={numCols} rowData={this.userData[i]} boxSize={this.boxSize}/>
+        <RowComponent key={i} row={i} numCols={numCols} rowData={this.userData[i]} boxSize={this.boxSize}/>
       );
     }
     return (board);

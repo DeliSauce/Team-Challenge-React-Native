@@ -83,7 +83,6 @@ export default class CurrentChallenges extends Component {
 
     return (
       <TouchableOpacity
-        key={item.id}
         onPress={() => navigate('Details', {challengeData: item.challenge})}
         style={{flexDirection: 'row', justifyContent: 'space-between', height: 100, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
 
@@ -106,6 +105,7 @@ export default class CurrentChallenges extends Component {
     return (
       <View>
         <FlatList
+          keyExtractor={(item, index) => item.id}
           data={this.state.challenges}
           renderItem={(obj) => this.renderChallengeItem(obj)}
         />

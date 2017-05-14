@@ -43,7 +43,6 @@ export default class ChallengeDataEntry extends Component {
     return(
       <View
         style={styles.category_container}
-        key={index}
         >
         <Text style={styles.category_text}>
           {item}
@@ -74,9 +73,10 @@ export default class ChallengeDataEntry extends Component {
           Today: {this.today.format('ddd, MMMM Do YYYY')}
         </Text>
         <FlatList
-        data={this.categories}
-        extraData={this.state}
-        renderItem={catObj => this.renderCategories(catObj)}>
+          keyExtractor={(item, index) => item}
+          data={this.categories}
+          extraData={this.state}
+          renderItem={catObj => this.renderCategories(catObj)}>
         </FlatList>
       </View>
     );
