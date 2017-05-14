@@ -30,7 +30,7 @@ export default class AddChallenges extends Component {
 
     this.defaultChallenge = {
       name: 'TEST Challenge',
-      startDate: '05-10-2017',
+      startDate: '2017-05-10',
       days: '10',
       adminID: this.userID,
       users: [this.userID, 'TEST'],

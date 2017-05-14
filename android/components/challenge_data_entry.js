@@ -2,14 +2,16 @@ import * as firebase from 'firebase';
 import React, {Component} from 'react';
 import moment from 'moment';
 import * as actions from '../actions/firebase_actions';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
+  TouchableOpacity,
   Switch
 } from 'react-native';
-
 
 export default class ChallengeDataEntry extends Component {
   constructor(props) {
@@ -27,6 +29,26 @@ export default class ChallengeDataEntry extends Component {
     };
     console.log("day of cycle", this.dayOfCycle);
   }
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      headerLeft:(
+        <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{marginLeft: 10}}
+            onPress={() => navigation.navigate('DrawerOpen')}>
+            <Icon name="menu" size={40} color="#900" />
+          </TouchableOpacity>
+          <Text style={{marginLeft: 40, fontSize: 25}}>
+            INSERT NAME
+          </Text>
+          <View>
+
+          </View>
+        </View>
+      ),
+    };
+  };
 
   //TODO need to make sure to actually get challengeKey & userID
   handleCatSwitch(catObj, idx, bool) {
