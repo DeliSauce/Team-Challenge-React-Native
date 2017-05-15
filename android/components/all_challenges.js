@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 
-export default class CurrentChallenges extends Component {
+export default class AllChallenges extends Component {
   constructor(props) {
     super(props);
     this.userID = firebase.auth().currentUser.uid;

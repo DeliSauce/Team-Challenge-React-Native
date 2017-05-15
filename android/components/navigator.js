@@ -1,9 +1,9 @@
 import {Component} from 'react';
 import {TabNavigator, StackNavigator, DrawerNavigator} from 'react-navigation';
-import CurrentChallenges from './current_challenges';
+import AllChallenges from './all_challenges';
 import AddChallenges from './add_challenges';
 // import Main from './main';
-// import TestTab from './test_tab';
+import TestTab from './test_tab';
 // import Details from './details';
 import ChallengeDataEntry from './challenge_data_entry';
 import ChallengeOverview from './challenge_overview';
@@ -21,21 +21,31 @@ export const DetailsTabs = TabNavigator({
   }
 });
 
-export const ChallengeStack = StackNavigator({
+export const ChallengesStack = StackNavigator({
   Challenges: {
-    screen: CurrentChallenges,
+    screen: AllChallenges,
   },
   Details: {
     screen: DetailsTabs,
   }
 });
 
+export const AddChallengeStack = StackNavigator({
+  'Add Challenge': {
+    screen: AddChallenges,
+  },
+  'Dummy Card': {
+    screen: TestTab,
+  },
+
+});
+
 export const MainNav = DrawerNavigator({
   'My Challenges': {
-    screen: ChallengeStack,
+    screen: ChallengesStack,
   },
   'Add New Challenge': {
-    screen: AddChallenges,
+    screen: AddChallengeStack,
   },
 },
 {
@@ -46,7 +56,7 @@ export const MainNav = DrawerNavigator({
     inactiveTintColor: 'black',
     inactiveBackgroundColor: 'white',
     style: {
-      marginVertical: 0,
+      marginVertical: 10,
     }
   },
   drawerPosition: 'left',

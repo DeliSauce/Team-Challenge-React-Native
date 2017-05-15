@@ -2,6 +2,7 @@ import * as firebase from 'firebase';
 import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 import merge from 'lodash/merge';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   CheckboxGroup,
@@ -50,9 +51,27 @@ export default class AddChallenges extends Component {
     this.state = merge({}, this.defaultChallenge, this.otherProperties);
   }
 
-  //TODO add userIDs for users other than admin
+  static navigationOptions = ({navigation}) => {
+    return {
+      headerLeft:(
+        <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{marginLeft: 10}}
+            onPress={() => navigation.navigate('DrawerOpen')}>
+            <Icon name="menu" size={40} color="#900" />
+          </TouchableOpacity>
+          <Text style={{marginLeft: 40, fontSize: 25}}>
+            Add New Challenge
+          </Text>
+          <View>
+
+          </View>
+        </View>
+      ),
+    };
+  };
+
   createChallenge() {
-    // console.log('creaete chall', this.state, this.defaultChallenge, this.userID);
     actions.createChallenge(this.state);
   }
 
@@ -136,8 +155,6 @@ export default class AddChallenges extends Component {
     console.log('HIT RENDER');
     return (
       <View style={styles.container}>
-        <Button text={'drawer'} onPress={() => this.props.navigation.navigate('DrawerOpen')}></Button>
-
         <Modal
           animationType={"slide"}
           transparent={false}
@@ -324,7 +341,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   container: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'pink',
