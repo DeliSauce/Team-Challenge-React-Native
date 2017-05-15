@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import {Button} from 'react-native-material-design';
+import { COLOR, Button } from 'react-native-material-ui';
 
 import {
-  Button,
   Image,
   TouchableOpacity,
   TouchableHighlight,
@@ -90,9 +90,8 @@ export default class AllChallenges extends Component {
             challengeKey: item.challengeKey,
             userID: this.userID
           })
-
         }}
-        style={{flexDirection: 'row', justifyContent: 'space-between', height: 100, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
+        style={styles.list_item}>
 
         <View>
           <Text> Challenge Name: {item.challenge.name} </Text>
@@ -110,19 +109,62 @@ export default class AllChallenges extends Component {
   }
 
   render() {
+
+
     return (
-      <View>
+      <View style={styles.container}>
         <FlatList
+          contentContainerStyle={styles.list}
           keyExtractor={(item, index) => item.challengeKey}
           data={this.state.challenges}
           renderItem={(obj) => this.renderChallengeItem(obj)}
         />
+        <View style={styles.add_container}>
+          <TouchableOpacity
+            style={{ marginTop: 20, marginRight: 30}}
+            onPress={() => {this.props.navigation.navigate('Add Challenge')}}>
+            <Icon name="add-circle" size={70} color="green" />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: 'skyblue',
+  },
+  list: {
+    flexDirection: "column",
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: 'blue',
+  },
+  list_item: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 100,
+    borderColor: '#841584',
+    borderWidth: 1,
+    alignSelf: "stretch",
+    // flex: 1,
+    backgroundColor: 'gray',
 
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  add_container: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+
+    alignItems: 'center',
+    // backgroundColor: 'lightblue',
+  }
 
 });

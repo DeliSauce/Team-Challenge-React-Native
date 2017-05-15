@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import Main from './android/components/main';
 import {MainNav} from './android/components/navigator';
 import firebaseConfig from './env';
+import {ThemeProvider, COLOR} from 'react-native-material-ui';
 
 import {
   AppRegistry,
@@ -142,13 +143,28 @@ export default class TeamChallenge extends Component {
     // });
 
   renderMain(){
-    console.log("render main", this.state.authStatus);
-    return (
-      <MainNav
-        drawerWidth={100}
-        drawerPosition={'right'}
 
+    const uiTheme = {
+      palette: {
+        primaryColor: COLOR.green500,
+      },
+      toolbar: {
+        container: {
+          height: 50,
+        },
+      },
+      button: {}
+    };
+
+    console.log("render main", this.state.authStatus);
+
+    return (
+      <ThemeProvider uiTheme={uiTheme}>
+        <MainNav
+          drawerWidth={100}
+          drawerPosition={'right'}
         />
+      </ThemeProvider>
     );
   }
 
