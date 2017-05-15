@@ -33,7 +33,7 @@ export default class AddChallenges extends Component {
       startDate: '2017-05-10',
       days: '10',
       adminID: this.userID,
-      users: [this.userID, 'lbFIDiTGd7hthbKGbltoLj1uRCJ2'],
+      users: [this.userID],
       categoryOptions: this.defaultCategories,
       categories: ['catA', 'catB', 'catC']
     };
@@ -78,12 +78,20 @@ export default class AddChallenges extends Component {
     });
   }
 
+  handleSelectUser(userID) {
+    console.log('handleSelectUser', userID);
+    //use the concat method so as not to mutate this.state
+    let users = this.state.users.concat(userID);
+    this.setState({users, userSearch: ''});
+  }
+
   renderUserSearch({item, index}) {
     return(
       <TouchableOpacity
         style={styles.user_search_result}
+        onPress={() => this.handleSelectUser(item.id)}
         >
-        <Text style={{fontSize: 20}}> {item.email + item.id} </Text>
+        <Text style={{fontSize: 20}}> {item.email + ' -- ' + item.id} </Text>
       </TouchableOpacity>
     );
   }
@@ -246,6 +254,7 @@ export default class AddChallenges extends Component {
 
         <View style={styles.inputContainer}>
           <Text> Competitors </Text>
+          <View>{this.state.users.map((userid) => <Text> {userid} </Text>)}</View>
           <Button
             text='Add Users'
             raised={true}
