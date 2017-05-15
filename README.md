@@ -80,9 +80,13 @@ https://firebase.google.com/docs/database/web/structure-data
 
 
 Modules
-- some packages require further instructions (see below)
+- some packages include further instructions (see below) but many of these are
+deprecated with the "react-native link" CLI command
 
-- react-native-material-design
+- react-native-material-ui
+https://www.npmjs.com/package/react-native-material-ui
+
+- react-native-material-design (may end up not using this - does not seem well supported/tested)
 https://github.com/react-native-material-design/react-native-material-design#installation
 
 
