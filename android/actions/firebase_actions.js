@@ -32,39 +32,34 @@ export const changeChallengeData = (changeOptions) => {
 };
 
 export const createChallenge = (challengeOptions) => {
-  // console.log('firebase createChallenge action', challengeOptions);
-  const {name, adminID, users, categories, startDate, days} = challengeOptions;
 
+  const {name, adminID, users, categories, startDate, days} = challengeOptions;
   let catEntries = Array(categories.length).fill(false);
-  let entries = Array(parseInt(days)).fill(catEntries);
+  let emptyEntriesMatrix = Array(parseInt(days)).fill(catEntries);
 
   let userData = {};
-  users.forEach((user) => {
-    userData[user] = entries;
-  });
+  users.forEach((userID) => {userData[userID] = emptyEntriesMatrix;});
 
-  // for(let i = 0; i < days; i++) {
-  //   date.setDate(date.getDate() + 1);
-  //   let day = date.getDate();
-  //   let month = date.getMonth() + 1;
-  //   let year = date.getFullYear();
-  //   dates.push(day + '-' + month + '-' + year);
-  // }
-
-  const data = {
+  let firebaseUpdates = {};
+  const challengeUpdates = {
     name,
     adminID,
     startDate,
     days,
     categories,
-    userData
+    userData,
+  };
+  const userUpdates = {
+    name,
+    adminID,
+    startDate,
+    days,
   };
 
   const newChallengeKey = firebase.database().ref().child('challenges').push().key;
-  let updates = {};
-  updates['challenges/' + newChallengeKey] = data;
-
-  //TODO need to update this for all users, not just admin
-  updates['users/' + adminID + '/challenges/' + newChallengeKey] = true;
-  return firebase.database().ref().update(updates);
+  firebaseUpdates['challenges/' + newChallengeKey] = challengeUpdates;
+  users.forEach((userID) => {
+    firebaseUpdates['users/' + userID + '/challenges/' + newChallengeKey] = userUpdates;
+  });
+  firebase.database().ref().update(firebaseUpdates);
 };

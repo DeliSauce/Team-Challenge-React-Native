@@ -25,16 +25,16 @@ export default class AddChallenges extends Component {
   constructor(props) {
     super(props);
     this.userID = firebase.auth().currentUser.uid;
-    // this.defaulCategories = [{'pushups': false}, {'walk': true}];
-    this.defaulCategories = [{name: 'pushups', status: false}, {name: 'run', status: false}, {name: 'walk', status: true}];
+    // this.defaultCategories = [{'pushups': false}, {'walk': true}];
+    this.defaultCategories = [{name: 'pushups', status: false}, {name: 'run', status: false}, {name: 'walk', status: true}];
 
     this.defaultChallenge = {
       name: 'TEST Challenge',
       startDate: '2017-05-10',
       days: '10',
       adminID: this.userID,
-      users: [this.userID, 'TEST'],
-      categoryOptions: this.defaulCategories,
+      users: [this.userID, 'lbFIDiTGd7hthbKGbltoLj1uRCJ2'],
+      categoryOptions: this.defaultCategories,
       categories: ['catA', 'catB', 'catC']
     };
 
