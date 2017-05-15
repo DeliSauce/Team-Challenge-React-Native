@@ -23,10 +23,10 @@ import * as firebase from 'firebase';
 
 export const changeChallengeData = (changeOptions) => {
   console.log("hit change challenge data: ", changeOptions);
-  const {challengKeyUPDATE, userIDUPDATE, dayIdx, catIdx, boolVal} = changeOptions;
+  const {challengKey, userID, dayIdx, catIdx, boolVal} = changeOptions;
 
   const updates = {};
-  updates['challenges/' + challengKeyUPDATE +'/userData/' + userIDUPDATE + '/' + dayIdx + '/' + catIdx] = boolVal;
+  updates['challenges/' + challengKey +'/userData/' + userID + '/' + dayIdx + '/' + catIdx] = boolVal;
 
   firebase.database().ref().update(updates);
 };

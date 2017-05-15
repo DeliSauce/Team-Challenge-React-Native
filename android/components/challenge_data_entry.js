@@ -17,6 +17,8 @@ export default class ChallengeDataEntry extends Component {
   constructor(props) {
     super(props);
     this.data = this.props.navigation.state.params.challengeData;
+    this.userID = this.props.navigation.state.params.userID;
+    this.challengeKey = this.props.navigation.state.params.challengeKey;
     this.categories = this.data.categories;
     this.today = moment();
     this.begDate = moment(this.data.startDate);
@@ -50,14 +52,18 @@ export default class ChallengeDataEntry extends Component {
     };
   };
 
-  //TODO need to make sure to actually get challengeKey & userID
   handleCatSwitch(catObj, idx, bool) {
     this.setState((previousState) => {
       previousState.adminUserData[idx][this.dayOfCycle] = bool;
       return previousState;
     });
 
-    actions.changeChallengeData({challengKeyUPDATE: '-Kk3DLbPNg_BnAyWyisY', userIDUPDATE: 'ky1CIuRwJsg3CdwRFbnMyRex50p2', dayIdx: this.dayOfCycle, catIdx: idx, boolVal: bool});
+    actions.changeChallengeData({
+      challengKey: this.challengeKey,
+      userID: this.userID,
+      dayIdx: this.dayOfCycle,
+      catIdx: idx,
+      boolVal: bool});
   }
 
   renderCategories({item, index}) {

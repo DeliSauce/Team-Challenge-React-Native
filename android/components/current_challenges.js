@@ -20,6 +20,7 @@ import {
 export default class CurrentChallenges extends Component {
   constructor(props) {
     super(props);
+    this.userID = firebase.auth().currentUser.uid;
     this.state = {};
   }
 
@@ -56,8 +57,7 @@ export default class CurrentChallenges extends Component {
 
   listenForItems() {
     const challenges = [];
-    const userID = firebase.auth().currentUser.uid;
-    const myChallengesRef = firebase.database().ref('users/' + userID + '/challenges');
+    const myChallengesRef = firebase.database().ref('users/' + this.userID + '/challenges');
     const challengesRef = firebase.database().ref('challenges');
 
     // challengesRef.on('child_added', (snap) => console.log("chall child added", snap.val()));
@@ -67,8 +67,8 @@ export default class CurrentChallenges extends Component {
       // console.log("chall child added", snap.key);
       const challengeRef = firebase.database().ref('challenges/' + snap.key);
       challengeRef.once('value', (snapshot) => {
-        console.log('hit a new challenge ref');
-        challenges.push({id: snapshot.key, challenge: snapshot.val()});
+        console.log('hit a new challenge ref, snap=', snap.key, 'snapshot=', snapshot.key);
+        challenges.push({challengeKey: snapshot.key, challenge: snapshot.val()});
         this.setState({challenges});
       });
     });
@@ -83,7 +83,15 @@ export default class CurrentChallenges extends Component {
 
     return (
       <TouchableOpacity
-        onPress={() => navigate('Details', {challengeData: item.challenge})}
+        onPress={() => {
+          console.log('Challenge item touched. Data being passing to view: ', item.challenge);
+          navigate('Details', {
+            challengeData: item.challenge,
+            challengeKey: item.challengeKey,
+            userID: this.userID
+          })
+
+        }}
         style={{flexDirection: 'row', justifyContent: 'space-between', height: 100, borderColor: '#841584', borderWidth: 1, alignSelf: "stretch"}}>
 
         <View>
@@ -105,7 +113,7 @@ export default class CurrentChallenges extends Component {
     return (
       <View>
         <FlatList
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => item.challengeKey}
           data={this.state.challenges}
           renderItem={(obj) => this.renderChallengeItem(obj)}
         />
