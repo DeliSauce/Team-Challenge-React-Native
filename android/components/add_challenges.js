@@ -58,8 +58,12 @@ export default class AddChallenges extends Component {
   }
 
   static navigationOptions = ({navigation}) => {
-
+    //it appears that you can set the icon size about 5 pixels greater than fontSize
     return {
+      drawerLabel: 'Create Challenge',
+      drawerIcon: ({tintColor}) => (
+        <Icon name="playlist-add" size={25} color={tintColor} />
+      ),
       header: (
         <Toolbar
           leftElement="menu"

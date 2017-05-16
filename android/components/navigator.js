@@ -44,19 +44,26 @@ export const MainNav = DrawerNavigator({
   'My Challenges': {
     screen: ChallengesStack,
   },
-  'Add New Challenge': {
+  'Create New Challenge': {
     screen: AddChallengeStack,
   },
 },
 {
-  drawerWidth: 200,
+  drawerWidth: 300,
   contentOptions: {
-    activeTintColor: '#e91e63',
-    activeBackgroundColor: 'blue',
+    activeTintColor: 'red',
     inactiveTintColor: 'black',
+
+    activeBackgroundColor: 'white',
     inactiveBackgroundColor: 'white',
+
     style: {
+      backgroundColor: 'white',
+      flex: 1,
+    },
+    labelStyle: {
       marginVertical: 10,
+      fontSize: 20,
     }
   },
   drawerPosition: 'left',
