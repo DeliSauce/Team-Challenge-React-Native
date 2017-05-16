@@ -109,18 +109,19 @@ export default class ChallengeDataEntry extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
 
   category_container: {
     height: 80,
-    width: 350,
+    // width: 350,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 10,
+    alignSelf: "stretch",
+    // margin: 10,
     backgroundColor: 'lightgrey',
     borderColor: 'skyblue',
     borderWidth: 1

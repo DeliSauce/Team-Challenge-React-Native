@@ -112,7 +112,7 @@ export default class AllChallenges extends Component {
 
 
     return (
-      <View style={styles.container}>
+      <View style={styles.container2}>
         <FlatList
           contentContainerStyle={styles.list}
           keyExtractor={(item, index) => item.challengeKey}
@@ -136,7 +136,13 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
-    backgroundColor: 'skyblue',
+    backgroundColor: '#F5FCFF',
+  },
+  container2: {
+    flex: 1,
+    justifyContent: 'space-between',
+    // alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
   list: {
     flexDirection: "column",

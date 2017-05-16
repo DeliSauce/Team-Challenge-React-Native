@@ -154,37 +154,40 @@ export default class AddChallenges extends Component {
   render() {
     console.log('HIT RENDER');
     return (
-      <View style={styles.container}>
+      <View
+        style={styles.container}>
         <Modal
           animationType={"slide"}
           transparent={false}
           visible={this.state.usersModalVisible}
           onRequestClose={() => this.closeModal()}
           >
-          <Text style={styles.headerText}>
-            Search for Users
-          </Text>
-          <TextInput
-            placeholder={"Enter User Email (or Name?)"}
-            style={styles.input2}
-            value={this.state.userSearch}
-            onChangeText={(userSearch) => {
-              this.setState({userSearch, userSearchResults: []});
-              this.handleUserSearchInput(userSearch);}
-            }
-            />
-          <View style={styles.searchContainer}>
-            <FlatList
-              keyExtractor={(item, index) => item.email}
-              data={this.state.userSearchResults}
-              renderItem={userObj => this.renderUserSearch(userObj)}
-              >
-            </FlatList>
+          <View style={styles.container}>
+            <Text style={styles.headerText}>
+              Search for Users
+            </Text>
+            <TextInput
+              placeholder={"Enter User Email (or Name?)"}
+              style={styles.input2}
+              value={this.state.userSearch}
+              onChangeText={(userSearch) => {
+                this.setState({userSearch, userSearchResults: []});
+                this.handleUserSearchInput(userSearch);}
+              }
+              />
+            <View style={styles.searchContainer}>
+              <FlatList
+                keyExtractor={(item, index) => item.email}
+                data={this.state.userSearchResults}
+                renderItem={userObj => this.renderUserSearch(userObj)}
+                >
+              </FlatList>
+            </View>
+            <Button
+              text={'Add User'}
+              onPress={() => {}}>
+            </Button>
           </View>
-          <Button
-            text={'Add User'}
-            onPress={() => {}}>
-          </Button>
         </Modal>
 
         <Modal
@@ -193,27 +196,29 @@ export default class AddChallenges extends Component {
           visible={this.state.categoriesModalVisible}
           onRequestClose={() => this.closeModal()}
           >
-          <Text style={styles.headerText}>
-            Choose Categories for Your Challenge
-          </Text>
+          <View style={styles.container}>
+            <Text style={styles.headerText}>
+              Choose Categories for Your Challenge
+            </Text>
 
-          <TextInput
-            placeholder={"Enter a New Category (not currently working)"}
-            style={styles.input2}
-            value={this.state.newCat}
-            onChangeText={(newCat) => {}}
-            />
-          <FlatList
-            keyExtractor={(item, index) => item.name}
-            data={this.state.categoryOptions}
-            extraData={this.state}
-            renderItem={(catObj) => this.renderCategories(catObj)}
-            >
-          </FlatList>
-          <Button
-            text={'Add Categories'}
-            onPress={() => {}}>
-          </Button>
+            <TextInput
+              placeholder={"Enter a New Category (not currently working)"}
+              style={styles.input2}
+              value={this.state.newCat}
+              onChangeText={(newCat) => {}}
+              />
+            <FlatList
+              keyExtractor={(item, index) => item.name}
+              data={this.state.categoryOptions}
+              extraData={this.state}
+              renderItem={(catObj) => this.renderCategories(catObj)}
+              >
+            </FlatList>
+            <Button
+              text={'Add Categories'}
+              onPress={() => {}}>
+            </Button>
+          </View>
         </Modal>
 
         <TouchableOpacity
@@ -341,10 +346,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   container: {
-    // flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'pink',
+    flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: '#F5FCFF',
   },
   searchContainer: {
     // flex: 1,
