@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import {Button} from 'react-native-material-design';
-import { COLOR, Button, Toolbar} from 'react-native-material-ui';
+import { COLOR, Button, Toolbar, Card} from 'react-native-material-ui';
 
 import {
   Image,
@@ -100,29 +100,28 @@ export default class AllChallenges extends Component {
     const {navigate} = this.props.navigation;
 
     return (
-      <TouchableOpacity
-        onPress={() => {
-          console.log('Challenge item touched. Data being passing to view: ', item.challenge);
-          navigate('Details', {
-            challengeData: item.challenge,
-            challengeKey: item.challengeKey,
-            userID: this.userID
-          })
-        }}
-        style={styles.list_item}>
+        <Card
+          onPress={() => {
+            console.log('Challenge item touched. Data being passing to view: ', item.challenge);
+            navigate('Details', {
+              challengeData: item.challenge,
+              challengeKey: item.challengeKey,
+              userID: this.userID
+            })
+          }}>
+          <View style={styles.list_item}>
+            <View style={styles.list_item_details}>
+              <Text> Challenge Name: {item.challenge.name} </Text>
+              <Text> Categories: {item.challenge.categories.join(", ")} </Text>
+              <Text> Start Date: {item.challenge.startDate} </Text>
+              <Text> Total Days: {item.challenge.days} </Text>
+            </View>
 
-        <View>
-          <Text> Challenge Name: {item.challenge.name} </Text>
-          <Text> Categories: {item.challenge.categories.join(", ")} </Text>
-          <Text> Start Date: {item.challenge.startDate} </Text>
-          <Text> Total Days: {item.challenge.days} </Text>
-        </View>
-
-        <View style={{flexDirection: 'column', justifyContent:'center'}}>
-          <Icon name="chevron-right" size={30} color="#900" />
-        </View>
-
-      </TouchableOpacity>
+            <View style={{flexDirection: 'column', justifyContent:'center'}}>
+              <Icon name="chevron-right" size={30} color="#900" />
+            </View>
+          </View>
+      </Card>
     );
   }
 
@@ -162,22 +161,31 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+
   list: {
     flexDirection: "column",
     // flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
-    backgroundColor: 'blue',
   },
   list_item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 100,
-    borderColor: '#841584',
-    borderWidth: 1,
     alignSelf: "stretch",
     // flex: 1,
-    backgroundColor: 'gray',
+    // backgroundColor: 'gray',
+
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  list_item_details: {
+    flexDirection: 'column',
+    // justifyContent: 'space-between',
+    // height: 100,
+    alignSelf: "stretch",
+    // flex: 1,
+    // backgroundColor: 'gray',
 
     // justifyContent: 'center',
     // alignItems: 'center',
