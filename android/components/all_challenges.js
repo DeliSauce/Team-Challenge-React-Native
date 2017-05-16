@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import {Button} from 'react-native-material-design';
-import { COLOR, Button } from 'react-native-material-ui';
+import { COLOR, Button, Toolbar} from 'react-native-material-ui';
 
 import {
   Image,
@@ -25,23 +25,37 @@ export default class AllChallenges extends Component {
   }
 
   static navigationOptions = ({navigation}) => {
-    return {
-      headerLeft:(
-        <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
-          <TouchableOpacity
-            style={{marginLeft: 10}}
-            onPress={() => navigation.navigate('DrawerOpen')}>
-            <Icon name="menu" size={40} color="#900" />
-          </TouchableOpacity>
-          <Text style={{marginLeft: 40, fontSize: 25}}>
-            My Challenges
-          </Text>
-          <View>
 
-          </View>
-        </View>
-      ),
-    };
+    return {
+      header: (
+        <Toolbar
+          leftElement="menu"
+          onLeftElementPress={() => navigation.navigate('DrawerOpen')}
+          centerElement="My Challenges"
+          style={{flex: 1, alignSelf: 'stretch'}}
+          />
+      )
+    }
+
+
+
+    // return {
+    //   headerLeft:(
+    //     <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
+    //       <TouchableOpacity
+    //         style={{marginLeft: 10}}
+    //         onPress={() => navigation.navigate('DrawerOpen')}>
+    //         <Icon name="menu" size={40} color="#900" />
+    //       </TouchableOpacity>
+    //       <Text style={{marginLeft: 40, fontSize: 25}}>
+    //         My Challenges
+    //       </Text>
+    //       <View>
+    //
+    //       </View>
+    //     </View>
+    //   ),
+    // };
   };
 
   // getChallenges() {

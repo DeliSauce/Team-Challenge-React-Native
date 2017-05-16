@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 import merge from 'lodash/merge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Toolbar } from 'react-native-material-ui';
 
 import {
-  CheckboxGroup,
   Button,
 } from 'react-native-material-design';
 
@@ -27,10 +27,15 @@ export default class AddChallenges extends Component {
     super(props);
     this.userID = firebase.auth().currentUser.uid;
     // this.defaultCategories = [{'pushups': false}, {'walk': true}];
-    this.defaultCategories = [{name: 'pushups', status: false}, {name: 'run', status: false}, {name: 'walk', status: true}];
+    this.defaultCategories = [
+      {name: 'Walk to work.', status: false},
+      {name: 'Don\'t eat carbs.', status: false},
+      {name: 'Don\'t eat carbs.', status: false},
+      {name: 'Read a book.', status: false},
+      {name: 'Do 30 pushups.', status: true}
+    ];
 
     this.defaultChallenge = {
-      name: 'TEST Challenge',
       startDate: '2017-05-10',
       days: '10',
       adminID: this.userID,
@@ -40,6 +45,7 @@ export default class AddChallenges extends Component {
     };
 
     this.otherProperties = {
+      name: '',
       categoriesModalVisible: false,
       usersModalVisible: false,
       userSearch: '',
@@ -52,23 +58,35 @@ export default class AddChallenges extends Component {
   }
 
   static navigationOptions = ({navigation}) => {
-    return {
-      headerLeft:(
-        <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
-          <TouchableOpacity
-            style={{marginLeft: 10}}
-            onPress={() => navigation.navigate('DrawerOpen')}>
-            <Icon name="menu" size={40} color="#900" />
-          </TouchableOpacity>
-          <Text style={{marginLeft: 40, fontSize: 25}}>
-            Add New Challenge
-          </Text>
-          <View>
 
-          </View>
-        </View>
-      ),
-    };
+    return {
+      header: (
+        <Toolbar
+          leftElement="menu"
+          onLeftElementPress={() => navigation.navigate('DrawerOpen')}
+          centerElement="Add New Challenge"
+          style={{flex: 1, alignSelf: 'stretch'}}
+          />
+      )
+
+    }
+    // return {
+    //   headerLeft:(
+    //     <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
+    //       <TouchableOpacity
+    //         style={{marginLeft: 10}}
+    //         onPress={() => navigation.navigate('DrawerOpen')}>
+    //         <Icon name="menu" size={40} color="#900" />
+    //       </TouchableOpacity>
+    //       <Text style={{marginLeft: 40, fontSize: 25}}>
+    //         Add New Challenge
+    //       </Text>
+    //       <View>
+    //
+    //       </View>
+    //     </View>
+    //   ),
+    // };
   };
 
   createChallenge() {
@@ -230,7 +248,7 @@ export default class AddChallenges extends Component {
         <View style={styles.inputContainer}>
           <Text> Challenge Name </Text>
           <TextInput
-            placeholder={"Challenge Name"}
+            placeholder={"Name Your Challenge"}
             style={{height: 40, width: 160}}
             onChangeText={(name) => this.setState({name})}
             value={this.state.name}
@@ -364,7 +382,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 10,
+    alignSelf: 'stretch',
     backgroundColor: 'lightgrey',
     borderColor: 'skyblue',
     borderWidth: 1
