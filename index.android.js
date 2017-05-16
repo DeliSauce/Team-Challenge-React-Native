@@ -145,14 +145,17 @@ export default class TeamChallenge extends Component {
   renderMain(){
 
     const uiTheme = {
-      palette: {
-        primaryColor: COLOR.green500,
-      },
+      //palette is lightTheme by default but can override values
+      // palette: {
+      //   primaryColor: COLOR.green500,
+      //   accentColor: COLOR.red500,
+      // },
       toolbar: {
         container: {
-          height: 50,
+          height: 60
         },
       },
+      action: {},
       button: {}
     };
 

@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import {Button} from 'react-native-material-design';
-import { COLOR, Button, Toolbar, Card} from 'react-native-material-ui';
+import { COLOR, Button, Toolbar, Card, ActionButton} from 'react-native-material-ui';
 
 import {
   Image,
@@ -36,7 +36,6 @@ export default class AllChallenges extends Component {
           leftElement="menu"
           onLeftElementPress={() => navigation.navigate('DrawerOpen')}
           centerElement="My Challenges"
-          style={{flex: 1, alignSelf: 'stretch'}}
           />
       )
     }
@@ -137,11 +136,10 @@ export default class AllChallenges extends Component {
           renderItem={(obj) => this.renderChallengeItem(obj)}
         />
         <View style={styles.add_container}>
-          <TouchableOpacity
-            style={{ marginTop: 20, marginRight: 30}}
-            onPress={() => {this.props.navigation.navigate('Add Challenge')}}>
-            <Icon name="add-circle" size={70} color="green" />
-          </TouchableOpacity>
+          <ActionButton
+            transition='toolbar'
+            onPress={() => {this.props.navigation.navigate('Add Challenge')}}
+            />
         </View>
       </View>
     );
