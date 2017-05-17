@@ -100,6 +100,7 @@ export default class AllChallenges extends Component {
   renderChallengeItem({item, index}) {
     const {navigate} = this.props.navigation;
     const dateStatus = this.getDateStatus(item.challenge.startDate, item.challenge.days);
+    const backgroundColor = (dateStatus < 0 ? 'lightyellow' : 'lightgreen');
 
     return (
         <Card
@@ -111,7 +112,7 @@ export default class AllChallenges extends Component {
               userID: this.userID
             })
           }}>
-          <View style={styles.list_item}>
+          <View style={[styles.list_item, {backgroundColor: backgroundColor}]}>
             <View style={styles.list_item_details}>
               <Text > {item.challenge.name} </Text>
               <Text > Categories: {item.challenge.categories.join(", ")} </Text>
