@@ -12,6 +12,7 @@ import {
 } from 'react-native-material-design';
 
 import {
+  Alert,
   Slider,
   Picker,
   FlatList,
@@ -38,7 +39,6 @@ export default class AddChallenges extends Component {
     ];
 
     this.defaultChallenge = {
-      // startDate: moment().format('YYYY-MM-DD'),
       days: '30',
       adminID: this.userID,
       users: [this.userID],
@@ -98,9 +98,29 @@ export default class AddChallenges extends Component {
   handleCreateChallenge() {
 
     //TODO need to verify that adequate challenge data is included
-  
+    // const challenge = this.state
+    const {name, adminID, users, categories, startDate, days} = this.state;
+    const challenge = {name, adminID, users, categories, startDate, days}
+    console.log(challenge);
+    let errorMessage = "";
+    if (categories.length === 0) {
+      errorMessage = "Please specify at least one category"
+      Alert.alert("Title", errorMessage, []);
+    } else if (!name) {
+      errorMessage = "Please choose a challenge name."
+      Alert.alert("Title", errorMessage, []);
+    } else if (!startDate) {
+      errorMessage = "Please select a startDate"
+      Alert.alert("Title", errorMessage);
+    } else {
+      Alert.alert("Title", "Congrats! You've just created a challenge.");
+      // actions.createChallenge(challenge);
+      // actions.createChallenge(this.state);
+    }
+  }
 
-    // actions.createChallenge(this.state);
+  createAlert() {
+
   }
 
   handleUserSearchInput(userSearch) {
