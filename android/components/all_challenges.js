@@ -111,29 +111,53 @@ export default class AllChallenges extends Component {
               challengeKey: item.challengeKey,
               userID: this.userID
             })
-          }}>
+        }}>
           <View style={[styles.list_item, {backgroundColor: backgroundColor}]}>
-            <View style={styles.list_item_details}>
-              <Text > {item.challenge.name} </Text>
-              <Text > Categories: {item.challenge.categories.join(", ")} </Text>
-              <Text> {item.challenge.startDate} </Text>
+
+            <View style={[styles.list_item_details, {flex: 4, borderWidth: 1, borderColor: 'black'}]}>
+              <Text style={{fontSize: 20, textAlign: 'center'}}> {item.challenge.name} </Text>
+              <Text style={{fontSize: 15}}> Users: {Object.keys(item.challenge.userData).length} </Text>
+              <Text style={{fontSize: 15}}> {item.challenge.startDate} </Text>
               {this.renderDate(dateStatus)}
-              <Text> Total Days: {item.challenge.days} </Text>
+              {this.renderProgressBar(dateStatus, item.challenge.days)}
             </View>
 
-            <View style={{flexDirection: 'column', justifyContent:'center'}}>
+            <View style={{flex: 1, flexDirection: 'column', justifyContent:'center', alignItems: 'center'}}>
               <Icon name="chevron-right" size={30} color="#900" />
             </View>
+
           </View>
       </Card>
     );
   }
+  // <Text> Total Days: {item.challenge.days} </Text>
 
+  renderProgressBar(dateStatus, challengeLength) {
+
+    if (dateStatus <= 0) {
+      return (
+        <View></View>
+      );
+    } else {
+      const daysLeft = challengeLength - dateStatus;
+      return (
+        <View style={{height: 10, flexDirection: 'row', flex: 1}}>
+          <View style={{
+            height: 10,
+            flex: dateStatus,
+            backgroundColor: 'blue',
+            borderBottomLeftRadius: 10,
+            borderTopLeftRadius: 10,
+          }}></View>
+        <View style={{height: 10, flex: daysLeft, backgroundColor: 'red', borderBottomRightRadius: 10, borderTopRightRadius: 10}}></View>
+        </View>
+      )
+    }
+  }
+//
   getDateStatus(date, challengeLength) {
     const begDate = moment(date)
-    // const endDate = moment(begDate).add(parseInt(this.data.days), 'days');
     const diff = this.today.diff(begDate, 'days');
-    console.log('diff', diff);
 
     if (diff < 0) {
       return (diff - 1);
