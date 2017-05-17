@@ -3,13 +3,9 @@ import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 import merge from 'lodash/merge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Toolbar } from 'react-native-material-ui';
+import { Toolbar, Button } from 'react-native-material-ui';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
-
-import {
-  Button,
-} from 'react-native-material-design';
 
 import {
   Alert,
@@ -95,10 +91,8 @@ export default class AddChallenges extends Component {
     // };
   };
 
+  //TODO need better verification of challenge data
   handleCreateChallenge() {
-
-    //TODO need to verify that adequate challenge data is included
-    // const challenge = this.state
     const {name, adminID, users, categories, startDate, days} = this.state;
     const challenge = {name, adminID, users, categories, startDate, days}
     console.log(challenge);
@@ -232,21 +226,24 @@ export default class AddChallenges extends Component {
             borderWidth: 1,
             alignItems: 'center'}}>
 
-          <TouchableOpacity
-            onPress={() => this.handleCreateChallenge()}
-            style={styles.addChallengeButton}>
-            <Text> Submit Challenge </Text>
-          </TouchableOpacity>
+          <Button
+            accent
+            raised
+            text='Submit Challenge'
+            onPress={() => this.handleCreateChallenge()}>
+          </Button>
 
           <Button
+            accent
+            raised
             text='Add Categories'
-            raised={true}
             onPress={() => this.setState({categoriesModalVisible: true})}>
           </Button>
 
           <Button
+            accent
+            raised
             text='Add Users'
-            raised={true}
             onPress={() => this.setState({usersModalVisible: true})}>
           </Button>
 
