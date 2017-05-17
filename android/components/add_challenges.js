@@ -4,6 +4,8 @@ import * as actions from '../actions/firebase_actions';
 import merge from 'lodash/merge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Toolbar } from 'react-native-material-ui';
+import DatePicker from 'react-native-datepicker';
+import moment from 'moment';
 
 import {
   Button,
@@ -36,8 +38,8 @@ export default class AddChallenges extends Component {
     ];
 
     this.defaultChallenge = {
-      startDate: '2017-05-10',
-      days: '10',
+      // startDate: moment().format('YYYY-MM-DD'),
+      days: '30',
       adminID: this.userID,
       users: [this.userID],
       categoryOptions: this.defaultCategories,
@@ -96,9 +98,9 @@ export default class AddChallenges extends Component {
   handleCreateChallenge() {
 
     //TODO need to verify that adequate challenge data is included
+  
 
-
-    actions.createChallenge(this.state);
+    // actions.createChallenge(this.state);
   }
 
   handleUserSearchInput(userSearch) {
@@ -243,12 +245,29 @@ export default class AddChallenges extends Component {
 
         <View style={styles.inputContainer}>
           <Text style={{fontSize: 17}}> Start Date </Text>
-          <TextInput
-            placeholder={"Start Date"}
-            style={styles.input}
-            onChangeText={(startDate) => this.setState({startDate})}
-            value={this.state.startDate}
-            />
+          <DatePicker
+            style={{width: 200}}
+            date={this.state.startDate}
+            mode="date"
+            placeholder="select date"
+            format="dddd, MMMM DD, YYYY"
+            minDate={moment().format("dddd, MMMM DD, YYYY")}
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36
+              }
+              // ... You can check the source to find the other keys.
+          }}
+          onDateChange={(startDate) => {this.setState({startDate})}}
+        />
         </View>
 
         <View style={styles.slider_container}>
