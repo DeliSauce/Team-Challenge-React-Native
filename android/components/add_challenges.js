@@ -326,6 +326,7 @@ export default class AddChallenges extends Component {
               Search for Users
             </Text>
             <TextInput
+              keyboardType='email-address'
               placeholder={"Enter User Email (or Name?)"}
               style={styles.input2}
               value={this.state.userSearch}
@@ -336,6 +337,7 @@ export default class AddChallenges extends Component {
               />
             <View style={styles.searchContainer}>
               <FlatList
+                keyboardShouldPersistTaps="handled"
                 keyExtractor={(item, index) => item.email}
                 data={this.state.userSearchResults}
                 renderItem={userObj => this.renderUserSearch(userObj)}
