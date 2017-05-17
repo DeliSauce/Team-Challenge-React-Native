@@ -4,6 +4,7 @@ import * as actions from '../actions/firebase_actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import {Button} from 'react-native-material-design';
 import { COLOR, Button, Toolbar, Card, ActionButton} from 'react-native-material-ui';
+import moment from 'moment';
 
 import {
   Image,
@@ -21,6 +22,7 @@ export default class AllChallenges extends Component {
   constructor(props) {
     super(props);
     this.userID = firebase.auth().currentUser.uid;
+    this.today = moment();
     this.state = {};
   }
 
@@ -97,6 +99,7 @@ export default class AllChallenges extends Component {
 
   renderChallengeItem({item, index}) {
     const {navigate} = this.props.navigation;
+    const dateStatus = this.getDateStatus(item.challenge.startDate, item.challenge.days);
 
     return (
         <Card
@@ -110,9 +113,10 @@ export default class AllChallenges extends Component {
           }}>
           <View style={styles.list_item}>
             <View style={styles.list_item_details}>
-              <Text> Challenge Name: {item.challenge.name} </Text>
-              <Text> Categories: {item.challenge.categories.join(", ")} </Text>
-              <Text> Start Date: {item.challenge.startDate} </Text>
+              <Text > {item.challenge.name} </Text>
+              <Text > Categories: {item.challenge.categories.join(", ")} </Text>
+              <Text> {item.challenge.startDate} </Text>
+              {this.renderDate(dateStatus)}
               <Text> Total Days: {item.challenge.days} </Text>
             </View>
 
@@ -124,9 +128,40 @@ export default class AllChallenges extends Component {
     );
   }
 
+  getDateStatus(date, challengeLength) {
+    const begDate = moment(date)
+    // const endDate = moment(begDate).add(parseInt(this.data.days), 'days');
+    const diff = this.today.diff(begDate, 'days');
+    console.log('diff', diff);
+
+    if (diff < 0) {
+      return (diff - 1);
+    } else if (diff > challengeLength) {
+      return (0);
+    } else {
+      return diff + 1;
+    }
+  }
+
+  renderDate(dateStatus) {
+    const plural = (dateStatus === -1 ? '' : 's');
+    if (dateStatus === 0) {
+      return (
+        <Text> This challenge is over.</Text>
+      );
+    } else if (dateStatus < 0) {
+      return (
+        <Text> This challenge hasnt started yet. You have {-1 * dateStatus} day{plural} til it starts. </Text>
+      );
+    } else {
+      return (
+        <Text> You are on day {dateStatus} of this Challenge.</Text>
+      )
+    }
+  }
+
+
   render() {
-
-
     return (
       <View style={styles.container2}>
         <FlatList
