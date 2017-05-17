@@ -3,11 +3,12 @@ import {TabNavigator, StackNavigator, DrawerNavigator} from 'react-navigation';
 import AllChallenges from './all_challenges';
 import AddChallenges from './add_challenges';
 // import Main from './main';
-import TestTab from './test_tab';
 // import Details from './details';
 import ChallengeDataEntry from './challenge_data_entry';
 import ChallengeOverview from './challenge_overview';
 import ChallengeStandings from './challenge_standings';
+import DummyTab from './dummy';
+import TestMUI from './test_mui';
 
 export const DetailsTabs = TabNavigator({
   'Enter Data': {
@@ -35,7 +36,7 @@ export const AddChallengeStack = StackNavigator({
     screen: AddChallenges,
   },
   'Dummy Card': {
-    screen: TestTab,
+    screen: DummyTab,
   },
 
 });
@@ -46,6 +47,9 @@ export const MainNav = DrawerNavigator({
   },
   'Create New Challenge': {
     screen: AddChallengeStack,
+  },
+  'TEST MATERIAL UI': {
+    screen: TestMUI,
   },
 },
 {

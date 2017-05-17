@@ -30,9 +30,9 @@ export default class AddChallenges extends Component {
     this.defaultCategories = [
       {name: 'Walk to work.', status: false},
       {name: 'Don\'t eat carbs.', status: false},
-      {name: 'Don\'t eat carbs.', status: false},
+      {name: 'Don\'t eat candy.', status: false},
       {name: 'Read a book.', status: false},
-      {name: 'Do 30 pushups.', status: true}
+      {name: 'Do 30 pushups.', status: false}
     ];
 
     this.defaultChallenge = {
@@ -41,7 +41,7 @@ export default class AddChallenges extends Component {
       adminID: this.userID,
       users: [this.userID],
       categoryOptions: this.defaultCategories,
-      categories: ['catA', 'catB', 'catC']
+      categories: []
     };
 
     this.otherProperties = {
@@ -93,7 +93,11 @@ export default class AddChallenges extends Component {
     // };
   };
 
-  createChallenge() {
+  handleCreateChallenge() {
+
+    //TODO need to verify that adequate challenge data is included
+
+
     actions.createChallenge(this.state);
   }
 
@@ -138,13 +142,22 @@ export default class AddChallenges extends Component {
   }
 
   handleCatSwitch(catObj, idx, bool) {
+    let categories = [];
+    if (bool) {
+      categories = this.state.categories.concat(catObj.name);
+    } else {
+      this.state.categories.forEach((cat) => {
+        if(cat != catObj.name) categories.push(cat);
+      })
+    }
+    this.setState({categories});
     this.setState((previousState) => {
       previousState.categoryOptions[idx].status = bool;
       return previousState;
     });
   }
 
-  renderCategories({item, index}) {
+  renderCategoryOptions({item, index}) {
     console.log('HIT RENDER CATEGORIES');
     return(
       <View
@@ -170,6 +183,17 @@ export default class AddChallenges extends Component {
       userSearch: '',
       userSearchResults: []
     });
+  }
+
+  renderCategories(){
+    console.log(this.state.categories);
+    if (this.state.categories.length > 0) {
+      return (
+        <View>
+          {this.state.categories.map(cat => <Text> {cat} </Text>)}
+        </View>
+      )
+    }
   }
 
 
@@ -233,7 +257,7 @@ export default class AddChallenges extends Component {
               keyExtractor={(item, index) => item.name}
               data={this.state.categoryOptions}
               extraData={this.state}
-              renderItem={(catObj) => this.renderCategories(catObj)}
+              renderItem={(catObj) => this.renderCategoryOptions(catObj)}
               >
             </FlatList>
             <Button
@@ -244,9 +268,9 @@ export default class AddChallenges extends Component {
         </Modal>
 
         <TouchableOpacity
-          onPress={() => this.createChallenge()}
+          onPress={() => this.handleCreateChallenge()}
           style={styles.addChallengeButton}>
-          <Text> Add Challenge </Text>
+          <Text> Create Challenge </Text>
         </TouchableOpacity>
 
         <View style={styles.inputContainer}>
@@ -283,12 +307,12 @@ export default class AddChallenges extends Component {
               >
             </Slider>
             <Text> {this.state.days} </Text>
-
           </View>
         </View>
 
         <View style={styles.inputContainer}>
           <Text> Categories </Text>
+          <View>{this.renderCategories()}</View>
           <Button
             text='Add Categories'
             raised={true}

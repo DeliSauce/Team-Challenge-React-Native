@@ -1,5 +1,7 @@
 import * as firebase from 'firebase';
 import React, {Component} from 'react';
+import * as MUI from 'react-native-material-ui';
+
 import {
   View,
   Text,
@@ -7,11 +9,35 @@ import {
 } from 'react-native';
 
 
-export default class TestTab extends Component {
+// Action Button
+// Avatar
+// Badge
+// Bottom Navigation
+// Button
+// Card
+// Checkbox
+// Dialog
+// Divider
+// Drawer
+// Icon
+// Icon toggles
+// List item
+// Radio button
+// Subheader
+// Toolbar
 
+
+
+export default class TestMUI extends Component {
+
+  // <MUI.Checkbox checked value='hello'></MUI.Checkbox >
+  // <MUI.RadioButton checked ></MUI.RadioButton >
   render() {
     return (
       <View style={styles.container}>
+
+
+
         <Text>
           Test Tab
          </Text>
