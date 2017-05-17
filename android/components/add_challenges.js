@@ -219,19 +219,20 @@ export default class AddChallenges extends Component {
       <View
         style={styles.container}>
 
+        <Button
+          accent
+          raised
+          text='Submit Challenge'
+          onPress={() => this.handleCreateChallenge()}>
+        </Button>
 
         <View style={{
             flexDirection: 'row',
+            justifyContent: 'space-around',
             borderColor: 'black',
             borderWidth: 1,
             alignItems: 'center'}}>
 
-          <Button
-            accent
-            raised
-            text='Submit Challenge'
-            onPress={() => this.handleCreateChallenge()}>
-          </Button>
 
           <Button
             accent
