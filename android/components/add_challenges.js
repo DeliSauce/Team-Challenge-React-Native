@@ -190,7 +190,7 @@ export default class AddChallenges extends Component {
     if (this.state.categories.length > 0) {
       return (
         <View>
-          {this.state.categories.map(cat => <Text> {cat} </Text>)}
+          {this.state.categories.map((cat, idx) => <Text> {idx + 1 + '. ' + cat} </Text>)}
         </View>
       )
     }
@@ -202,6 +202,82 @@ export default class AddChallenges extends Component {
     return (
       <View
         style={styles.container}>
+
+
+        <View style={{
+            flexDirection: 'row',
+            borderColor: 'black',
+            borderWidth: 1,
+            alignItems: 'center'}}>
+
+          <TouchableOpacity
+            onPress={() => this.handleCreateChallenge()}
+            style={styles.addChallengeButton}>
+            <Text> Create Challenge </Text>
+          </TouchableOpacity>
+
+          <Button
+            text='Add Categories'
+            raised={true}
+            onPress={() => this.setState({categoriesModalVisible: true})}>
+          </Button>
+
+          <Button
+            text='Add Users'
+            raised={true}
+            onPress={() => this.setState({usersModalVisible: true})}>
+          </Button>
+
+        </View>
+
+
+        <View style={styles.inputContainer}>
+          <Text style={{fontSize: 17}}> Challenge Name </Text>
+          <TextInput
+            placeholder={"Name Your Challenge"}
+            style={{height: 40, width: 160}}
+            onChangeText={(name) => this.setState({name})}
+            value={this.state.name}
+            />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={{fontSize: 17}}> Start Date </Text>
+          <TextInput
+            placeholder={"Start Date"}
+            style={styles.input}
+            onChangeText={(startDate) => this.setState({startDate})}
+            value={this.state.startDate}
+            />
+        </View>
+
+        <View style={styles.slider_container}>
+          <Text style={{fontSize: 17}}> Length of Challenge (days) </Text>
+          <View style={{flexDirection: 'row'}}>
+            <Slider
+              style={{height: 40, width: 260}}
+              onSlidingComplete={(days) => {}}
+              onValueChange={(days) => this.setState({days})}
+              minimumValue={1}
+              maximumValue={60}
+              value={30}
+              step={1}
+              >
+            </Slider>
+            <Text> {this.state.days} </Text>
+          </View>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={{fontSize: 17}}> Categories: </Text>
+          <View>{this.renderCategories()}</View>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={{fontSize: 17}}> Competitors: </Text>
+          <View>{this.state.users.map((userid, idx) => <Text> {idx + 1 + '. ' + userid} </Text>)}</View>
+        </View>
+
         <Modal
           animationType={"slide"}
           transparent={false}
@@ -267,69 +343,6 @@ export default class AddChallenges extends Component {
           </View>
         </Modal>
 
-        <TouchableOpacity
-          onPress={() => this.handleCreateChallenge()}
-          style={styles.addChallengeButton}>
-          <Text> Create Challenge </Text>
-        </TouchableOpacity>
-
-        <View style={styles.inputContainer}>
-          <Text> Challenge Name </Text>
-          <TextInput
-            placeholder={"Name Your Challenge"}
-            style={{height: 40, width: 160}}
-            onChangeText={(name) => this.setState({name})}
-            value={this.state.name}
-            />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text> Start Date </Text>
-          <TextInput
-            placeholder={"Start Date"}
-            style={styles.input}
-            onChangeText={(startDate) => this.setState({startDate})}
-            value={this.state.startDate}
-            />
-        </View>
-
-        <View style={styles.slider_container}>
-          <Text> Length of Challenge (days) </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Slider
-              style={{height: 40, width: 260}}
-              onSlidingComplete={(days) => {}}
-              onValueChange={(days) => this.setState({days})}
-              minimumValue={1}
-              maximumValue={60}
-              value={30}
-              step={1}
-              >
-            </Slider>
-            <Text> {this.state.days} </Text>
-          </View>
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text> Categories </Text>
-          <View>{this.renderCategories()}</View>
-          <Button
-            text='Add Categories'
-            raised={true}
-            onPress={() => this.setState({categoriesModalVisible: true})}>
-          </Button>
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text> Competitors </Text>
-          <View>{this.state.users.map((userid) => <Text> {userid} </Text>)}</View>
-          <Button
-            text='Add Users'
-            raised={true}
-            onPress={() => this.setState({usersModalVisible: true})}>
-          </Button>
-        </View>
-
       </View>
     );
   }
@@ -375,17 +388,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   inputContainer: {
-    height: 50,
-    width: 400,
-    flexDirection: 'row',
+    flexDirection: 'column',
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 10,
     justifyContent: 'space-between',
   },
   slider_container: {
-    height: 50,
-    width: 400,
     flexDirection: 'column',
     borderColor: 'gray',
     borderWidth: 1,
