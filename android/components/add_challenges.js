@@ -213,7 +213,7 @@ export default class AddChallenges extends Component {
           <TouchableOpacity
             onPress={() => this.handleCreateChallenge()}
             style={styles.addChallengeButton}>
-            <Text> Create Challenge </Text>
+            <Text> Submit Challenge </Text>
           </TouchableOpacity>
 
           <Button
