@@ -48,7 +48,7 @@ export default class AddChallenges extends Component {
       name: '',
       categoriesModalVisible: false,
       usersModalVisible: false,
-      userAddedAlert: 'john',
+      userAddedModal: false,
       userSearch: '',
       userSearchResults: [{id: '', email: ''}],
       TESTswitch: [false, true],
@@ -147,8 +147,7 @@ export default class AddChallenges extends Component {
     //use the concat method so as not to mutate this.state
     let users = this.state.users.concat(userObj.email);
     this.setState({users, userSearch: ''});
-    this.setState({userAddedAlert: userObj.email});
-    // Alert.alert('Title', `${userObj.name} has been added.`);
+    Alert.alert('Title', `${userObj.email} has been added.`);
   }
 
   renderUserSearchItem({item, index}) {
@@ -221,13 +220,6 @@ export default class AddChallenges extends Component {
     }
   }
 
-  // getModalAlert() {
-  //   return (
-  //     <ModalAlert email={this.state.userAddedAlert}/>
-  //   )
-  // }
-
-
   render() {
     console.log('HIT RENDER');
     return (
@@ -272,16 +264,7 @@ export default class AddChallenges extends Component {
             onPress={() => this.setState({usersModalVisible: true})}>
           </Button>
 
-          <Button
-            accent
-            raised
-            text='open modal'
-            onPress={() => this.setState({userAddedAlert: 'sadfasdfasdf'})}>
-          </Button>
-
         </View>
-
-        <ModalAlert email={this.state.userAddedAlert}/>
 
         <View style={styles.inputContainer}>
           <Text style={{fontSize: 17}}> Challenge Name </Text>
