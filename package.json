@@ -16,7 +16,8 @@
     "react-native-material-design-styles": "^0.2.6",
     "react-native-material-ui": "^1.10.0",
     "react-native-vector-icons": "^4.1.1",
-    "react-navigation": "^1.0.0-beta.9"
+    "react-navigation": "^1.0.0-beta.9",
+    "react-timer-mixin": "^0.13.3"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",

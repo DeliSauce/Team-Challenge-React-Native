@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Toolbar, Button } from 'react-native-material-ui';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
+import {ModalAlert} from './alert';
 
 import {
   Alert,
@@ -18,6 +19,7 @@ import {
   Text,
   TextInput,
   StyleSheet,
+  TouchableWithoutFeedback,
   Switch
 } from 'react-native';
 
@@ -46,6 +48,7 @@ export default class AddChallenges extends Component {
       name: '',
       categoriesModalVisible: false,
       usersModalVisible: false,
+      userAddedAlert: 'john',
       userSearch: '',
       userSearchResults: [{id: '', email: ''}],
       TESTswitch: [false, true],
@@ -139,19 +142,20 @@ export default class AddChallenges extends Component {
     });
   }
 
-  handleSelectUser(userID) {
-    console.log('handleSelectUser', userID);
+  handleSelectUser(userObj) {
+    console.log('handleSelectUser', userObj);
     //use the concat method so as not to mutate this.state
-    let users = this.state.users.concat(userID);
+    let users = this.state.users.concat(userObj.email);
     this.setState({users, userSearch: ''});
+    this.setState({userAddedAlert: userObj.email});
+    // Alert.alert('Title', `${userObj.name} has been added.`);
   }
 
-  renderUserSearch({item, index}) {
+  renderUserSearchItem({item, index}) {
     return(
       <TouchableOpacity
         style={styles.user_search_result}
-        onPress={() => this.handleSelectUser(item.id)}
-        >
+        onPress={() => this.handleSelectUser(item) }>
         <Text style={{fontSize: 20}}> {item.email + ' -- ' + item.id} </Text>
       </TouchableOpacity>
     );
@@ -192,13 +196,18 @@ export default class AddChallenges extends Component {
   }
 
 
-  closeModal() {
-    this.setState({
-      usersModalVisible: false,
-      categoriesModalVisible: false,
-      userSearch: '',
-      userSearchResults: []
-    });
+  closeModal(modalType) {
+    if (modalType === 'userAddedModal') {
+      this.setState({userAddedModal: false});
+    } else {
+      this.setState({
+        usersModalVisible: false,
+        categoriesModalVisible: false,
+        userAddedModal: false,
+        userSearch: '',
+        userSearchResults: []
+      });
+    }
   }
 
   renderCategories(){
@@ -212,27 +221,42 @@ export default class AddChallenges extends Component {
     }
   }
 
+  // getModalAlert() {
+  //   return (
+  //     <ModalAlert email={this.state.userAddedAlert}/>
+  //   )
+  // }
+
 
   render() {
     console.log('HIT RENDER');
     return (
       <View
         style={styles.container}>
-
-        <Button
-          accent
-          raised
-          text='Submit Challenge'
-          onPress={() => this.handleCreateChallenge()}>
-        </Button>
-
         <View style={{
+            marginTop: 10,
+            marginBottom: 10,
             flexDirection: 'row',
             justifyContent: 'space-around',
-            borderColor: 'black',
-            borderWidth: 1,
+            // borderColor: 'black',
+            // borderWidth: 1,
             alignItems: 'center'}}>
+          <Button
+            accent
+            raised
+            text='Submit Challenge'
+            onPress={() => this.handleCreateChallenge()}>
+          </Button>
+        </View>
 
+        <View style={{
+            marginTop: 10,
+            marginBottom: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            // borderColor: 'black',
+            // borderWidth: 1,
+            alignItems: 'center'}}>
 
           <Button
             accent
@@ -248,8 +272,16 @@ export default class AddChallenges extends Component {
             onPress={() => this.setState({usersModalVisible: true})}>
           </Button>
 
+          <Button
+            accent
+            raised
+            text='open modal'
+            onPress={() => this.setState({userAddedAlert: 'sadfasdfasdf'})}>
+          </Button>
+
         </View>
 
+        <ModalAlert email={this.state.userAddedAlert}/>
 
         <View style={styles.inputContainer}>
           <Text style={{fontSize: 17}}> Challenge Name </Text>
@@ -340,7 +372,7 @@ export default class AddChallenges extends Component {
                 keyboardShouldPersistTaps="handled"
                 keyExtractor={(item, index) => item.email}
                 data={this.state.userSearchResults}
-                renderItem={userObj => this.renderUserSearch(userObj)}
+                renderItem={userObj => this.renderUserSearchItem(userObj)}
                 >
               </FlatList>
             </View>
