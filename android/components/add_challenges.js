@@ -27,7 +27,6 @@ export default class AddChallenges extends Component {
   constructor(props) {
     super(props);
     this.userID = firebase.auth().currentUser.uid;
-    // this.defaultCategories = [{'pushups': false}, {'walk': true}];
     this.defaultCategories = [
       {name: 'Walk to work.', status: false},
       {name: 'Don\'t eat carbs.', status: false},
@@ -35,27 +34,19 @@ export default class AddChallenges extends Component {
       {name: 'Read a book.', status: false},
       {name: 'Do 30 pushups.', status: false}
     ];
-
-    this.defaultChallenge = {
+    this.state = {
       days: '30',
       adminID: this.userID,
       users: [this.userID],
       categoryOptions: this.defaultCategories,
-      categories: []
-    };
-
-    this.otherProperties = {
+      categories: [],
       name: '',
       categoriesModalVisible: false,
-      usersModalVisible: false,
-      userAddedModal: false,
+      userSearchModalVisible: false,
+      userAddedModalVisible: false,
       userSearch: '',
       userSearchResults: [{id: '', email: ''}],
-      TESTswitch: [false, true],
-      TESTcat: ['Trun', 'Tpushups']
     };
-
-    this.state = merge({}, this.defaultChallenge, this.otherProperties);
   }
 
   static navigationOptions = ({navigation}) => {
@@ -116,10 +107,6 @@ export default class AddChallenges extends Component {
     }
   }
 
-  createAlert() {
-
-  }
-
   handleUserSearchInput(userSearch) {
     if (userSearch.length <= 2) return;
     console.log('hit handle ', userSearch);
@@ -147,7 +134,7 @@ export default class AddChallenges extends Component {
     //use the concat method so as not to mutate this.state
     let users = this.state.users.concat(userObj.email);
     this.setState({users, userSearch: ''});
-    Alert.alert('Title', `${userObj.email} has been added.`);
+    Alert.alert('Title', `${userObj.email} has been added.`, []);
   }
 
   renderUserSearchItem({item, index}) {
@@ -194,19 +181,14 @@ export default class AddChallenges extends Component {
     );
   }
 
-
-  closeModal(modalType) {
-    if (modalType === 'userAddedModal') {
-      this.setState({userAddedModal: false});
-    } else {
-      this.setState({
-        usersModalVisible: false,
-        categoriesModalVisible: false,
-        userAddedModal: false,
-        userSearch: '',
-        userSearchResults: []
-      });
-    }
+  closeModal() {
+    this.setState({
+      userSearchModalVisible: false,
+      categoriesModalVisible: false,
+      userAddedModalVisible: false,
+      userSearch: '',
+      userSearchResults: []
+    });
   }
 
   renderCategories(){
@@ -261,7 +243,14 @@ export default class AddChallenges extends Component {
             accent
             raised
             text='Add Users'
-            onPress={() => this.setState({usersModalVisible: true})}>
+            onPress={() => this.setState({userSearchModalVisible: true})}>
+          </Button>
+
+          <Button
+            accent
+            raised
+            text='Clear'
+            onPress={() => Alert.alert('','not operational yet')}>
           </Button>
 
         </View>
@@ -333,7 +322,7 @@ export default class AddChallenges extends Component {
         <Modal
           animationType={"slide"}
           transparent={false}
-          visible={this.state.usersModalVisible}
+          visible={this.state.userSearchModalVisible}
           onRequestClose={() => this.closeModal()}
           >
           <View style={styles.container}>
