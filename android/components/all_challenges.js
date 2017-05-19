@@ -100,10 +100,11 @@ export default class AllChallenges extends Component {
   renderChallengeItem({item, index}) {
     const {navigate} = this.props.navigation;
     const dateStatus = this.getDateStatus(item.challenge.startDate, item.challenge.days);
-    const backgroundColor = (dateStatus < 0 ? 'lightyellow' : 'lightgreen');
+    const backgroundColor = (dateStatus < 0 ? 'lightyellow' : COLOR.grey200);
 
     return (
         <Card
+          primary
           onPress={() => {
             console.log('Challenge item touched. Data being passing to view: ', item.challenge);
             navigate('Details', {
@@ -118,7 +119,7 @@ export default class AllChallenges extends Component {
               <Text style={{fontSize: 20, textAlign: 'center'}}> {item.challenge.name} </Text>
               <Text style={{fontSize: 15}}> Users: {Object.keys(item.challenge.userData).length} </Text>
               <Text style={{fontSize: 15}}> {item.challenge.startDate} </Text>
-              {this.renderDate(dateStatus)}
+              {this.renderDate(dateStatus, item.challenge.days)}
               {this.renderProgressBar(dateStatus, item.challenge.days)}
             </View>
 
@@ -178,7 +179,7 @@ export default class AllChallenges extends Component {
     }
   }
 
-  renderDate(dateStatus) {
+  renderDate(dateStatus, days) {
     const plural = (dateStatus === -1 ? '' : 's');
     if (dateStatus === 0) {
       return (
@@ -190,7 +191,7 @@ export default class AllChallenges extends Component {
       );
     } else {
       return (
-        <Text> You are on day {dateStatus} of this Challenge.</Text>
+        <Text> You are on day {dateStatus} of {days}.</Text>
       )
     }
   }
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
   list_item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 130,
+    height: 110,
     alignSelf: "stretch",
     // flex: 1,
     // backgroundColor: 'gray',
