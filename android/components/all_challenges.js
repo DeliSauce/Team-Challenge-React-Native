@@ -141,15 +141,25 @@ export default class AllChallenges extends Component {
     } else {
       const daysLeft = challengeLength - dateStatus;
       return (
-        <View style={{height: 10, flexDirection: 'row', flex: 1}}>
+        <View style={{
+          height: 10,
+          flexDirection: 'row',
+          backgroundColor: 'lightgray',
+          borderBottomLeftRadius: 10,
+          borderTopLeftRadius: 10,
+          borderBottomRightRadius: 10,
+          borderTopRightRadius: 10,
+        }}>
           <View style={{
-            height: 10,
-            flex: dateStatus,
-            backgroundColor: 'blue',
-            borderBottomLeftRadius: 10,
-            borderTopLeftRadius: 10,
-          }}></View>
-        <View style={{height: 10, flex: daysLeft, backgroundColor: 'red', borderBottomRightRadius: 10, borderTopRightRadius: 10}}></View>
+              height: 10,
+              flex: dateStatus,
+              backgroundColor: 'gray',
+              borderBottomLeftRadius: 10,
+              borderTopLeftRadius: 10,
+              borderBottomRightRadius: 10,
+              borderTopRightRadius: 10,}}>
+          </View>
+          <View style={{flex: daysLeft}}></View>
         </View>
       )
     }
@@ -229,7 +239,7 @@ const styles = StyleSheet.create({
   list_item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: 100,
+    height: 130,
     alignSelf: "stretch",
     // flex: 1,
     // backgroundColor: 'gray',
