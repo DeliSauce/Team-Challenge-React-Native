@@ -108,19 +108,21 @@ export default class AddChallenges extends Component {
   }
 
   handleUserSearchInput(userSearch) {
-    if (userSearch.length <= 2) return;
+    if (userSearch.length < 1) return;
     console.log('hit handle ', userSearch);
     const userSearchRef = firebase.database().ref()
       .child('users')
       .orderByChild('email')
       .startAt(userSearch)
       .endAt(userSearch + '\uf8ff')
-      .limitToFirst(2);
+      .limitToFirst(10);
 
     let userSearchResults = [];
     userSearchRef.once('value', (snap) => {
       const searchObj = snap.val();
-      userSearchResults = Object.keys(searchObj);
+      console.log('snep value', searchObj);
+      //TODO need to figure this out:
+      userSearchResults = Object.keys(searchObj).filter((key) => !this.state.users.includes(key));
       userSearchResults = userSearchResults.map((key) => {
         return {id: key, email: searchObj[key].email};
       });
