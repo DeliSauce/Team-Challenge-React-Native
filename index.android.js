@@ -30,7 +30,7 @@ export default class TeamChallenge extends Component {
 
   //TODO remove this code -- only for testing purposes
   componentWillMount() {
-    this.login();
+    // this.login();
   }
 
   async signup() {
@@ -40,13 +40,33 @@ export default class TeamChallenge extends Component {
       console.log("signup user: ", user);
       this.setState({authStatus: true});
 
-      //add new user to JSON database
-      firebase.database().ref().child('users').child(user.uid).set({
+      // //add user to firebase db
+      // firebase.database().ref().child('users').child(user.uid).set({
+      //   provider: user.providerData[0].providerId,
+      //   name: user.providerData[0].displayName,
+      //   email: user.providerData[0].email,
+      //   photo: user.providerData[0].photoURL
+      // });
+      //
+      // //add user to firebase db: userLookup
+      // firebase.database().ref().child('userLookup').child(user.uid).set({
+      //   email: user.providerData[0].email
+      // });
+
+      const userInfo = {
         provider: user.providerData[0].providerId,
         name: user.providerData[0].displayName,
         email: user.providerData[0].email,
         photo: user.providerData[0].photoURL
-      });
+      }
+
+      firebaseUpdates = {}
+      firebaseUpdates['users/' + user.uid] = userInfo;
+      firebaseUpdates['userLookup/' + user.uid] = userInfo;
+
+      firebase.database().ref().update(firebaseUpdates);
+
+
     } catch (error) {
         console.log("getting an auth error", error.toString());
         this.setState({authMessage: error.toString()});
