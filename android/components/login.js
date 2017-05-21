@@ -1,12 +1,7 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
-// import Main from './android/components/main';
-// import {MainNav} from './android/components/navigator';
-// import firebaseConfig from './env';
 import {ThemeProvider, COLOR} from 'react-native-material-ui';
-
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   Button,
@@ -171,5 +166,3 @@ const styles = StyleSheet.create({
     color: 'red',
   }
 });
-
-AppRegistry.registerComponent('TeamChallenge', () => TeamChallenge);

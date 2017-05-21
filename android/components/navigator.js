@@ -2,8 +2,6 @@ import {Component} from 'react';
 import {TabNavigator, StackNavigator, DrawerNavigator} from 'react-navigation';
 import AllChallenges from './all_challenges';
 import AddChallenges from './add_challenges';
-// import Main from './main';
-// import Details from './details';
 import ChallengeDataEntry from './challenge_data_entry';
 import ChallengeOverview from './challenge_overview';
 import ChallengeStandings from './challenge_standings';
@@ -58,7 +56,6 @@ export const MainNav = DrawerNavigator({
   contentOptions: {
     activeTintColor: 'red',
     inactiveTintColor: 'black',
-
     activeBackgroundColor: 'white',
     inactiveBackgroundColor: 'white',
 
@@ -72,23 +69,12 @@ export const MainNav = DrawerNavigator({
     }
   },
   drawerPosition: 'left',
-
 });
 
 export const App = StackNavigator({
-  'Login': {screen: Login},
-  'MainNav': {screen: MainNav}
+  'Login': { screen: Login },
+  'MainNav': { screen: MainNav }
 },
 {
   headerMode: 'none'
 });
-
-//
-// export const Tabs = TabNavigator({
-//   'Challenges': {
-//     screen: ChallengeStack,
-//   },
-//   'Add Challenges': {
-//     screen: AddChallenges,
-//   },
-// });
