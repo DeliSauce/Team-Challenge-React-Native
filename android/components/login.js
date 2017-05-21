@@ -21,7 +21,7 @@ export default class Login extends Component {
 
   //TODO remove this code -- only for testing purposes
   componentWillMount() {
-    // this.login();
+    this.login();
   }
 
   async signup() {
@@ -69,15 +69,7 @@ export default class Login extends Component {
         this.setState({authMessage: error.toString()});
     }
   }
-  // LOGOUT METHOD -- WE MAY HAVE SOME USE FOR THIS DOWN THE ROAD
-  // async logout() {
-  //   try {
-  //       await firebase.auth().signOut();
-  //       // Navigate to login view
-  //   } catch (error) {
-  //       console.log(error);
-  //   }
-  // }
+
 
   //onAuthStateChanged is the preferred method for checking current user but
   // I could not get it to work correctly. May require lifecycle methods?
