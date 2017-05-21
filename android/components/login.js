@@ -1,8 +1,8 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
 // import Main from './android/components/main';
-import {MainNav} from './android/components/navigator';
-import firebaseConfig from './env';
+// import {MainNav} from './android/components/navigator';
+// import firebaseConfig from './env';
 import {ThemeProvider, COLOR} from 'react-native-material-ui';
 
 import {
@@ -15,14 +15,12 @@ import {
   View
 } from 'react-native';
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-export default class TeamChallenge extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.randomEmail = "test" + (Math.floor(Math.random() * (10000))) + "@gmail.com";
 
-    this.state = {email: 'john.doe@gmail.com', pass: "123456", authStatus: this.getAuthStatus(), authMessage: ''};
+    this.state = {email: 'john.doe@gmail.com', pass: "123456", authMessage: ''};
 
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
@@ -38,17 +36,17 @@ export default class TeamChallenge extends Component {
       const user = await firebase.auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.pass);
       console.log("signup user: ", user);
-      this.setState({authStatus: true});
+      this.props.navigation.navigate('MainNav');
 
       // AsyncStorage.setItem('userData', JSON.stringify(user.providerData[0]));
 
       const userInfo = {
         name: user.providerData[0].displayName,
         email: user.providerData[0].email,
-        photo: user.providerData[0].photoURL
+        photo: user.providerData[0].photoURL,
         provider: user.providerData[0].providerId,
-        id: user.providerData[0].uid,
       }
+      // id: user.providerData[0].uid,
 
       firebaseUpdates = {}
       firebaseUpdates['users/' + user.uid] = userInfo;
@@ -65,7 +63,8 @@ export default class TeamChallenge extends Component {
       const user = await firebase.auth()
           .signInWithEmailAndPassword(this.state.email, this.state.pass);
       console.log("log in user: ", user);
-      this.setState({authStatus: true});
+      this.props.navigation.navigate('MainNav');
+
     } catch (error) {
         console.log("login error", error.toString());
         this.setState({authMessage: error.toString()});
@@ -81,7 +80,10 @@ export default class TeamChallenge extends Component {
   //   }
   // }
 
-
+  //onAuthStateChanged is the preferred method for checking current user but
+  // I could not get it to work correctly. May require lifecycle methods?
+  // firebase.auth().onAuthStateChanged(function(user) {
+  // });
 
   getAuthStatus() {
     var user = firebase.auth().currentUser;
@@ -94,7 +96,7 @@ export default class TeamChallenge extends Component {
   }
 
 
-  renderLogin() {
+  render() {
     console.log("renderLogin");
     return (
       <View style={styles.container}>
@@ -144,50 +146,7 @@ export default class TeamChallenge extends Component {
       </View>
     );
   }
-    //onAuthStateChanged is the preferred method for checking current user but
-    // I could not get it to work correctly. May require lifecycle methods?
-    // firebase.auth().onAuthStateChanged(function(user) {
-    // });
-
-  renderMain(){
-
-    const uiTheme = {
-      // palette is lightTheme by default but can override values
-      palette: {
-        primaryColor: COLOR.green500,
-        accentColor: COLOR.red500,
-      },
-      toolbar: {
-        container: {
-          height: 60
-        },
-      },
-      action: {},
-      card: {},
-      button: {}
-    };
-
-    console.log("render main", this.state.authStatus);
-
-    return (
-      <ThemeProvider uiTheme={uiTheme}>
-        <MainNav
-          drawerWidth={100}
-          drawerPosition={'right'}
-        />
-      </ThemeProvider>
-    );
-  }
-
-  render() {
-    if (this.state.authStatus) {
-      return this.renderMain()
-    } else {
-      return this.renderLogin()
-    }
-  }
 }
-
 
 const styles = StyleSheet.create({
   container: {

@@ -32,6 +32,7 @@ export const changeChallengeData = (changeOptions) => {
 };
 
 export const createChallenge = (challengeOptions) => {
+  console.log("challengeOptions", challengeOptions);
 
   const {name, adminID, users, categories, startDate, days} = challengeOptions;
   let catEntries = Array(categories.length).fill(false);
@@ -59,7 +60,21 @@ export const createChallenge = (challengeOptions) => {
   const newChallengeKey = firebase.database().ref().child('challenges').push().key;
   firebaseUpdates['challenges/' + newChallengeKey] = challengeUpdates;
   users.forEach((userID) => {
+
     firebaseUpdates['users/' + userID + '/challenges/' + newChallengeKey] = userUpdates;
+
+
   });
+  console.log("firebase updates new Challenge", firebaseUpdates);
   firebase.database().ref().update(firebaseUpdates);
+  // create(firebaseUpdates);
 };
+
+const create = async (firebaseUpdates) => {
+  try {
+    response = await firebase.database().ref().update(firebaseUpdates);
+    console.log("response: ", response);
+  } catch (errors) {
+    console.log("errors: ", errors);
+  }
+}

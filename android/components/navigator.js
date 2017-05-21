@@ -7,6 +7,7 @@ import AddChallenges from './add_challenges';
 import ChallengeDataEntry from './challenge_data_entry';
 import ChallengeOverview from './challenge_overview';
 import ChallengeStandings from './challenge_standings';
+import Login from './login';
 import DummyTab from './dummy';
 import TestMUI from './test_mui';
 
@@ -72,6 +73,14 @@ export const MainNav = DrawerNavigator({
   },
   drawerPosition: 'left',
 
+});
+
+export const App = StackNavigator({
+  'Login': {screen: Login},
+  'MainNav': {screen: MainNav}
+},
+{
+  headerMode: 'none'
 });
 
 //

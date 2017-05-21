@@ -47,6 +47,7 @@ export default class AddChallenges extends Component {
       userSearch: '',
       userSearchResults: [{id: '', email: ''}],
     };
+    console.log("printing add challenge props", props);
   }
 
   static navigationOptions = ({navigation}) => {
@@ -102,8 +103,7 @@ export default class AddChallenges extends Component {
       Alert.alert("Title", errorMessage);
     } else {
       Alert.alert("Title", "Congrats! You've just created a challenge.");
-      // actions.createChallenge(challenge);
-      // actions.createChallenge(this.state);
+      actions.createChallenge(challenge);
     }
   }
 
@@ -111,7 +111,7 @@ export default class AddChallenges extends Component {
     if (userSearch.length < 1) return;
     console.log('hit handle ', userSearch);
     const userSearchRef = firebase.database().ref()
-      .child('users')
+      .child('userLookup')
       .orderByChild('email')
       .startAt(userSearch)
       .endAt(userSearch + '\uf8ff')
@@ -133,7 +133,7 @@ export default class AddChallenges extends Component {
 
   handleSelectUser(userObj) {
     console.log('handleSelectUser', userObj);
-    //use the concat method so as not to mutate this.state
+    //use the concat method so as not to mutate state
     let users = this.state.users.concat(userObj.email);
     this.setState({users, userSearch: ''});
     Alert.alert('Title', `${userObj.email} has been added.`, []);
