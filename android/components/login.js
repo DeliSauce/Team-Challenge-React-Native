@@ -62,6 +62,16 @@ export default class Login extends Component {
       const user = await firebase.auth()
           .signInWithEmailAndPassword(this.state.email, this.state.pass);
       console.log("log in user: ", user);
+
+      const userInfo = {
+        name: user.providerData[0].displayName,
+        email: user.providerData[0].email,
+        photo: user.providerData[0].photoURL,
+        provider: user.providerData[0].providerId,
+        id: user.uid,
+      }
+      store.save('userData', userInfo);
+
       this.props.navigation.navigate('MainNav');
 
     } catch (error) {
