@@ -1,22 +1,20 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
-import {ThemeProvider, COLOR} from 'react-native-material-ui';
 import {
+  Button,
   StyleSheet,
   Text,
-  Button,
   TextInput,
   TouchableOpacity,
   View
 } from 'react-native';
-
+import store from 'react-native-simple-store';
+import merge from 'lodash/merge';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {email: 'john.doe@gmail.com', pass: "123456", authMessage: ''};
-
+    this.state = {email: 'john.evans8@gmail.com', pass: "123456", authMessage: ''};
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
   }
@@ -30,10 +28,6 @@ export default class Login extends Component {
     try {
       const user = await firebase.auth()
           .createUserWithEmailAndPassword(this.state.email, this.state.pass);
-      console.log("signup user: ", user);
-      this.props.navigation.navigate('MainNav');
-
-      // AsyncStorage.setItem('userData', JSON.stringify(user.providerData[0]));
 
       const userInfo = {
         name: user.providerData[0].displayName,
@@ -41,7 +35,17 @@ export default class Login extends Component {
         photo: user.providerData[0].photoURL,
         provider: user.providerData[0].providerId,
       }
-      // id: user.providerData[0].uid,
+
+      // console.log("signup user: ", user);
+      store.save('userData', merge({id: user.uid}, userInfo))
+
+      // Code for getting userData from the store
+      // store.get('userData')
+      //   .then((data) => console.log("data saved: ", data))
+      //   .catch((error) => console.log("data not saved: ", error));
+
+      this.props.navigation.navigate('MainNav');
+      // AsyncStorage.setItem('userData', JSON.stringify(user.providerData[0]));
 
       firebaseUpdates = {}
       firebaseUpdates['users/' + user.uid] = userInfo;
