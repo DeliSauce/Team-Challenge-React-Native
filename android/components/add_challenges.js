@@ -73,7 +73,7 @@ export default class AddChallenges extends Component {
   handleCreateChallenge() {
     const {name, adminID, users, categories, startDate, days} = this.state;
     const challenge = {name, adminID, users, categories, startDate, days}
-    console.log(challenge);
+    // console.log(challenge);
     let errorMessage = "";
     if (categories.length === 0) {
       errorMessage = "Please specify at least one category"
@@ -117,7 +117,7 @@ export default class AddChallenges extends Component {
   handleSelectUser(userObj) {
     console.log('handleSelectUser', userObj);
     //use the concat method so as not to mutate state
-    let users = this.state.users.concat(userObj.email);
+    let users = this.state.users.concat(userObj);
     this.setState({users, userSearch: ''});
     Alert.alert('Title', `${userObj.email} has been added.`, []);
   }

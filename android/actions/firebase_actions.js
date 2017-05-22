@@ -39,7 +39,7 @@ export const createChallenge = (challengeOptions) => {
   let emptyEntriesMatrix = Array(parseInt(days)).fill(catEntries);
 
   let userData = {};
-  users.forEach((userID) => {userData[userID] = emptyEntriesMatrix;});
+  users.forEach((userObj) => {userData[userObj.id] = emptyEntriesMatrix;});
 
   let firebaseUpdates = {};
   const challengeUpdates = {
@@ -59,9 +59,9 @@ export const createChallenge = (challengeOptions) => {
 
   const newChallengeKey = firebase.database().ref().child('challenges').push().key;
   firebaseUpdates['challenges/' + newChallengeKey] = challengeUpdates;
-  users.forEach((userID) => {
+  users.forEach((userObj) => {
 
-    firebaseUpdates['users/' + userID + '/challenges/' + newChallengeKey] = userUpdates;
+    firebaseUpdates['users/' + userObj.id + '/challenges/' + newChallengeKey] = userUpdates;
 
 
   });
