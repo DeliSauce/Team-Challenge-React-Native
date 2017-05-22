@@ -7,6 +7,7 @@ import { Toolbar, Button } from 'react-native-material-ui';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 import {ModalAlert} from './alert';
+import store from 'react-native-simple-store';
 
 import {
   Alert,
@@ -37,7 +38,7 @@ export default class AddChallenges extends Component {
     this.state = {
       days: '30',
       adminID: this.userID,
-      users: [this.userID],
+      users: [{id: this.userID, email: ''}],
       categoryOptions: this.defaultCategories,
       categories: [],
       name: '',
@@ -48,6 +49,14 @@ export default class AddChallenges extends Component {
       userSearchResults: [{id: '', email: ''}],
     };
     console.log("printing add challenge props", props);
+  }
+
+  componentWillMount() {
+    store.get('userData').then((userData) => {
+      //userData: name, email, photo, provider, id
+      const user = {id: userData.id, email: userData.email}
+      this.setState({users: [user]})
+    });
   }
 
   static navigationOptions = ({navigation}) => {
@@ -178,6 +187,16 @@ export default class AddChallenges extends Component {
     }
   }
 
+  renderUsers() {
+    const listOfUsers = this.state.users.map((userObj, idx) => <Text> {idx + 1 + '. ' + userObj.email} </Text>)
+
+    return (
+      <View>
+        {listOfUsers}
+      </View>
+    )
+  }
+
   render() {
     console.log('HIT RENDER');
     return (
@@ -298,7 +317,7 @@ export default class AddChallenges extends Component {
 
         <View style={styles.inputContainer}>
           <Text style={{fontSize: 17}}> Competitors: </Text>
-          <View>{this.state.users.map((userid, idx) => <Text> {idx + 1 + '. ' + userid} </Text>)}</View>
+          {this.renderUsers()}
         </View>
 
         <Modal
