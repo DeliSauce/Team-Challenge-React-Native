@@ -57,25 +57,7 @@ export default class AddChallenges extends Component {
       drawerIcon: ({tintColor}) => (
         <Icon name="playlist-add" size={25} color={tintColor} />
       )
-
     }
-    // return {
-    //   headerLeft:(
-    //     <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
-    //       <TouchableOpacity
-    //         style={{marginLeft: 10}}
-    //         onPress={() => navigation.navigate('DrawerOpen')}>
-    //         <Icon name="menu" size={40} color="#900" />
-    //       </TouchableOpacity>
-    //       <Text style={{marginLeft: 40, fontSize: 25}}>
-    //         Add New Challenge
-    //       </Text>
-    //       <View>
-    //
-    //       </View>
-    //     </View>
-    //   ),
-    // };
   };
 
   //TODO need better verification of challenge data

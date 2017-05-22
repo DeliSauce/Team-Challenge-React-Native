@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 import store from 'react-native-simple-store';
 import {Button, Toolbar} from 'react-native-material-ui';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as firebase from 'firebase';
 
 
@@ -20,6 +21,15 @@ export default class AccountInfo extends Component {
       })
       .catch((error) => console.log("errors with data", error));
   }
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      drawerLabel: 'Account Details',
+      drawerIcon: ({tintColor}) => (
+        <Icon name="info-outline" size={25} color={tintColor} />
+      )
+    }
+  };
 
   async logout() {
     try {
