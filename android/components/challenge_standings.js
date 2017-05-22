@@ -8,13 +8,76 @@ import {
 
 
 export default class ChallengeStandings extends Component {
+  constructor(props) {
+    super(props);
+    this.data = this.props.navigation.state.params.challengeData;
+    this.userID = this.props.navigation.state.params.userID;
+    this.userData = this.props.navigation.state.params.challengeData.userData[this.userID];
+    this.users = this.props.navigation.state.params.challengeData.users;
+    this.state = {
+      leaderBoard: []
+    };
+  }
+
+  // componentDidMount() {
+  //   this.calculateTotals();
+  //   console.log(this.state.leaderBoard);
+  // }
+
+  // calculateTotals() {
+  //   const leaderBoard = this.users.map((userObj) => {
+  //     const id = userObj.id;
+  //     const dataMatrix = this.data.userData[id];
+  //     const numCats = dataMatrix[0].length;
+  //     const numDays = dataMatrix.length;
+  //     let catCount = Array(numCats).fill(0);
+  //     for(let i = 0; i < numDays; i++) {
+  //       dataMatrix[i].forEach((bool, idx) => {if (bool) catCount[idx]++;});
+  //     }
+  //     return {email: userObj.email, catCount};
+  //   });
+  //
+  //   console.log("cal totals, leaderBoard: ", leaderBoard);
+  //   this.setState(leaderBoard);
+  // }
+
+  renderLeaderBoard () {
+    const leaderBoard = this.users.map((userObj) => {
+      const id = userObj.id;
+      const dataMatrix = this.data.userData[id];
+      const numCats = dataMatrix[0].length;
+      const numDays = dataMatrix.length;
+      let catCount = Array(numCats).fill(0);
+      for(let i = 0; i < numDays; i++) {
+        dataMatrix[i].forEach((bool, idx) => {if (bool) catCount[idx]++;});
+      }
+      return {email: userObj.email, catCount};
+    });
+
+
+    const listOfUsers = leaderBoard.map((userObj) => {
+      return (
+        <Text>
+          {userObj.email} with {userObj.catCount.reduce((sum, x) => sum + x)} total points
+        </Text>
+      );
+    });
+
+    return (
+      <View style={{borderWidth: 1, borderColor: 'black'}}>
+        {listOfUsers}
+      </View>
+    );
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          Challenge Standings
-         </Text>
+        <View>
+          <Text>LeaderBoard</Text>
+          {this.renderLeaderBoard()}
+        </View>
+
       </View>
     );
   }
