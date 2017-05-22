@@ -31,22 +31,12 @@ export const ChallengesStack = StackNavigator({
   }
 });
 
-export const AddChallengeStack = StackNavigator({
-  'Add Challenge': {
-    screen: AddChallenges,
-  },
-  'Dummy Card': {
-    screen: DummyTab,
-  },
-
-});
-
 export const MainNav = DrawerNavigator({
   'My Challenges': {
     screen: ChallengesStack,
   },
   'Create New Challenge': {
-    screen: AddChallengeStack,
+    screen: AddChallenges,
   },
   'Account Info': {
     screen: AccountInfo

@@ -22,6 +22,10 @@ export default class Login extends Component {
   //TODO remove this code -- only for testing purposes
   componentWillMount() {
     this.login();
+    // this.getAuthStatus()
+    // if (this.getAuthStatus()) {
+    //   this.props.navigation.navigate('MainNav')
+    // }
   }
 
   async signup() {
@@ -79,7 +83,6 @@ export default class Login extends Component {
         this.setState({authMessage: error.toString()});
     }
   }
-
 
   //onAuthStateChanged is the preferred method for checking current user but
   // I could not get it to work correctly. May require lifecycle methods?

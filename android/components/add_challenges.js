@@ -56,14 +56,6 @@ export default class AddChallenges extends Component {
       drawerLabel: 'Create Challenge',
       drawerIcon: ({tintColor}) => (
         <Icon name="playlist-add" size={25} color={tintColor} />
-      ),
-      header: (
-        <Toolbar
-          leftElement="menu"
-          onLeftElementPress={() => navigation.navigate('DrawerOpen')}
-          centerElement="Add New Challenge"
-          style={{flex: 1, alignSelf: 'stretch'}}
-          />
       )
 
     }
@@ -209,6 +201,12 @@ export default class AddChallenges extends Component {
     return (
       <View
         style={styles.container}>
+        <Toolbar
+          leftElement="menu"
+          onLeftElementPress={() => this.props.navigation.navigate('DrawerOpen')}
+          centerElement="Add New Challenge"
+          style={{flex: 1, alignSelf: 'stretch'}}
+          />
         <View style={{
             marginTop: 10,
             marginBottom: 10,

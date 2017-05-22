@@ -209,7 +209,7 @@ export default class AllChallenges extends Component {
         <View style={styles.add_container}>
           <ActionButton
             transition='toolbar'
-            onPress={() => {this.props.navigation.navigate('Add Challenge')}}
+            onPress={() => {this.props.navigation.navigate('Create New Challenge')}}
             />
         </View>
       </View>
