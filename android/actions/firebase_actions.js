@@ -31,6 +31,9 @@ export const changeChallengeData = (changeOptions) => {
   firebase.database().ref().update(updates);
 };
 
+
+
+
 export const createChallenge = (challengeOptions) => {
   console.log("challengeOptions", challengeOptions);
 

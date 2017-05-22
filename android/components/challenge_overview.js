@@ -32,7 +32,7 @@ const HeaderComponent = ({categories, boxSize}) => {
   );
 };
 
-const RowComponent = ({row, numCols, rowData, boxSize}) => {
+const MatrixRow = ({row, numCols, rowData, boxSize}) => {
   const thisRow = [];
   let day = row + 1;
   let fillColor = '';
@@ -63,18 +63,31 @@ export default class ChallengeOverview extends Component {
   constructor(props) {
     super(props);
     this.data = this.props.navigation.state.params.challengeData;
-    this.days = this.data.days;
+    this.userID = this.props.navigation.state.params.userID;
+    this.userData = this.props.navigation.state.params.challengeData.userData[this.userID];
+
+    this.numDays = this.data.days;
     this.boxSize = 60;
-    this.cats = this.data.categories.length;
-    this.userData = this.data.userData[this.data.adminID];
+    this.numCats = this.data.categories.length;
     this.state = {};
   }
 
-  renderBoardViaComponent(numRows, numCols){
+  // componentWillMount() {
+  //   console.log("overview data", this.userData);
+  //   console.log("overview data0", this.userData[0]);
+  //   console.log("overview data1", this.userData[1]);
+  // }
+
+  renderOverviewMatrix(numRows, numCols){
     const board = [];
     for(let i = 0; i < numRows; i++) {
       board.push(
-        <RowComponent key={i} row={i} numCols={numCols} rowData={this.userData[i]} boxSize={this.boxSize}/>
+        <MatrixRow
+          key={i}
+          row={i}
+          numCols={numCols}
+          rowData={this.userData[i]}
+          boxSize={this.boxSize}/>
       );
     }
     return (board);
@@ -85,7 +98,7 @@ export default class ChallengeOverview extends Component {
       <View style={styles.container}>
         <HeaderComponent categories={this.data.categories} boxSize={this.boxSize}/>
         <ScrollView>
-          {this.renderBoardViaComponent(this.days, this.cats)}
+          {this.renderOverviewMatrix(this.numDays, this.numCats)}
         </ScrollView>
       </View>
     );

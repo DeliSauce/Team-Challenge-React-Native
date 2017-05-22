@@ -19,15 +19,15 @@ export default class ChallengeDataEntry extends Component {
     this.data = this.props.navigation.state.params.challengeData;
     this.userID = this.props.navigation.state.params.userID;
     this.challengeKey = this.props.navigation.state.params.challengeKey;
+
     this.categories = this.data.categories;
     this.today = moment();
     this.begDate = moment(this.data.startDate);
     this.endDate = moment(this.data.startDate).add(parseInt(this.data.days), 'days');
     this.dayOfCycle = this.today.diff(this.begDate, 'days');
-    // this.days = this.data.days;
-    // this.cats = this.data.categories.length;
+
     this.state = {
-      adminUserData: this.data.userData[this.data.adminID]
+      userData: this.data.userData[this.userID]
     };
     console.log("day of cycle", this.dayOfCycle);
   }
@@ -49,7 +49,7 @@ export default class ChallengeDataEntry extends Component {
 
   handleCatSwitch(catObj, idx, bool) {
     this.setState((previousState) => {
-      previousState.adminUserData[idx][this.dayOfCycle] = bool;
+      previousState.userData[this.dayOfCycle][idx] = bool;
       return previousState;
     });
 
@@ -72,7 +72,7 @@ export default class ChallengeDataEntry extends Component {
         </Text>
         <Switch
           style={styles.toggle}
-          value={this.state.adminUserData[index][this.dayOfCycle]}
+          value={this.state.userData[this.dayOfCycle][index]}
           onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
           />
       </View>
