@@ -36,6 +36,7 @@ export default class AddChallenges extends Component {
       {name: 'Do 30 pushups.', status: false}
     ];
     this.state = {
+      startDate: moment().format("YYYY-MM-DD"),
       days: '30',
       adminID: this.userID,
       users: [{id: this.userID, email: ''}],
@@ -59,6 +60,11 @@ export default class AddChallenges extends Component {
     });
   }
 
+  componentWillUpdate() {
+    console.log(this.state.startDate);
+    // console.log(moment(this.state.startDate).format("dddd, MMMM DD, YYYY"));
+  }
+
   static navigationOptions = ({navigation}) => {
     //it appears that you can set the icon size about 5 pixels greater than fontSize
     return {
@@ -72,7 +78,7 @@ export default class AddChallenges extends Component {
   //TODO need better verification of challenge data
   handleCreateChallenge() {
     let {name, adminID, users, categories, startDate, days} = this.state;
-    startDate = startDate.format(YYYY-MM-DD);
+    console.log(startDate);
     const challenge = {name, adminID, users, categories, startDate, days}
     // console.log(challenge);
     let errorMessage = "";
@@ -225,10 +231,16 @@ export default class AddChallenges extends Component {
           <Text style={{fontSize: 17}}> Start Date </Text>
           <DatePicker
             style={{width: 200}}
-            date={this.state.startDate}
             mode="date"
             placeholder="select date"
+            date={moment(this.state.startDate).format("dddd, MMMM DD, YYYY")}
             format="dddd, MMMM DD, YYYY"
+            onDateChange={ (startDate) => {
+              this.setState({
+                startDate: moment(startDate, "dddd, MMMM DD, YYYY")
+                .format('YYYY-MM-DD')
+              });
+            }}
             minDate={moment().format("dddd, MMMM DD, YYYY")}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
@@ -243,9 +255,8 @@ export default class AddChallenges extends Component {
                 marginLeft: 36
               }
               // ... You can check the source to find the other keys.
-          }}
-          onDateChange={(startDate) => {this.setState({startDate})}}
-        />
+            }}
+          />
         </View>
 
         <View style={styles.slider_container}>
