@@ -18,7 +18,6 @@ export default class TeamChallenge extends Component {
       palette: {
         primaryColor: COLOR.green500,
         accentColor: COLOR.red500,
-        secondaryColor: COLOR.yellow500,
       },
       toolbar: {
         container: {

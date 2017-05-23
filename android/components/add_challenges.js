@@ -102,15 +102,16 @@ export default class AddChallenges extends Component {
 
     let userSearchResults = [];
     userSearchRef.once('value', (snap) => {
-      const searchObj = snap.val();
-      console.log('snep value', searchObj);
-      //TODO need to figure this out:
-      userSearchResults = Object.keys(searchObj).filter((key) => !this.state.users.includes(key));
-      userSearchResults = userSearchResults.map((key) => {
-        return {id: key, email: searchObj[key].email};
-      });
-      this.setState({userSearchResults});
-      console.log(this.state.userSearchResults);
+      if (snap.val() !== null) {
+        const searchObj = snap.val();
+        console.log(searchObj);
+        const usersIDs = this.state.users.map((userObj) => userObj.id);
+        userSearchResults = Object.keys(searchObj).filter((uid) => !usersIDs.includes(uid));
+        userSearchResults = userSearchResults.map((key) => {
+          return {id: key, email: searchObj[key].email};
+        });
+        this.setState({userSearchResults});
+      }
     });
   }
 
@@ -302,7 +303,7 @@ export default class AddChallenges extends Component {
             // borderWidth: 1,
             alignItems: 'center'}}>
           <Button
-            style={{ container: { backgroundColor: COLOR.yellow500 }}}
+            style={{ container: { backgroundColor: COLOR.yellow700 }}}
             raised
             text='Submit Challenge'
             onPress={() => this.handleCreateChallenge()}>
