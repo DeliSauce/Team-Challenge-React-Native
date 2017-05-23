@@ -72,6 +72,9 @@ export default class ChallengeOverview extends Component {
     this.state = {};
   }
 
+  // componentWillReceiveProps(nextProps) {
+  //   console.log("componentWillReceiveProps: ", nextProps);
+  // }
   // componentWillMount() {
   //   console.log("overview data", this.userData);
   //   console.log("overview data0", this.userData[0]);

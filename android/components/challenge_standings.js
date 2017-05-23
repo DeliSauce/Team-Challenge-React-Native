@@ -14,9 +14,6 @@ export default class ChallengeStandings extends Component {
     this.userID = this.props.navigation.state.params.userID;
     this.userData = this.props.navigation.state.params.challengeData.userData[this.userID];
     this.users = this.props.navigation.state.params.challengeData.users;
-    this.state = {
-      leaderBoard: []
-    };
   }
 
   // componentDidMount() {
