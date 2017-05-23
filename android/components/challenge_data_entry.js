@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import * as actions from '../actions/firebase_actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {Button} from 'react-native-material-ui';
 
 import {
   View,
@@ -79,6 +80,23 @@ export default class ChallengeDataEntry extends Component {
     );
   }
 
+  renderDateHeader() {
+
+    return (
+      <View style={{height: 60, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+        <TouchableOpacity style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Icon name="chevron-left" size={30} color="#900" />
+        </TouchableOpacity>
+        <Text style={{fontSize:20, flex: 3}}>
+          Today: {this.today.format('ddd, MMMM DD, YYYY')}
+        </Text>
+        <TouchableOpacity style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Icon name="chevron-right" size={30} color="#900" />
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   render() {
     if (this.today.isBefore(this.begDate)) {
       return (
@@ -92,9 +110,7 @@ export default class ChallengeDataEntry extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={{fontSize:30}}>
-          Today: {this.today.format('ddd, MMMM Do YYYY')}
-        </Text>
+        {this.renderDateHeader()}
         <FlatList
           keyExtractor={(item, index) => item}
           data={this.categories}
