@@ -19,10 +19,6 @@ export default class ChallengeStandings extends Component {
     this.state = {};
   }
 
-  // componentDidMount() {
-  //   this.calculateTotals();
-  //   console.log(this.state.leaderBoard);
-  // }
 
   // calculateTotals() {
   //   const leaderBoard = this.users.map((userObj) => {

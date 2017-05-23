@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import * as actions from '../actions/firebase_actions';
 import merge from 'lodash/merge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Toolbar, Button } from 'react-native-material-ui';
+import { Toolbar, Button, COLOR} from 'react-native-material-ui';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 import {ModalAlert} from './alert';
@@ -208,53 +208,6 @@ export default class AddChallenges extends Component {
           centerElement="Add New Challenge"
           style={{flex: 1, alignSelf: 'stretch'}}
           />
-        <View style={{
-            marginTop: 10,
-            marginBottom: 10,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            // borderColor: 'black',
-            // borderWidth: 1,
-            alignItems: 'center'}}>
-          <Button
-            accent
-            raised
-            text='Submit Challenge'
-            onPress={() => this.handleCreateChallenge()}>
-          </Button>
-        </View>
-
-        <View style={{
-            marginTop: 10,
-            marginBottom: 10,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            // borderColor: 'black',
-            // borderWidth: 1,
-            alignItems: 'center'}}>
-
-          <Button
-            accent
-            raised
-            text='Add Categories'
-            onPress={() => this.setState({categoriesModalVisible: true})}>
-          </Button>
-
-          <Button
-            accent
-            raised
-            text='Add Users'
-            onPress={() => this.setState({userSearchModalVisible: true})}>
-          </Button>
-
-          <Button
-            accent
-            raised
-            text='Clear'
-            onPress={() => Alert.alert('','not operational yet')}>
-          </Button>
-
-        </View>
 
         <View style={styles.inputContainer}>
           <Text style={{fontSize: 17}}> Challenge Name </Text>
@@ -310,14 +263,58 @@ export default class AddChallenges extends Component {
           </View>
         </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={{fontSize: 17}}> Categories: </Text>
-          <View>{this.renderCategories()}</View>
+        <View style={styles.row_container}>
+          <View style= {{flex: 3}}>
+            <Text style={{fontSize: 17}}> Categories: </Text>
+            <View>{this.renderCategories()}</View>
+          </View>
+          <View style= {{flex: 2, margin: 10}}>
+            <Button
+              accent
+              raised
+              text='Add Categories'
+              onPress={() => this.setState({categoriesModalVisible: true})}>
+            </Button>
+          </View>
         </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={{fontSize: 17}}> Competitors: </Text>
-          {this.renderUsers()}
+        <View style={styles.row_container}>
+          <View style= {{flex: 3}}>
+            <Text style={{fontSize: 17}}> Competitors: </Text>
+            {this.renderUsers()}
+          </View>
+          <View style= {{flex: 2, margin: 10}}>
+            <Button
+              accent
+              raised
+              text='Add Users'
+              onPress={() => this.setState({userSearchModalVisible: true})}>
+            </Button>
+          </View>
+        </View>
+
+        <View style={{
+            marginTop: 10,
+            marginBottom: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            // borderColor: 'black',
+            // borderWidth: 1,
+            alignItems: 'center'}}>
+          <Button
+            style={{ container: { backgroundColor: COLOR.yellow500 }}}
+            raised
+            text='Submit Challenge'
+            onPress={() => this.handleCreateChallenge()}>
+          </Button>
+
+          <Button
+            accent
+            raised
+            text='Clear'
+            onPress={() => Alert.alert('','not operational yet')}>
+          </Button>
+
         </View>
 
         <Modal
@@ -392,11 +389,6 @@ export default class AddChallenges extends Component {
   }
 }
 
-
-
-
-
-
 const styles = StyleSheet.create({
   headerText: {
     fontSize: 20,
@@ -433,15 +425,22 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'column',
-    borderColor: 'gray',
-    borderWidth: 1,
+    // borderColor: 'gray',
+    // borderWidth: 1,
+    marginTop: 10,
+    justifyContent: 'space-between',
+  },
+  row_container: {
+    flexDirection: 'row',
+    // borderColor: 'gray',
+    // borderWidth: 1,
     marginTop: 10,
     justifyContent: 'space-between',
   },
   slider_container: {
     flexDirection: 'column',
-    borderColor: 'gray',
-    borderWidth: 1,
+    // borderColor: 'gray',
+    // borderWidth: 1,
     marginTop: 10,
   },
   container: {
