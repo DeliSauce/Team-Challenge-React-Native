@@ -72,6 +72,18 @@ export default class ChallengeOverview extends Component {
     this.state = {};
   }
 
+  static navigationOptions = ({navigation}) => {
+    return {
+      headerRight:(
+        <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
+          <Text style={{marginRight: 90, fontSize: 25}}>
+            {navigation.state.params.challengeData.name}
+          </Text>
+        </View>
+      ),
+    };
+  };
+
   componentWillMount() {
     this.listenForUpdatesToChallenge();
   }
