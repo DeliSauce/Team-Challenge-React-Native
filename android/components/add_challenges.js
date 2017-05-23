@@ -71,7 +71,8 @@ export default class AddChallenges extends Component {
 
   //TODO need better verification of challenge data
   handleCreateChallenge() {
-    const {name, adminID, users, categories, startDate, days} = this.state;
+    let {name, adminID, users, categories, startDate, days} = this.state;
+    startDate = startDate.format(YYYY-MM-DD);
     const challenge = {name, adminID, users, categories, startDate, days}
     // console.log(challenge);
     let errorMessage = "";
