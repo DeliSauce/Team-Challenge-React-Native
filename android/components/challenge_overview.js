@@ -64,7 +64,7 @@ export default class ChallengeOverview extends Component {
     super(props);
     this.data = this.props.navigation.state.params.challengeData;
     this.userID = this.props.navigation.state.params.userID;
-    this.userData = this.props.navigation.state.params.challengeData.userData[this.userID];
+    this.challengeKey = this.props.navigation.state.params.challengeKey;
 
     this.numDays = this.data.days;
     this.boxSize = 60;
@@ -72,16 +72,24 @@ export default class ChallengeOverview extends Component {
     this.state = {};
   }
 
+  componentWillMount() {
+    this.listenForUpdatesToChallenge();
+  }
+
+  listenForUpdatesToChallenge() {
+    const myData = firebase.database().ref('challenges/' + this.challengeKey + '/userData/' + this.userID);
+    myData.on('value', (snap) => {
+      console.log("mydata value changed", snap.val());
+      this.setState({myData: snap.val()});
+    });
+  }
   // componentWillReceiveProps(nextProps) {
   //   console.log("componentWillReceiveProps: ", nextProps);
   // }
-  // componentWillMount() {
-  //   console.log("overview data", this.userData);
-  //   console.log("overview data0", this.userData[0]);
-  //   console.log("overview data1", this.userData[1]);
-  // }
+
 
   renderOverviewMatrix(numRows, numCols){
+    if (this.state.myData === undefined) return;
     const board = [];
     for(let i = 0; i < numRows; i++) {
       board.push(
@@ -89,7 +97,7 @@ export default class ChallengeOverview extends Component {
           key={i}
           row={i}
           numCols={numCols}
-          rowData={this.userData[i]}
+          rowData={this.state.myData[i]}
           boxSize={this.boxSize}/>
       );
     }
