@@ -183,14 +183,14 @@ export default class AddChallenges extends Component {
     if (this.state.categories.length > 0) {
       return (
         <View>
-          {this.state.categories.map((cat, idx) => <Text> {idx + 1 + '. ' + cat} </Text>)}
+          {this.state.categories.map((cat, idx) => <Text key={idx} > {idx + 1 + '. ' + cat} </Text>)}
         </View>
       )
     }
   }
 
   renderUsers() {
-    const listOfUsers = this.state.users.map((userObj, idx) => <Text> {idx + 1 + '. ' + userObj.email} </Text>)
+    const listOfUsers = this.state.users.map((userObj, idx) => <Text key={idx} > {idx + 1 + '. ' + userObj.email} </Text>)
 
     return (
       <View>
