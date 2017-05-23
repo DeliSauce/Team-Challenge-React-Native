@@ -1,5 +1,4 @@
 ## To Do
-- challenge overview not showing last day for longer challenges (scrollview issue)
 - currently no way to add users to challenge if they haven't already created an account
 - add OmniAuth and figure out how to log in automatically
 

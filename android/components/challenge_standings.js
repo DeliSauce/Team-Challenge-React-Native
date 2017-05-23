@@ -74,7 +74,7 @@ export default class ChallengeStandings extends Component {
     });
 
     return (
-      <View style={{borderWidth: 1, borderColor: 'black'}}>
+      <View style={{}}>
         {listOfUsers}
       </View>
     );
@@ -83,9 +83,13 @@ export default class ChallengeStandings extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View>
-          <Text>LeaderBoard</Text>
+        <View style={{borderWidth: 1, borderColor: 'black'}} >
+          <Text style={{fontSize:20}} >LeaderBoard</Text>
           {this.renderLeaderBoard()}
+        </View>
+        <View style={{borderWidth: 1, borderColor: 'black'}} >
+          <Text style={{fontSize:20}} >Category Leaders</Text>
+          {}
         </View>
       </View>
     );
@@ -95,9 +99,10 @@ export default class ChallengeStandings extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: 'lightgray',
   },
   welcome: {
     fontSize: 20,
