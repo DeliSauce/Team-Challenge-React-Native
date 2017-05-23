@@ -22,27 +22,26 @@ export default class ChallengeDataEntry extends Component {
     this.challengeKey = this.props.navigation.state.params.challengeKey;
 
     this.categories = this.data.categories;
-    this.today = moment();
-    this.begDate = moment(this.data.startDate);
+    this.today = moment().startOf('day');
+    this.begDate = moment(this.data.startDate).startOf('day');
     this.endDate = moment(this.data.startDate).add(parseInt(this.data.days), 'days');
-    this.dayOfCycle = this.today.diff(this.begDate, 'days');
 
     this.state = {
-      userData: this.data.userData[this.userID]
+      userData: this.data.userData[this.userID],
+      dayOfCycle: this.today.diff(this.begDate, 'days')
     };
-    console.log("day of cycle", this.dayOfCycle);
+
+    // console.log("day of cycle", this.dayOfCycle);
+    // console.log(this.data);
   }
 
   static navigationOptions = ({navigation}) => {
     return {
       headerRight:(
         <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
-          <Text style={{marginLeft: 40, fontSize: 25}}>
-            INSERT NAME
+          <Text style={{marginRight: 90, fontSize: 25}}>
+            {navigation.state.params.challengeData.name}
           </Text>
-          <View>
-
-          </View>
         </View>
       ),
     };
@@ -50,14 +49,14 @@ export default class ChallengeDataEntry extends Component {
 
   handleCatSwitch(catObj, idx, bool) {
     this.setState((previousState) => {
-      previousState.userData[this.dayOfCycle][idx] = bool;
+      previousState.userData[this.state.dayOfCycle][idx] = bool;
       return previousState;
     });
 
     actions.changeChallengeData({
       challengKey: this.challengeKey,
       userID: this.userID,
-      dayIdx: this.dayOfCycle,
+      dayIdx: this.state.dayOfCycle,
       catIdx: idx,
       boolVal: bool});
   }
@@ -73,26 +72,62 @@ export default class ChallengeDataEntry extends Component {
         </Text>
         <Switch
           style={styles.toggle}
-          value={this.state.userData[this.dayOfCycle][index]}
+          value={this.state.userData[this.state.dayOfCycle][index]}
           onValueChange={(bool) => this.handleCatSwitch(item, index, bool)}
           />
       </View>
     );
   }
 
+  renderDateChanger(direction) {
+    if (direction === 'left' && this.state.dayOfCycle > 0) {
+      return (
+        <TouchableOpacity
+          style={{alignItems: 'center', justifyContent: 'center'}}
+          onPress={() => {
+            dayOfCycle = this.state.dayOfCycle - 1;
+            this.setState({dayOfCycle});
+          }}>
+          <Icon name="chevron-left" size={30} color="black" />
+        </TouchableOpacity>
+      )
+    } else if (direction === 'right' && this.state.dayOfCycle < this.data.days - 1) {
+      return (
+        <TouchableOpacity
+          style={{alignItems: 'center', justifyContent: 'center'}}
+          onPress={() => {
+            dayOfCycle = this.state.dayOfCycle + 1;
+            this.setState({dayOfCycle});
+          }}>
+          <Icon name="chevron-right" size={30} color="black" />
+        </TouchableOpacity>
+      )
+    } else {
+      return;
+    }
+  }
+
   renderDateHeader() {
+    // console.log(this.state.dayOfCycle);
+    let headerDate =
+      moment(this.data.startDate)
+      .add(parseInt(this.state.dayOfCycle), 'days');
+
+    let headerDescription =
+      this.today.startOf('day')
+      .diff(headerDate.startOf('day'), 'days') === 0 ? 'Today: ' : '';
 
     return (
       <View style={{height: 60, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-        <TouchableOpacity style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Icon name="chevron-left" size={30} color="#900" />
-        </TouchableOpacity>
-        <Text style={{fontSize:20, flex: 3}}>
-          Today: {this.today.format('ddd, MMMM DD, YYYY')}
+        <View style={{flex: 1}}>
+          {this.renderDateChanger('left')}
+        </View>
+        <Text style={{fontSize:20, flex: 3, textAlign: 'center'}}>
+          {headerDescription + headerDate.format('dddd, MMMM DD')}
         </Text>
-        <TouchableOpacity style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Icon name="chevron-right" size={30} color="#900" />
-        </TouchableOpacity>
+        <View style={{flex: 1}}>
+          {this.renderDateChanger('right')}
+        </View>
       </View>
     )
   }
