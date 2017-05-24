@@ -18,6 +18,7 @@ import {
   TouchableOpacity,
   View,
   Modal,
+  ScrollView,
   Text,
   TextInput,
   StyleSheet,
@@ -228,121 +229,122 @@ export default class AddChallenges extends Component {
           centerElement="Add New Challenge"
           style={{flex: 1, alignSelf: 'stretch'}}
           />
-
-        <View style={styles.inputContainer}>
-          <Text style={{fontSize: 17}}> Challenge Name </Text>
-          <TextInput
-            placeholder={"Name Your Challenge"}
-            style={{height: 40, width: 160}}
-            onChangeText={(name) => this.setState({name})}
-            value={this.state.name}
-            autoCapitalize={'words'}
-            autoFocus={true}
-            />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={{fontSize: 17}}> Start Date </Text>
-          <DatePicker
-            style={{width: 200}}
-            mode="date"
-            placeholder="select date"
-            date={moment(this.state.startDate).format("dddd, MMMM DD, YYYY")}
-            format="dddd, MMMM DD, YYYY"
-            onDateChange={ (startDate) => {
-              this.setState({
-                startDate: moment(startDate, "dddd, MMMM DD, YYYY")
-                .format('YYYY-MM-DD')
-              });
-            }}
-            minDate={moment().format("dddd, MMMM DD, YYYY")}
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0
-              },
-              dateInput: {
-                marginLeft: 36
-              }
-              // ... You can check the source to find the other keys.
-            }}
-          />
-        </View>
-
-        <View style={styles.slider_container}>
-          <Text style={{fontSize: 17}}> Length of Challenge (days) </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Slider
-              style={{height: 40, width: 260}}
-              onSlidingComplete={(days) => {}}
-              onValueChange={(days) => this.setState({days})}
-              minimumValue={1}
-              maximumValue={60}
-              value={30}
-              step={1}
-              >
-            </Slider>
-            <Text> {this.state.days} </Text>
+        <ScrollView>
+          <View style={styles.inputContainer}>
+            <Text style={{fontSize: 17}}> Challenge Name </Text>
+            <TextInput
+              placeholder={"Name Your Challenge"}
+              style={{height: 40, width: 160}}
+              onChangeText={(name) => this.setState({name})}
+              value={this.state.name}
+              autoCapitalize={'words'}
+              autoFocus={true}
+              />
           </View>
-        </View>
 
-        <View style={styles.row_container}>
-          <View style= {{flex: 3}}>
-            <Text style={{fontSize: 17}}> Categories: </Text>
-            <View>{this.renderCategories()}</View>
+          <View style={styles.inputContainer}>
+            <Text style={{fontSize: 17}}> Start Date </Text>
+            <DatePicker
+              style={{width: 200}}
+              mode="date"
+              placeholder="select date"
+              date={moment(this.state.startDate).format("dddd, MMMM DD, YYYY")}
+              format="dddd, MMMM DD, YYYY"
+              onDateChange={ (startDate) => {
+                this.setState({
+                  startDate: moment(startDate, "dddd, MMMM DD, YYYY")
+                  .format('YYYY-MM-DD')
+                });
+              }}
+              minDate={moment().format("dddd, MMMM DD, YYYY")}
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  left: 0,
+                  top: 4,
+                  marginLeft: 0
+                },
+                dateInput: {
+                  marginLeft: 36
+                }
+                // ... You can check the source to find the other keys.
+              }}
+              />
           </View>
-          <View style= {{flex: 2, margin: 10}}>
-            <Button
-              accent
-              raised
-              text='Choose Categories'
-              onPress={() => this.setState({categoriesModalVisible: true})}>
-            </Button>
+
+          <View style={styles.slider_container}>
+            <Text style={{fontSize: 17}}> Length of Challenge (days) </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Slider
+                style={{height: 40, width: 260}}
+                onSlidingComplete={(days) => {}}
+                onValueChange={(days) => this.setState({days})}
+                minimumValue={1}
+                maximumValue={60}
+                value={30}
+                step={1}
+                >
+              </Slider>
+              <Text> {this.state.days} </Text>
+            </View>
           </View>
-        </View>
 
-        <View style={styles.row_container}>
-          <View style= {{flex: 3}}>
-            <Text style={{fontSize: 17}}> Competitors: </Text>
-            {this.renderUsers()}
+          <View style={styles.row_container}>
+            <View style= {{flex: 3}}>
+              <Text style={{fontSize: 17}}> Categories: </Text>
+              <View>{this.renderCategories()}</View>
+            </View>
+            <View style= {{flex: 2, margin: 10}}>
+              <Button
+                accent
+                raised
+                text='Choose Categories'
+                onPress={() => this.setState({categoriesModalVisible: true})}>
+              </Button>
+            </View>
           </View>
-          <View style= {{flex: 2, margin: 10}}>
-            <Button
-              accent
-              raised
-              text='Select Users'
-              onPress={() => this.setState({userSearchModalVisible: true})}>
-            </Button>
+
+          <View style={styles.row_container}>
+            <View style= {{flex: 3}}>
+              <Text style={{fontSize: 17}}> Competitors: </Text>
+              {this.renderUsers()}
+            </View>
+            <View style= {{flex: 2, margin: 10}}>
+              <Button
+                accent
+                raised
+                text='Select Users'
+                onPress={() => this.setState({userSearchModalVisible: true})}>
+              </Button>
+            </View>
           </View>
-        </View>
 
-        <View style={{
-            marginTop: 10,
-            marginBottom: 10,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            // borderColor: 'black',
-            // borderWidth: 1,
-            alignItems: 'center'}}>
-          <Button
-            style={{ container: { backgroundColor: COLOR.yellow700 }}}
-            raised
-            text='Submit Challenge'
-            onPress={() => this.handleCreateChallenge()}>
-          </Button>
+          <View style={{
+              marginTop: 10,
+              marginBottom: 10,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              // borderColor: 'black',
+              // borderWidth: 1,
+              alignItems: 'center'}}>
+              <Button
+                style={{ container: { backgroundColor: COLOR.yellow700 }}}
+                raised
+                text='Submit Challenge'
+                onPress={() => this.handleCreateChallenge()}>
+              </Button>
 
-          <Button
-            accent
-            raised
-            text='Clear'
-            onPress={() => Alert.alert('','not operational yet')}>
-          </Button>
+              <Button
+                accent
+                raised
+                text='Clear'
+                onPress={() => Alert.alert('','not operational yet')}>
+              </Button>
 
-        </View>
+            </View>
+        </ScrollView>
 
         <Modal
           animationType={"slide"}
@@ -388,7 +390,7 @@ export default class AddChallenges extends Component {
           <Toolbar
             leftElement="arrow-back"
             onLeftElementPress={() => this.closeModal()}
-            centerElement="Choose Categories the Challenge"
+            centerElement="Choose Challenge Categories"
             style={{flex: 1, alignSelf: 'stretch'}}
             />
 
@@ -403,7 +405,7 @@ export default class AddChallenges extends Component {
 
             <View style={{backgroundColor: COLOR.red300, padding: 15}}>
               <TextInput
-                placeholder={"Enter Your Own Category"}
+                placeholder={"Add Your Own Category"}
                 style={styles.input2}
                 value={this.state.newCat}
                 onChangeText={(newCat) => {this.setState({newCat})}}
