@@ -343,10 +343,13 @@ export default class AddChallenges extends Component {
           visible={this.state.userSearchModalVisible}
           onRequestClose={() => this.closeModal()}
           >
+          <Toolbar
+            leftElement="arrow-back"
+            onLeftElementPress={() => this.closeModal()}
+            centerElement="Search for Users"
+            style={{flex: 1, alignSelf: 'stretch'}}
+          />
           <View style={styles.container}>
-            <Text style={styles.headerText}>
-              Search for Users
-            </Text>
             <TextInput
               keyboardType='email-address'
               placeholder={"Enter User Email (or Name?)"}
@@ -379,10 +382,14 @@ export default class AddChallenges extends Component {
           visible={this.state.categoriesModalVisible}
           onRequestClose={() => this.closeModal()}
           >
+          <Toolbar
+            leftElement="arrow-back"
+            onLeftElementPress={() => this.closeModal()}
+            centerElement="Choose Categories the Challenge"
+            style={{flex: 1, alignSelf: 'stretch'}}
+            />
           <View style={styles.container}>
-            <Text style={styles.headerText}>
-              Choose Categories for Your Challenge
-            </Text>
+
 
             <FlatList
               keyExtractor={(item, index) => item.name}
