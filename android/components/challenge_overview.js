@@ -67,9 +67,12 @@ export default class ChallengeOverview extends Component {
     this.challengeKey = this.props.navigation.state.params.challengeKey;
 
     this.numDays = this.data.days;
-    this.boxSize = 60;
     this.numCats = this.data.categories.length;
-    this.state = {};
+    // this.boxSize = 60;
+    // console.log(Dimensions.get('window').width);
+    this.state = {
+      boxSize: 60,
+    };
   }
 
   static navigationOptions = ({navigation}) => {
@@ -110,7 +113,7 @@ export default class ChallengeOverview extends Component {
           row={i}
           numCols={numCols}
           rowData={this.state.myData[i]}
-          boxSize={this.boxSize}/>
+          boxSize={this.state.boxSize}/>
       );
     }
     return (board);
@@ -118,8 +121,15 @@ export default class ChallengeOverview extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <HeaderComponent categories={this.data.categories} boxSize={this.boxSize}/>
+      <View
+        style={styles.container}
+        onLayout={(event) => {
+          const boxSize = (event.nativeEvent.layout.width - 20)/ (this.numCats + 1);
+          if (boxSize < this.state.boxSize) this.setState({boxSize});
+          console.log("onlayout of view: box size", this.boxSize);
+        }}
+      >
+        <HeaderComponent categories={this.data.categories} boxSize={this.state.boxSize}/>
         <ScrollView>
           {this.renderOverviewMatrix(this.numDays, this.numCats)}
         </ScrollView>
@@ -132,6 +142,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
+    padding: 10,
     // justifyContent: 'center',
     // alignItems: 'center',
     backgroundColor: '#F5FCFF',
