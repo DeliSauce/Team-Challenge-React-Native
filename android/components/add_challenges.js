@@ -11,6 +11,7 @@ import store from 'react-native-simple-store';
 
 import {
   Alert,
+  KeyboardAvoidingView,
   Slider,
   Picker,
   FlatList,
@@ -33,7 +34,11 @@ export default class AddChallenges extends Component {
       {name: 'Don\'t eat carbs.', status: false},
       {name: 'Don\'t eat candy.', status: false},
       {name: 'Read a book.', status: false},
-      {name: 'Do 30 pushups.', status: false}
+      {name: 'Do 30 pushups.', status: false},
+      {name: 'Placeholder 1.', status: false},
+      {name: 'Placeholder 2.', status: false},
+      {name: 'Placeholder 3.', status: false},
+      {name: 'Placeholder 4.', status: false},
     ];
     this.state = {
       startDate: moment().format("YYYY-MM-DD"),
@@ -378,15 +383,16 @@ export default class AddChallenges extends Component {
           animationType={"slide"}
           transparent={false}
           visible={this.state.categoriesModalVisible}
-          onRequestClose={() => this.closeModal()}
-          >
+          onRequestClose={() => this.closeModal()}>
+
           <Toolbar
             leftElement="arrow-back"
             onLeftElementPress={() => this.closeModal()}
             centerElement="Choose Categories the Challenge"
             style={{flex: 1, alignSelf: 'stretch'}}
             />
-          <View style={styles.container}>
+
+          <KeyboardAvoidingView style={styles.container}>
             <FlatList
               keyExtractor={(item, index) => item.name}
               data={this.state.categoryOptions}
@@ -395,7 +401,7 @@ export default class AddChallenges extends Component {
               >
             </FlatList>
 
-            <View>
+            <View style={{backgroundColor: COLOR.red300, padding: 15}}>
               <TextInput
                 placeholder={"Enter Your Own Category"}
                 style={styles.input2}
@@ -406,13 +412,15 @@ export default class AddChallenges extends Component {
                 onEndEditing={() => {this.handleAddNewCat()}}
                 />
             </View>
-          </View>
-        </Modal>
+          </KeyboardAvoidingView>
 
+        </Modal>
       </View>
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   headerText: {
@@ -444,9 +452,11 @@ const styles = StyleSheet.create({
   },
   input2: {
     height: 50,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 10,
+    // borderColor: 'gray',
+    // borderWidth: 1,
+    backgroundColor: 'white',
+    borderRadius: 3,
+    // marginTop: 10,
   },
   inputContainer: {
     flexDirection: 'column',
@@ -485,7 +495,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   container: {
-    // flex: 1,
+    flex: 1,
     flexDirection: 'column',
     alignSelf: 'stretch',
 
