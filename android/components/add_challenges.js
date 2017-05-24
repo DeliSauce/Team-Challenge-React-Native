@@ -208,7 +208,7 @@ export default class AddChallenges extends Component {
   handleAddNewCat() {
     newCat = {name: this.state.newCat, status: true};
     let categories = this.state.categories.concat(this.state.newCat);
-    let categoryOptions = [newCat].concat(this.state.categoryOptions);
+    let categoryOptions = this.state.categoryOptions.concat(newCat);
     this.setState({newCat: '', categoryOptions, categories});
   }
 
@@ -231,6 +231,8 @@ export default class AddChallenges extends Component {
             style={{height: 40, width: 160}}
             onChangeText={(name) => this.setState({name})}
             value={this.state.name}
+            autoCapitalize={'words'}
+            autoFocus={true}
             />
         </View>
 
@@ -399,11 +401,10 @@ export default class AddChallenges extends Component {
                 style={styles.input2}
                 value={this.state.newCat}
                 onChangeText={(newCat) => {this.setState({newCat})}}
+                autoCapitalize={'sentences'}
+                returnKeyType={'done'}
+                onEndEditing={() => {this.handleAddNewCat()}}
                 />
-              <Button
-                text={'Add Categories'}
-                onPress={() => {this.handleAddNewCat()}}>
-              </Button>
             </View>
           </View>
         </Modal>
