@@ -369,10 +369,6 @@ export default class AddChallenges extends Component {
                 >
               </FlatList>
             </View>
-            <Button
-              text={'Add User'}
-              onPress={() => {}}>
-            </Button>
           </View>
         </Modal>
 
@@ -389,8 +385,6 @@ export default class AddChallenges extends Component {
             style={{flex: 1, alignSelf: 'stretch'}}
             />
           <View style={styles.container}>
-
-
             <FlatList
               keyExtractor={(item, index) => item.name}
               data={this.state.categoryOptions}
@@ -490,7 +484,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   container: {
-    flex: 1,
+    // flex: 1,
+    flexDirection: 'column',
+    alignSelf: 'stretch',
+
     // justifyContent: 'center',
     // alignItems: 'center',
     backgroundColor: '#F5FCFF',
@@ -500,7 +497,7 @@ const styles = StyleSheet.create({
     height: 300,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: 'lightgrey',
   },
 
   catContainer: {
