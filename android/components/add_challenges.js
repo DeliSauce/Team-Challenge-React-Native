@@ -205,6 +205,14 @@ export default class AddChallenges extends Component {
     )
   }
 
+
+  handleAddNewCat() {
+    newCat = {name: this.state.newCat, status: true};
+    let categories = this.state.categories.concat(this.state.newCat);
+    let categoryOptions = [newCat].concat(this.state.categoryOptions);
+    this.setState({newCat: '', categoryOptions, categories});
+  }
+
   render() {
     console.log('HIT RENDER');
     return (
@@ -377,12 +385,6 @@ export default class AddChallenges extends Component {
               Choose Categories for Your Challenge
             </Text>
 
-            <TextInput
-              placeholder={"Enter a New Category (not currently working)"}
-              style={styles.input2}
-              value={this.state.newCat}
-              onChangeText={(newCat) => {}}
-              />
             <FlatList
               keyExtractor={(item, index) => item.name}
               data={this.state.categoryOptions}
@@ -390,10 +392,19 @@ export default class AddChallenges extends Component {
               renderItem={(catObj) => this.renderCategoryOptions(catObj)}
               >
             </FlatList>
-            <Button
-              text={'Add Categories'}
-              onPress={() => {}}>
-            </Button>
+
+            <View>
+              <TextInput
+                placeholder={"Enter Your Own Category"}
+                style={styles.input2}
+                value={this.state.newCat}
+                onChangeText={(newCat) => {this.setState({newCat})}}
+                />
+              <Button
+                text={'Add Categories'}
+                onPress={() => {this.handleAddNewCat()}}>
+              </Button>
+            </View>
           </View>
         </Modal>
 
