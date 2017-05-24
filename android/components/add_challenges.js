@@ -205,7 +205,6 @@ export default class AddChallenges extends Component {
     )
   }
 
-
   handleAddNewCat() {
     newCat = {name: this.state.newCat, status: true};
     let categories = this.state.categories.concat(this.state.newCat);
@@ -293,7 +292,7 @@ export default class AddChallenges extends Component {
             <Button
               accent
               raised
-              text='Add Categories'
+              text='Choose Categories'
               onPress={() => this.setState({categoriesModalVisible: true})}>
             </Button>
           </View>
@@ -308,7 +307,7 @@ export default class AddChallenges extends Component {
             <Button
               accent
               raised
-              text='Add Users'
+              text='Select Users'
               onPress={() => this.setState({userSearchModalVisible: true})}>
             </Button>
           </View>
@@ -451,21 +450,37 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     // borderColor: 'gray',
     // borderWidth: 1,
-    marginTop: 10,
+    borderColor: COLOR.grey200,
+    borderWidth: 1,
+    backgroundColor: COLOR.grey100,
+    paddingTop: 5,
+    paddingBottom: 5,
+    marginTop: 5,
+    marginBottom: 5,
     justifyContent: 'space-between',
   },
   row_container: {
     flexDirection: 'row',
-    // borderColor: 'gray',
-    // borderWidth: 1,
-    marginTop: 10,
+    borderColor: COLOR.grey200,
+    borderWidth: 1,
+    backgroundColor: COLOR.grey100,
+    paddingTop: 5,
+    paddingBottom: 5,
+    marginTop: 5,
+    marginBottom: 5,
     justifyContent: 'space-between',
   },
   slider_container: {
     flexDirection: 'column',
     // borderColor: 'gray',
     // borderWidth: 1,
-    marginTop: 10,
+    borderColor: COLOR.grey200,
+    borderWidth: 1,
+    backgroundColor: COLOR.grey100,
+    paddingTop: 5,
+    paddingBottom: 5,
+    marginTop: 5,
+    marginBottom: 5,
   },
   container: {
     flex: 1,
