@@ -62,14 +62,15 @@ const MatrixRow = ({row, numCols, rowData, boxSize}) => {
 export default class ChallengeOverview extends Component {
   constructor(props) {
     super(props);
-    this.data = this.props.navigation.state.params.challengeData;
+    this.challengeData = this.props.navigation.state.params.challengeData;
     this.userID = this.props.navigation.state.params.userID;
     this.challengeKey = this.props.navigation.state.params.challengeKey;
 
-    this.numDays = this.data.days;
-    this.numCats = this.data.categories.length;
-    // this.boxSize = 60;
-    // console.log(Dimensions.get('window').width);
+    this.myData = this.challengeData.userData[this.userID];
+    this.numDays = this.challengeData.days;
+    this.numCats = this.challengeData.categories.length;
+    console.log('CONSTRUCTOR: overview');
+
     this.state = {
       boxSize: 60,
     };
@@ -88,14 +89,15 @@ export default class ChallengeOverview extends Component {
   };
 
   componentWillMount() {
+    console.log('WILL MOUNT: overview');
     this.listenForUpdatesToChallenge();
   }
 
   listenForUpdatesToChallenge() {
-    const myData = firebase.database().ref('challenges/' + this.challengeKey + '/userData/' + this.userID);
-    myData.on('value', (snap) => {
-      console.log("mydata value changed", snap.val());
-      this.setState({myData: snap.val()});
+    const challengeData = firebase.database().ref('challenges/' + this.challengeKey + '/userData');
+    challengeData.on('value', (snap) => {
+      console.log("overview LISTENER", snap.val());
+      this.props.navigation.setParams({challengeData: snap.val()});
     });
   }
   // componentWillReceiveProps(nextProps) {
@@ -104,7 +106,6 @@ export default class ChallengeOverview extends Component {
 
 
   renderOverviewMatrix(numRows, numCols){
-    if (this.state.myData === undefined) return;
     const board = [];
     for(let i = 0; i < numRows; i++) {
       board.push(
@@ -112,7 +113,7 @@ export default class ChallengeOverview extends Component {
           key={i}
           row={i}
           numCols={numCols}
-          rowData={this.state.myData[i]}
+          rowData={this.myData[i]}
           boxSize={this.state.boxSize}/>
       );
     }
@@ -120,6 +121,7 @@ export default class ChallengeOverview extends Component {
   }
 
   render() {
+    console.log('RENDER: overview');
     return (
       <View
         style={styles.container}
@@ -129,7 +131,7 @@ export default class ChallengeOverview extends Component {
           console.log("onlayout of view: box size", this.boxSize);
         }}
       >
-        <HeaderComponent categories={this.data.categories} boxSize={this.state.boxSize}/>
+        <HeaderComponent categories={this.challengeData.categories} boxSize={this.state.boxSize}/>
         <ScrollView>
           {this.renderOverviewMatrix(this.numDays, this.numCats)}
         </ScrollView>

@@ -10,13 +10,13 @@ import {
 export default class ChallengeStandings extends Component {
   constructor(props) {
     super(props);
-    this.challengeData,
-    this.userID,
-    this.challengeKey = this.props.navigation.state.params;
+    this.challengeData = this.props.navigation.state.params.challengeData;
+    this.userID = this.props.navigation.state.params.userID;
+    this.challengeKey = this.props.navigation.state.params.challengeKey;
 
     this.userData = this.challengeData.userData;
     this.users = this.challengeData.users;
-    console.log('CONSTRUCTOR: challenge standings');
+    console.log('CONSTRUCTOR: standings');
   }
 
   static navigationOptions = ({navigation}) => {
@@ -39,8 +39,7 @@ export default class ChallengeStandings extends Component {
   listenForUpdatesToChallenge() {
     const challengeData = firebase.database().ref('challenges/' + this.challengeKey + '/userData');
     challengeData.on('value', (snap) => {
-      // console.log("mydata value changed", snap.val());
-      // this.setState({challengeData: snap.val()});
+      console.log("standings LISTENER", snap.val());
       this.props.navigation.setParams({challengeData: snap.val()});
     });
   }
