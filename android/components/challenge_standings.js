@@ -10,13 +10,13 @@ import {
 export default class ChallengeStandings extends Component {
   constructor(props) {
     super(props);
-    this.data = this.props.navigation.state.params.challengeData;
-    this.userID = this.props.navigation.state.params.userID;
-    this.challengeKey = this.props.navigation.state.params.challengeKey;
+    this.challengeData,
+    this.userID,
+    this.challengeKey = this.props.navigation.state.params;
 
-    this.userData = this.props.navigation.state.params.challengeData.userData[this.userID];
-    this.users = this.props.navigation.state.params.challengeData.users;
-    this.state = {};
+    this.userData = this.challengeData.userData;
+    this.users = this.challengeData.users;
+    console.log('CONSTRUCTOR: challenge standings');
   }
 
   static navigationOptions = ({navigation}) => {
@@ -31,42 +31,26 @@ export default class ChallengeStandings extends Component {
     };
   };
 
-
-  // calculateTotals() {
-  //   const leaderBoard = this.users.map((userObj) => {
-  //     const id = userObj.id;
-  //     const dataMatrix = this.data.userData[id];
-  //     const numCats = dataMatrix[0].length;
-  //     const numDays = dataMatrix.length;
-  //     let catCount = Array(numCats).fill(0);
-  //     for(let i = 0; i < numDays; i++) {
-  //       dataMatrix[i].forEach((bool, idx) => {if (bool) catCount[idx]++;});
-  //     }
-  //     return {email: userObj.email, catCount};
-  //   });
-  //
-  //   console.log("cal totals, leaderBoard: ", leaderBoard);
-  //   this.setState(leaderBoard);
-  // }
-
   componentWillMount() {
+    console.log('WILL MOUNT: challenge standings');
     this.listenForUpdatesToChallenge();
   }
 
   listenForUpdatesToChallenge() {
     const challengeData = firebase.database().ref('challenges/' + this.challengeKey + '/userData');
     challengeData.on('value', (snap) => {
-      console.log("mydata value changed", snap.val());
-      this.setState({challengeData: snap.val()});
+      // console.log("mydata value changed", snap.val());
+      // this.setState({challengeData: snap.val()});
+      this.props.navigation.setParams({challengeData: snap.val()});
     });
   }
 
   renderLeaderBoard () {
-    if (this.state.challengeData === undefined) return;
+    // if (this.state.challengeData === undefined) return;
 
     const leaderBoard = this.users.map((userObj) => {
       const id = userObj.id;
-      const dataMatrix = this.state.challengeData[id];
+      const dataMatrix = this.userData[id];
       const numCats = dataMatrix[0].length;
       const numDays = dataMatrix.length;
       let catCount = Array(numCats).fill(0);
@@ -93,6 +77,8 @@ export default class ChallengeStandings extends Component {
   }
 
   render() {
+    console.log('RENDER: challenge standings');
+
     return (
       <View style={styles.container}>
         <View style={{borderWidth: 1, borderColor: 'black'}} >
