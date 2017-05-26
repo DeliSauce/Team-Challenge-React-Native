@@ -1,4 +1,4 @@
-package com.teamchallenge;
+package com.delisauce.teamchallenge;
 
 import com.facebook.react.ReactActivity;
 
