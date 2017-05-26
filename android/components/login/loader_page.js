@@ -28,8 +28,11 @@ export default class LoaderPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>
-          Dummy Tab
+        <Text style={{fontSize: 30, margin: 10}}>
+          Currenty Determining Your Log In Status.
+         </Text>
+        <Text style={{fontSize: 30, margin: 10}}>
+          Please Hold.
          </Text>
       </View>
     );
@@ -41,6 +44,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'pink',
+    backgroundColor: 'lightgray',
   }
 });
