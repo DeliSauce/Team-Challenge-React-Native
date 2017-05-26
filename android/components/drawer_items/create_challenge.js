@@ -8,8 +8,8 @@ import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 // import {ModalAlert} from './alert';
 import store from 'react-native-simple-store';
-import Contacts from 'react-native-contacts'
-// var Contacts = require('react-native-contacts');
+import Contacts from 'react-native-contacts';
+var TrieSearch = require('trie-search', {min: 2, indexField: 'idx'});
 
 import {
   Alert,
@@ -60,7 +60,9 @@ export default class CreateChallenge extends Component {
     console.log("printing add challenge props", props);
     // this.contacts = this.getContacts;
     this.contacts = []
+    this.contactsTrie = new TrieSearch(['email', 'givenName', 'familyName']);
     this.getContacts();
+    // this.contactsTrie = new TrieSearch(['email', 'givenName', 'familyName']);
   }
 
   getContacts() {
@@ -77,7 +79,8 @@ export default class CreateChallenge extends Component {
             this.contacts.push(contact);
           })
         })
-        console.log(this.contacts)
+        // console.log(this.contacts)
+        this.contacts.forEach((contactObj) => {this.contactsTrie.add(contactObj)});
       }
     })
   }
@@ -132,29 +135,55 @@ export default class CreateChallenge extends Component {
   }
 
   handleUserSearchInput(userSearch) {
-    if (userSearch.length < 1) return;
-    console.log('hit handle ', userSearch);
-    const userSearchRef = firebase.database().ref()
-      .child('userLookup')
-      .orderByChild('email')
-      .startAt(userSearch)
-      .endAt(userSearch + '\uf8ff')
-      .limitToFirst(10);
+    // if (userSearch.length < 2) return;
+    // const userSearchRef = firebase.database().ref()
+    //   .child('userLookup')
+    //   .orderByChild('email')
+    //   .startAt(userSearch)
+    //   .endAt(userSearch + '\uf8ff')
+    //   .limitToFirst(10);
 
-    let userSearchResults = [];
-    userSearchRef.once('value', (snap) => {
-      if (snap.val() !== null) {
-        const searchObj = snap.val();
-        console.log(searchObj);
-        const usersIDs = this.state.users.map((userObj) => userObj.id);
-        userSearchResults = Object.keys(searchObj).filter((uid) => !usersIDs.includes(uid));
-        userSearchResults = userSearchResults.map((key) => {
-          return {id: key, email: searchObj[key].email};
-        });
-        this.setState({userSearchResults});
-      }
-    });
+    let userSearchResults  = this.contactsTrie.get(userSearch)
+    this.setState({userSearchResults});
+    // console.log("trie search results: ", results);
+    // let userSearchResults = [];
+    // userSearchRef.once('value', (snap) => {
+    //   if (snap.val() !== null) {
+    //     const searchObj = snap.val();
+    //     console.log(searchObj);
+    //     const usersIDs = this.state.users.map((userObj) => userObj.id);
+    //     userSearchResults = Object.keys(searchObj).filter((uid) => !usersIDs.includes(uid));
+    //     userSearchResults = userSearchResults.map((key) => {
+    //       return {id: key, email: searchObj[key].email};
+    //     });
+    //     this.setState({userSearchResults});
+    //   }
+    // });
   }
+  // handleUserSearchInput(userSearch) {
+  //   if (userSearch.length < 1) return;
+  //   console.log('hit handle ', userSearch);
+  //   const userSearchRef = firebase.database().ref()
+  //     .child('userLookup')
+  //     .orderByChild('email')
+  //     .startAt(userSearch)
+  //     .endAt(userSearch + '\uf8ff')
+  //     .limitToFirst(10);
+  //
+  //   let userSearchResults = [];
+  //   userSearchRef.once('value', (snap) => {
+  //     if (snap.val() !== null) {
+  //       const searchObj = snap.val();
+  //       console.log(searchObj);
+  //       const usersIDs = this.state.users.map((userObj) => userObj.id);
+  //       userSearchResults = Object.keys(searchObj).filter((uid) => !usersIDs.includes(uid));
+  //       userSearchResults = userSearchResults.map((key) => {
+  //         return {id: key, email: searchObj[key].email};
+  //       });
+  //       this.setState({userSearchResults});
+  //     }
+  //   });
+  // }
 
   handleSelectUser(userObj) {
     console.log('handleSelectUser', userObj);
@@ -450,6 +479,40 @@ export default class CreateChallenge extends Component {
   }
 }
 
+// <Modal
+//   animationType={"slide"}
+//   transparent={false}
+//   visible={this.state.userSearchModalVisible}
+//   onRequestClose={() => this.closeModal()}
+//   >
+//   <Toolbar
+//     leftElement="arrow-back"
+//     onLeftElementPress={() => this.closeModal()}
+//     centerElement="Search for Users"
+//     style={{flex: 1, alignSelf: 'stretch'}}
+//   />
+//   <View style={styles.container}>
+//     <TextInput
+//       keyboardType='email-address'
+//       placeholder={"Enter User Email (or Name?)"}
+//       style={styles.input2}
+//       value={this.state.userSearch}
+//       onChangeText={(userSearch) => {
+//         this.setState({userSearch, userSearchResults: []});
+//         this.handleUserSearchInput(userSearch);}
+//       }
+//       />
+//     <View style={styles.searchContainer}>
+//       <FlatList
+//         keyboardShouldPersistTaps="handled"
+//         keyExtractor={(item, index) => item.email}
+//         data={this.state.userSearchResults}
+//         renderItem={userObj => this.renderUserSearchItem(userObj)}
+//         >
+//       </FlatList>
+//     </View>
+//   </View>
+// </Modal>
 
 
 const styles = StyleSheet.create({
