@@ -14,7 +14,6 @@ export default class DummyTab extends Component {
   }
 
   componentWillMount () {
-
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log('User is signed in.');
@@ -24,7 +23,6 @@ export default class DummyTab extends Component {
         this.props.navigation.navigate('Login');
       }
     });
-
   }
 
   render() {

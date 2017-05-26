@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
+import {Button} from 'react-native-material-ui';
 import {
-  Button,
   StyleSheet,
   Text,
   TextInput,
@@ -14,7 +14,7 @@ import merge from 'lodash/merge';
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: 'john.doe@gmail.com', pass: "", authMessage: ''};
+    this.state = {email: 'john.doe@gmail.com', pass: "123456", authMessage: ''};
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
   }
@@ -89,26 +89,7 @@ export default class Login extends Component {
   // firebase.auth().onAuthStateChanged(function(user) {
   // });
 
-  // getAuthStatus() {
 
-  //   firebase.auth().onAuthStateChanged(function(user) {
-  //     if (user) {
-  //       console.log('User is signed in.');
-  //     } else {
-  //       console.log('No user is signed in.');
-  //     }
-  //   });
-  //
-  //
-  //
-  //   var user = firebase.auth().currentUser;
-  //     if (user) {
-  //       return true;
-  //     } else {
-  //       console.log("auth status: ", user);
-  //       return false;
-  //     }
-  // }
 
 
   render() {
@@ -135,29 +116,27 @@ export default class Login extends Component {
           value={this.state.pass}
           />
 
-        <TextInput
+        <Text
           style={styles.errors}
           >
           {this.state.authMessage}
-        </TextInput>
-
-        <TouchableOpacity onPress={() => this.signup()}
-        style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
-          <Text> Sign Up </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => this.login()}
-        style={{height: 40, width: 70, borderColor: '#841584', borderWidth: 1}}>
-          <Text> Log In </Text>
-        </TouchableOpacity>
-
-        <Text style={styles.instructions}>
-          When in testing mode, shake phone to reload app.
         </Text>
 
-        <View>
+        <Button
+          primary
+          raised
+          style={{flex: 1, margin: 10}}
+          onPress={() => this.signup()}
+          text={'Sign Up'}>
+        </Button>
 
-        </View>
+        <Button
+          accent
+          raised
+          onPress={() => this.login()}
+          text={'Log In'}>
+        </Button>
+
       </View>
     );
   }
