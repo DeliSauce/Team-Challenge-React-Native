@@ -14,6 +14,8 @@ export default class LoaderPage extends Component {
   }
 
   componentWillMount () {
+    //This does not require connection, looks for session token stored
+    //locally?
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log('User is signed in.');
@@ -28,10 +30,10 @@ export default class LoaderPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 30, margin: 10}}>
+        <Text style={{fontSize: 20, margin: 10}}>
           Currenty Determining Your Log In Status.
          </Text>
-        <Text style={{fontSize: 30, margin: 10}}>
+        <Text style={{fontSize: 20, margin: 10}}>
           Please Hold.
          </Text>
       </View>

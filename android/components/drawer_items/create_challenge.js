@@ -8,6 +8,8 @@ import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 // import {ModalAlert} from './alert';
 import store from 'react-native-simple-store';
+import Contacts from 'react-native-contacts'
+// var Contacts = require('react-native-contacts');
 
 import {
   Alert,
@@ -56,6 +58,28 @@ export default class CreateChallenge extends Component {
       userSearchResults: [{id: '', email: ''}],
     };
     console.log("printing add challenge props", props);
+    // this.contacts = this.getContacts;
+    this.contacts = []
+    this.getContacts();
+  }
+
+  getContacts() {
+    Contacts.getAll((err, contacts) => {
+      if(err === 'denied'){
+        console.log(err)
+      } else {
+        contacts.forEach((contactObj) => {
+          const {givenName, familyName, thumbnailPath, emailAddresses} = contactObj;
+          emailAddresses.forEach((emailObj) => {
+            const email = emailObj.email;
+            const idx = this.contacts.length;
+            const contact = {idx, givenName, familyName, thumbnailPath, email};
+            this.contacts.push(contact);
+          })
+        })
+        console.log(this.contacts)
+      }
+    })
   }
 
   componentWillMount() {
@@ -64,6 +88,10 @@ export default class CreateChallenge extends Component {
       const user = {id: userData.id, email: userData.email}
       this.setState({users: [user]})
     });
+  }
+
+  componentDidMount() {
+    // console.log(this.contacts);
   }
 
   componentWillUpdate() {
