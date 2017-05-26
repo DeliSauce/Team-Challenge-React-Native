@@ -66,6 +66,7 @@ export const MainNav = DrawerNavigator({
 });
 
 export const App = StackNavigator({
+  'Dummy': { screen: DummyTab },
   'Login': { screen: Login },
   'MainNav': { screen: MainNav }
 },

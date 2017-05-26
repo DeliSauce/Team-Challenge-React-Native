@@ -83,10 +83,10 @@ export default class AllChallenges extends Component {
     // challengesRef.on('value', (snap) => console.log("chall value", snap.val()));
 
     myChallengesRef.on('child_added', (snap) => {
-      console.log("listener is on");
+      console.log("all_challenges LISTENER");
       const challengeRef = firebase.database().ref('challenges/' + snap.key);
       challengeRef.once('value', (snapshot) => {
-        console.log('hit a new challenge ref, snap=', snap.key, 'snapshot=', snapshot.key);
+        console.log('LISTENER hit a new challenge ref, snap=', snap.key, 'snapshot=', snapshot.key);
         challenges.push({challengeKey: snapshot.key, challenge: snapshot.val()});
         this.setState({challenges});
       });

@@ -14,14 +14,14 @@ import merge from 'lodash/merge';
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: 'john.doe@gmail.com', pass: "123456", authMessage: ''};
+    this.state = {email: 'john.doe@gmail.com', pass: "", authMessage: ''};
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
   }
 
   //TODO remove this code -- only for testing purposes
   componentWillMount() {
-    this.login();
+    // this.login();
     // this.getAuthStatus()
     // if (this.getAuthStatus()) {
     //   this.props.navigation.navigate('MainNav')
@@ -89,15 +89,26 @@ export default class Login extends Component {
   // firebase.auth().onAuthStateChanged(function(user) {
   // });
 
-  getAuthStatus() {
-    var user = firebase.auth().currentUser;
-      if (user) {
-        return true;
-      } else {
-        console.log("auth status: ", user);
-        return false;
-      }
-  }
+  // getAuthStatus() {
+
+  //   firebase.auth().onAuthStateChanged(function(user) {
+  //     if (user) {
+  //       console.log('User is signed in.');
+  //     } else {
+  //       console.log('No user is signed in.');
+  //     }
+  //   });
+  //
+  //
+  //
+  //   var user = firebase.auth().currentUser;
+  //     if (user) {
+  //       return true;
+  //     } else {
+  //       console.log("auth status: ", user);
+  //       return false;
+  //     }
+  // }
 
 
   render() {
