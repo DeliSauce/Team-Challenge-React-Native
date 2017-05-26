@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 
-export default class DummyTab extends Component {
+export default class LoaderPage extends Component {
   constructor(props){
     super(props);
   }

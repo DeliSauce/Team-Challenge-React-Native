@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 import React, {Component} from 'react';
-import * as actions from '../actions/firebase_actions';
+import * as actions from '../../actions/firebase_actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import {Button} from 'react-native-material-design';
 import { COLOR, Button, Toolbar, Card, ActionButton} from 'react-native-material-ui';

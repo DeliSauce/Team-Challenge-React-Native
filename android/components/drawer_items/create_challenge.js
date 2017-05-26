@@ -1,12 +1,12 @@
 import * as firebase from 'firebase';
 import React, {Component} from 'react';
-import * as actions from '../actions/firebase_actions';
+import * as actions from '../../actions/firebase_actions';
 import merge from 'lodash/merge';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Toolbar, Button, COLOR} from 'react-native-material-ui';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
-import {ModalAlert} from './alert';
+// import {ModalAlert} from './alert';
 import store from 'react-native-simple-store';
 
 import {
@@ -26,7 +26,7 @@ import {
   Switch
 } from 'react-native';
 
-export default class AddChallenges extends Component {
+export default class CreateChallenge extends Component {
   constructor(props) {
     super(props);
     this.userID = firebase.auth().currentUser.uid;

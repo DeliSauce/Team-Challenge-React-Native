@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as firebase from 'firebase';
 
 
-export default class AccountInfo extends Component {
+export default class AccountDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {};
