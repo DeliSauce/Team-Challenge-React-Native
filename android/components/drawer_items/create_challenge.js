@@ -34,11 +34,6 @@ export default class CreateChallenge extends Component {
     super(props);
     this.userID = firebase.auth().currentUser.uid;
     this.defaultCategories = [
-      {name: 'Walk to work.', status: false},
-      {name: 'Don\'t eat carbs.', status: false},
-      {name: 'Don\'t eat candy.', status: false},
-      {name: 'Read a book.', status: false},
-      {name: 'Do 30 pushups.', status: false},
       {name: 'Placeholder 1.', status: false},
       {name: 'Placeholder 2.', status: false},
       {name: 'Placeholder 3.', status: false},
