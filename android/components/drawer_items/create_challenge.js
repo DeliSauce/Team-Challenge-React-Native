@@ -193,17 +193,17 @@ export default class CreateChallenge extends Component {
     //   </TouchableOpacity>
     // );
 
-    let userSearchRef = firebase.database().ref()
-      .child('userLookup')
-      .orderByChild('email')
-      .equalTo(item.email);
-    userSearchRef.once('value', (snap) => {
-      let id = (snap.val()) ? Object.keys(snap.val())[0] : 'none'
-      this.setState((previousState) => {
-        previousState.userSearchResults[index].id = id;
-        return previousState;
-      });
-    });
+    // let userSearchRef = firebase.database().ref()
+    //   .child('userLookup')
+    //   .orderByChild('email')
+    //   .equalTo(item.email);
+    // userSearchRef.once('value', (snap) => {
+    //   let id = (snap.val()) ? Object.keys(snap.val())[0] : 'none'
+    //   this.setState((previousState) => {
+    //     previousState.userSearchResults[index].id = id;
+    //     return previousState;
+    //   });
+    // });
 
     console.log('status', item.status);
 
@@ -223,11 +223,14 @@ export default class CreateChallenge extends Component {
           </Text>
         </View>
         <View style={{flex: 1, borderColor: 'black', borderWidth: 1}}>
-          {this.renderIsUserInDB(item.id)}
+          <Text>
+            this.renderIsUserInDB call
+          </Text>
         </View>
       </TouchableOpacity>
     );
   }
+
 
   renderIsUserInDB(id) {
     if (id === undefined) {
