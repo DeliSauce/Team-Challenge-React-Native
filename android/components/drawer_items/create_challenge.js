@@ -13,6 +13,7 @@ var TrieSearch = require('trie-search', {min: 2, indexField: 'idx'});
 
 import {
   Alert,
+  Image,
   KeyboardAvoidingView,
   Slider,
   Picker,
@@ -135,31 +136,22 @@ export default class CreateChallenge extends Component {
   }
 
   handleUserSearchInput(userSearch) {
-    // if (userSearch.length < 2) return;
-    // const userSearchRef = firebase.database().ref()
-    //   .child('userLookup')
-    //   .orderByChild('email')
-    //   .startAt(userSearch)
-    //   .endAt(userSearch + '\uf8ff')
-    //   .limitToFirst(10);
 
     let userSearchResults  = this.contactsTrie.get(userSearch)
+
+    // userSearchResults = userSearchResults.map((userObj) => {
+    //   let userSearchRef = firebase.database().ref()
+    //     .child('userLookup')
+    //     .orderByChild('email')
+    //     .equalTo(userObj.email);
+    //   userSearchRef.once('value', (snap) => {
+    //     console.log(snap.key, snap.val());
+    //   })
+    // })
     this.setState({userSearchResults});
-    // console.log("trie search results: ", results);
-    // let userSearchResults = [];
-    // userSearchRef.once('value', (snap) => {
-    //   if (snap.val() !== null) {
-    //     const searchObj = snap.val();
-    //     console.log(searchObj);
-    //     const usersIDs = this.state.users.map((userObj) => userObj.id);
-    //     userSearchResults = Object.keys(searchObj).filter((uid) => !usersIDs.includes(uid));
-    //     userSearchResults = userSearchResults.map((key) => {
-    //       return {id: key, email: searchObj[key].email};
-    //     });
-    //     this.setState({userSearchResults});
-    //   }
-    // });
   }
+
+  //OLD METHOD:
   // handleUserSearchInput(userSearch) {
   //   if (userSearch.length < 1) return;
   //   console.log('hit handle ', userSearch);
@@ -194,14 +186,64 @@ export default class CreateChallenge extends Component {
   }
 
   renderUserSearchItem({item, index}) {
+    // return(
+    //   <TouchableOpacity
+    //     style={styles.user_search_result}
+    //     onPress={() => this.handleSelectUser(item) }>
+    //     <View>
+    //       <Text style={{fontSize: 15}}>
+    //       {item.email}
+    //       </Text>
+    //     </View>
+    //   </TouchableOpacity>
+    // );
+
+    let userSearchRef = firebase.database().ref()
+      .child('userLookup')
+      .orderByChild('email')
+      .equalTo(item.email);
+    userSearchRef.once('value', (snap) => {
+      let id = (snap.val()) ? Object.keys(snap.val())[0] : 'none'
+      this.setState((previousState) => {
+        previousState.userSearchResults[index].id = id;
+        return previousState;
+      });
+    });
+
+    console.log('status', item.status);
+
     return(
       <TouchableOpacity
         style={styles.user_search_result}
         onPress={() => this.handleSelectUser(item) }>
-        <Text style={{fontSize: 20}}> {item.email + ' -- ' + item.id} </Text>
+        <View style={{height: 30, width: 30}}>
+          <Image style={{flex: 1}} source={{uri: item.thumbnailPath}} />
+        </View>
+        <View style={{flex: 4}}>
+          <Text style={{fontSize: 15}}>
+          {item.givenName + " " + item.familyName}
+          </Text>
+          <Text style={{fontSize: 15}}>
+          {item.email}
+          </Text>
+        </View>
+        <View style={{flex: 1, borderColor: 'black', borderWidth: 1}}>
+          {this.renderIsUserInDB(item.id)}
+        </View>
       </TouchableOpacity>
     );
   }
+
+  renderIsUserInDB(id) {
+    if (id === undefined) {
+      return (<View/>)
+    } else if (id === 'none') {
+      return (<Icon name="playlist-add" size={25} color='red' />)
+    } else {
+      return (<Icon name="playlist-add" size={25} color='blue' />)
+    }
+  }
+
 
   handleCatSwitch(catObj, idx, bool) {
     let categories = [];
@@ -429,7 +471,7 @@ export default class CreateChallenge extends Component {
             <View style={styles.searchContainer}>
               <FlatList
                 keyboardShouldPersistTaps="handled"
-                keyExtractor={(item, index) => item.email}
+                keyExtractor={(item, index) => item.idx}
                 data={this.state.userSearchResults}
                 renderItem={userObj => this.renderUserSearchItem(userObj)}
                 >
@@ -521,7 +563,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   user_search_result: {
-
+    flexDirection: 'row',
+    // flex: 1,
+    // alignSelf: 'stretch',
+    width: 400,
+    height: 60,
     marginBottom: 10,
     borderColor: 'grey',
     borderWidth: 1,
@@ -597,7 +643,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   searchContainer: {
-    // flex: 1,
+    flex: 1,
     height: 300,
     justifyContent: 'center',
     alignItems: 'center',
