@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import store from 'react-native-simple-store';
 import merge from 'lodash/merge';
+import Contacts from 'react-native-contacts';
+
 
 export default class Login extends Component {
   constructor(props) {
@@ -28,6 +30,40 @@ export default class Login extends Component {
     // }
   }
 
+  getContacts() {
+    let contactList = [];
+    Contacts.getAll((err, contacts) => {
+      if(err === 'denied'){
+        console.log(err)
+      } else {
+        console.log('signup getting contacts: ', contacts);
+        contacts.forEach((contactObj) => {
+          const {givenName, familyName, thumbnailPath, emailAddresses} = contactObj;
+          emailAddresses.forEach((emailObj) => {
+            const email = emailObj.email;
+            const id = 'none';
+
+            // TODO making user email lookup synchronous will probably hold up the main
+            // thread. Perhaps Firebase Queue is something worth looking into
+
+            // await firebase.database().ref()
+            //   .child('userLookup')
+            //   .orderByChild('email')
+            //   .equalTo(email);
+            //   .once('value', (snap) => {
+            //   if (snap.val()) id = Object.keys(snap.val())[0];
+            // });
+
+            const idx = contactList.length;
+            const contact = {idx, givenName, familyName, thumbnailPath, email, id};
+            contactList.push(contact);
+          })
+        })
+        store.save('Contacts', contactList)
+      }
+    })
+  }
+
   async signup() {
     try {
       const user = await firebase.auth()
@@ -39,6 +75,8 @@ export default class Login extends Component {
         photo: user.providerData[0].photoURL,
         provider: user.providerData[0].providerId,
       }
+
+      this.getContacts();
 
       // console.log("signup user: ", user);
       store.save('userData', merge({id: user.uid}, userInfo))

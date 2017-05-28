@@ -8,7 +8,6 @@ import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 // import {ModalAlert} from './alert';
 import store from 'react-native-simple-store';
-import Contacts from 'react-native-contacts';
 var TrieSearch = require('trie-search', {min: 2, indexField: 'idx'});
 
 import {
@@ -55,31 +54,41 @@ export default class CreateChallenge extends Component {
     };
     console.log("printing add challenge props", props);
     // this.contacts = this.getContacts;
-    this.contacts = []
+    // this.contacts = []
+
     this.contactsTrie = new TrieSearch(['email', 'givenName', 'familyName']);
     this.getContacts();
-    // this.contactsTrie = new TrieSearch(['email', 'givenName', 'familyName']);
+    // console.log(this.contacts);
   }
 
-  getContacts() {
-    Contacts.getAll((err, contacts) => {
-      if(err === 'denied'){
-        console.log(err)
-      } else {
-        contacts.forEach((contactObj) => {
-          const {givenName, familyName, thumbnailPath, emailAddresses} = contactObj;
-          emailAddresses.forEach((emailObj) => {
-            const email = emailObj.email;
-            const idx = this.contacts.length;
-            const contact = {idx, givenName, familyName, thumbnailPath, email};
-            this.contacts.push(contact);
-          })
-        })
-        // console.log(this.contacts)
-        this.contacts.forEach((contactObj) => {this.contactsTrie.add(contactObj)});
-      }
-    })
+  getContacts () {
+    store.get('Contacts')
+      .then((contacts) => {
+        console.log("contacts: ", contacts);
+        contacts.forEach((contactObj) => {this.contactsTrie.add(contactObj)});
+      })
+      .catch((error) => console.log("data not saved: ", error));
   }
+
+  // getContacts() {
+  //   Contacts.getAll((err, contacts) => {
+  //     if(err === 'denied'){
+  //       console.log(err)
+  //     } else {
+  //       contacts.forEach((contactObj) => {
+  //         const {givenName, familyName, thumbnailPath, emailAddresses} = contactObj;
+  //         emailAddresses.forEach((emailObj) => {
+  //           const email = emailObj.email;
+  //           const idx = this.contacts.length;
+  //           const contact = {idx, givenName, familyName, thumbnailPath, email};
+  //           this.contacts.push(contact);
+  //         })
+  //       })
+  //       // console.log(this.contacts)
+  //       this.contacts.forEach((contactObj) => {this.contactsTrie.add(contactObj)});
+  //     }
+  //   })
+  // }
 
   componentWillMount() {
     store.get('userData').then((userData) => {
@@ -205,7 +214,7 @@ export default class CreateChallenge extends Component {
     //   });
     // });
 
-    console.log('status', item.status);
+    // console.log('status', item.status);
 
     return(
       <TouchableOpacity
@@ -224,7 +233,7 @@ export default class CreateChallenge extends Component {
         </View>
         <View style={{flex: 1, borderColor: 'black', borderWidth: 1}}>
           <Text>
-            this.renderIsUserInDB call
+            this.renderIsUserInDB id: {item.id}
           </Text>
         </View>
       </TouchableOpacity>
