@@ -2,13 +2,14 @@ import * as firebase from 'firebase';
 import React, {Component} from 'react';
 import * as actions from '../../actions/firebase_actions';
 import merge from 'lodash/merge';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconMaterial from 'react-native-vector-icons/MaterialIcons';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Toolbar, Button, COLOR} from 'react-native-material-ui';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 // import {ModalAlert} from './alert';
 import store from 'react-native-simple-store';
-var TrieSearch = require('trie-search', {min: 2, indexField: 'idx'});
+// var TrieSearch = require('trie-search', {min: 2, indexField: 'idx'});
 
 import {
   Alert,
@@ -53,42 +54,25 @@ export default class CreateChallenge extends Component {
       userSearchResults: [{id: '', email: ''}],
     };
     console.log("printing add challenge props", props);
-    // this.contacts = this.getContacts;
-    // this.contacts = []
-
-    this.contactsTrie = new TrieSearch(['email', 'givenName', 'familyName']);
+    this.contacts = {};
     this.getContacts();
+
+    // this.contactsTrie = new TrieSearch(['email', 'givenName', 'familyName']);
+    // this.getContacts();
     // console.log(this.contacts);
   }
 
   getContacts () {
     store.get('Contacts')
       .then((contacts) => {
-        console.log("contacts: ", contacts);
-        contacts.forEach((contactObj) => {this.contactsTrie.add(contactObj)});
+        // console.log("contacts: ", contacts);
+        // contacts.forEach((contactObj) => {this.contactsTrie.add(contactObj)});
+        contacts.forEach((contactObj) => {
+          this.contacts[contactObj.email] = {thumbnailPath: contactObj.thumbnailPath, givenName: contactObj.givenName, familyName: contactObj.familyName};
+        });
       })
       .catch((error) => console.log("data not saved: ", error));
   }
-
-  // getContacts() {
-  //   Contacts.getAll((err, contacts) => {
-  //     if(err === 'denied'){
-  //       console.log(err)
-  //     } else {
-  //       contacts.forEach((contactObj) => {
-  //         const {givenName, familyName, thumbnailPath, emailAddresses} = contactObj;
-  //         emailAddresses.forEach((emailObj) => {
-  //           const email = emailObj.email;
-  //           const idx = this.contacts.length;
-  //           const contact = {idx, givenName, familyName, thumbnailPath, email};
-  //           this.contacts.push(contact);
-  //         })
-  //       })
-  //       // console.log(this.contacts)
-  //       this.contacts.forEach((contactObj) => {this.contactsTrie.add(contactObj)});
-  //     }
-  //   })
-  // }
 
   componentWillMount() {
     store.get('userData').then((userData) => {
@@ -112,7 +96,7 @@ export default class CreateChallenge extends Component {
     return {
       drawerLabel: 'Create Challenge',
       drawerIcon: ({tintColor}) => (
-        <Icon name="playlist-add" size={25} color={tintColor} />
+        <IconMaterial name="playlist-add" size={25} color={tintColor} />
       )
     }
   };
@@ -139,47 +123,42 @@ export default class CreateChallenge extends Component {
     }
   }
 
-  handleUserSearchInput(userSearch) {
-
-    let userSearchResults  = this.contactsTrie.get(userSearch)
-
-    // userSearchResults = userSearchResults.map((userObj) => {
-    //   let userSearchRef = firebase.database().ref()
-    //     .child('userLookup')
-    //     .orderByChild('email')
-    //     .equalTo(userObj.email);
-    //   userSearchRef.once('value', (snap) => {
-    //     console.log(snap.key, snap.val());
-    //   })
-    // })
-    this.setState({userSearchResults});
-  }
-
-  //OLD METHOD:
+  //OLD METHOD: using contacts
   // handleUserSearchInput(userSearch) {
-  //   if (userSearch.length < 1) return;
-  //   console.log('hit handle ', userSearch);
-  //   const userSearchRef = firebase.database().ref()
-  //     .child('userLookup')
-  //     .orderByChild('email')
-  //     .startAt(userSearch)
-  //     .endAt(userSearch + '\uf8ff')
-  //     .limitToFirst(10);
-  //
-  //   let userSearchResults = [];
-  //   userSearchRef.once('value', (snap) => {
-  //     if (snap.val() !== null) {
-  //       const searchObj = snap.val();
-  //       console.log(searchObj);
-  //       const usersIDs = this.state.users.map((userObj) => userObj.id);
-  //       userSearchResults = Object.keys(searchObj).filter((uid) => !usersIDs.includes(uid));
-  //       userSearchResults = userSearchResults.map((key) => {
-  //         return {id: key, email: searchObj[key].email};
-  //       });
-  //       this.setState({userSearchResults});
-  //     }
-  //   });
+  //   let userSearchResults  = this.contactsTrie.get(userSearch).slice(0,5)
+  //   this.setState({userSearchResults});
   // }
+
+  handleUserSearchInput(userSearch) {
+    if (userSearch.length < 2) return;
+    console.log('hit handle ', userSearch);
+    const userSearchRef = firebase.database().ref()
+      .child('userLookup')
+      .orderByChild('email')
+      .startAt(userSearch)
+      .endAt(userSearch + '\uf8ff')
+      .limitToFirst(10);
+
+    let userSearchResults = [];
+
+    userSearchRef.once('value', (snap) => {
+      if (snap.val() !== null) {
+        const searchObj = snap.val();
+        console.log(searchObj);
+        const usersIDs = this.state.users.map((userObj) => userObj.id);
+        userSearchResults = Object.keys(searchObj).filter((uid) => !usersIDs.includes(uid));
+        userSearchResults = userSearchResults.map((key) => {
+          let contact = this.contacts[searchObj[key].email];
+          let contactData = {};
+          if (contact) {
+            contactData = contact
+          }
+          return merge(contactData, {id: key, email: searchObj[key].email});
+        });
+        this.setState({userSearchResults});
+      }
+    });
+  }
 
   handleSelectUser(userObj) {
     console.log('handleSelectUser', userObj);
@@ -190,18 +169,6 @@ export default class CreateChallenge extends Component {
   }
 
   renderUserSearchItem({item, index}) {
-    // return(
-    //   <TouchableOpacity
-    //     style={styles.user_search_result}
-    //     onPress={() => this.handleSelectUser(item) }>
-    //     <View>
-    //       <Text style={{fontSize: 15}}>
-    //       {item.email}
-    //       </Text>
-    //     </View>
-    //   </TouchableOpacity>
-    // );
-
     // let userSearchRef = firebase.database().ref()
     //   .child('userLookup')
     //   .orderByChild('email')
@@ -214,14 +181,28 @@ export default class CreateChallenge extends Component {
     //   });
     // });
 
-    // console.log('status', item.status);
+    // return(
+    //   <TouchableOpacity
+    //     style={styles.user_search_result}
+    //     onPress={() => this.handleSelectUser(item) }>
+    //     <View>
+    //       <Text style={{fontSize: 15}}>
+    //       {item.email}
+    //       </Text>
+    //     </View>
+    //   </TouchableOpacity>
+    // );
+    let userImage = (item.thumbnailPath) ?
+      <Image style={{flex: 1}} source={{uri: item.thumbnailPath}} /> :
+      <IconFontAwesome name="user-circle" size={25} color='black' />
+
 
     return(
       <TouchableOpacity
         style={styles.user_search_result}
         onPress={() => this.handleSelectUser(item) }>
         <View style={{height: 30, width: 30}}>
-          <Image style={{flex: 1}} source={{uri: item.thumbnailPath}} />
+          {userImage}
         </View>
         <View style={{flex: 4}}>
           <Text style={{fontSize: 15}}>
@@ -231,26 +212,10 @@ export default class CreateChallenge extends Component {
           {item.email}
           </Text>
         </View>
-        <View style={{flex: 1, borderColor: 'black', borderWidth: 1}}>
-          <Text>
-            this.renderIsUserInDB id: {item.id}
-          </Text>
-        </View>
+
       </TouchableOpacity>
     );
   }
-
-
-  renderIsUserInDB(id) {
-    if (id === undefined) {
-      return (<View/>)
-    } else if (id === 'none') {
-      return (<Icon name="playlist-add" size={25} color='red' />)
-    } else {
-      return (<Icon name="playlist-add" size={25} color='blue' />)
-    }
-  }
-
 
   handleCatSwitch(catObj, idx, bool) {
     let categories = [];
