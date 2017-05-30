@@ -193,24 +193,26 @@ export default class CreateChallenge extends Component {
     //   </TouchableOpacity>
     // );
     let userImage = (item.thumbnailPath) ?
-      <Image style={{flex: 1}} source={{uri: item.thumbnailPath}} /> :
+      <Image style={{resizeMode: 'contain', flex: 1}} source={{uri: item.thumbnailPath}} /> :
       <IconFontAwesome name="user-circle" size={25} color='black' />
 
+    let userName = (item.givenName) ?
+      item.givenName + " " + item.familyName :
+      "No Username"
 
     return(
       <TouchableOpacity
         style={styles.user_search_result}
         onPress={() => this.handleSelectUser(item) }>
-        <View style={{height: 30, width: 30}}>
-          {userImage}
+        <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 5}}>
+          <View style={{height: '80%', width: '80%', }}>
+            {userImage}
+          </View>
         </View>
-        <View style={{flex: 4}}>
-          <Text style={{fontSize: 15}}>
-          {item.givenName + " " + item.familyName}
-          </Text>
-          <Text style={{fontSize: 15}}>
-          {item.email}
-          </Text>
+        <View style={{flex: 5, justifyContent: 'center', borderColor: 'grey',
+            borderBottomWidth: 1}}>
+          <Text style={{fontSize: 15, color: 'black'}}>{userName}</Text>
+          <Text style={{fontSize: 12, color: 'blue'}}>{item.email}</Text>
         </View>
 
       </TouchableOpacity>
@@ -540,9 +542,6 @@ const styles = StyleSheet.create({
     // alignSelf: 'stretch',
     width: 400,
     height: 60,
-    marginBottom: 10,
-    borderColor: 'grey',
-    borderWidth: 1,
   },
 
   addChallengeButton: {
