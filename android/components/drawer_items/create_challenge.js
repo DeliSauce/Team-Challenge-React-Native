@@ -130,7 +130,7 @@ export default class CreateChallenge extends Component {
   // }
 
   handleUserSearchInput(userSearch) {
-    if (userSearch.length < 2) return;
+    if (userSearch.length < 1) return;
     console.log('hit handle ', userSearch);
     const userSearchRef = firebase.database().ref()
       .child('userLookup')
@@ -155,6 +155,7 @@ export default class CreateChallenge extends Component {
           }
           return merge(contactData, {id: key, email: searchObj[key].email});
         });
+        if (userSearchResults.length === 0) userSearchResults = null;
         this.setState({userSearchResults});
       }
     });
@@ -166,6 +167,34 @@ export default class CreateChallenge extends Component {
     let users = this.state.users.concat(userObj);
     this.setState({users, userSearch: ''});
     Alert.alert('Title', `${userObj.email} has been added.`, []);
+  }
+
+  renderUserSearch() {
+    if (this.state.userSearch.length === 0) {
+      return;
+    }
+    if (this.state.userSearchResults) {
+      return (
+        <FlatList
+          keyboardShouldPersistTaps="handled"
+          keyExtractor={(item, index) => item.email}
+          data={this.state.userSearchResults}
+          renderItem={userObj => this.renderUserSearchItem(userObj)}
+          >
+        </FlatList>
+      )
+    } else {
+      return (
+        <View>
+          <Text>
+            We couldn't find anything for {this.state.userSearch}.
+          </Text>
+          <Text>
+            Try searching for a different email address.
+          </Text>
+        </View>
+      )
+    }
   }
 
   renderUserSearchItem({item, index}) {
@@ -443,13 +472,7 @@ export default class CreateChallenge extends Component {
               }
               />
             <View style={styles.searchContainer}>
-              <FlatList
-                keyboardShouldPersistTaps="handled"
-                keyExtractor={(item, index) => item.idx}
-                data={this.state.userSearchResults}
-                renderItem={userObj => this.renderUserSearchItem(userObj)}
-                >
-              </FlatList>
+              {this.renderUserSearch()}
             </View>
           </View>
         </Modal>
