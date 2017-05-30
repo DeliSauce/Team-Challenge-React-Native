@@ -16,7 +16,10 @@ export default class ChallengeStandings extends Component {
 
     this.userData = this.challengeData.userData;
     this.users = this.challengeData.users;
-    console.log('CONSTRUCTOR: standings');
+    console.log('CONSTRUCTOR: STANDINGS');
+    this.state = {
+      leaderBoard: []
+    }
   }
 
   static navigationOptions = ({navigation}) => {
@@ -36,6 +39,12 @@ export default class ChallengeStandings extends Component {
     this.listenForUpdatesToChallenge();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props != prevProps) {
+      this.calculatePoints();
+    }
+  }
+
   listenForUpdatesToChallenge() {
     const challengeData = firebase.database().ref('challenges/' + this.challengeKey + '/userData');
     challengeData.on('value', (snap) => {
@@ -44,10 +53,8 @@ export default class ChallengeStandings extends Component {
     });
   }
 
-  renderLeaderBoard () {
-    // if (this.state.challengeData === undefined) return;
-
-    const leaderBoard = this.users.map((userObj) => {
+  calculatePoints() {
+    let leaderBoard = this.users.map((userObj) => {
       const id = userObj.id;
       const dataMatrix = this.userData[id];
       const numCats = dataMatrix[0].length;
@@ -58,8 +65,12 @@ export default class ChallengeStandings extends Component {
       }
       return {email: userObj.email, catCount};
     });
+    this.setState({leaderBoard});
+  }
 
-    const listOfUsers = leaderBoard.map((userObj) => {
+  renderLeaderBoard () {
+    // if (this.state.challengeData === undefined) return;
+    const listOfUsers = this.state.leaderBoard.map((userObj) => {
       return (
         <View style={{flexDirection: 'row'}}>
           <Text style={{flex: 5}}>{userObj.email}</Text>
@@ -75,8 +86,14 @@ export default class ChallengeStandings extends Component {
     );
   }
 
+  renderCategoryLeaders () {
+    return (
+      <View></View>
+    )
+  }
+
   render() {
-    console.log('RENDER: challenge standings');
+    console.log('RENDER: STANDINGS');
 
     return (
       <View style={styles.container}>
@@ -90,7 +107,7 @@ export default class ChallengeStandings extends Component {
         </View>
         <View style={{marginTop: 30, borderWidth: 1, borderColor: 'black'}} >
           <Text style={{fontSize:20}} >Category Leaders</Text>
-          {}
+          {this.renderCategoryLeaders()}
         </View>
       </View>
     );
