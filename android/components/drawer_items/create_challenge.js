@@ -155,9 +155,10 @@ export default class CreateChallenge extends Component {
           }
           return merge(contactData, {id: key, email: searchObj[key].email});
         });
-        if (userSearchResults.length === 0) userSearchResults = null;
-        this.setState({userSearchResults});
+      } else {
+        userSearchResults = null;
       }
+      this.setState({userSearchResults});
     });
   }
 
@@ -174,6 +175,7 @@ export default class CreateChallenge extends Component {
       return;
     }
     if (this.state.userSearchResults) {
+      console.log('this.state.userSearchResults', this.state.userSearchResults);
       return (
         <FlatList
           keyboardShouldPersistTaps="handled"
