@@ -187,7 +187,7 @@ export default class CreateChallenge extends Component {
       )
     } else {
       return (
-        <View>
+        <View style={{flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center'}}>
           <Text>
             We couldn't find anything for {this.state.userSearch}.
           </Text>
@@ -469,7 +469,7 @@ export default class CreateChallenge extends Component {
               style={styles.input2}
               value={this.state.userSearch}
               onChangeText={(userSearch) => {
-                this.setState({userSearch, userSearchResults: []});
+                this.setState({userSearch});
                 this.handleUserSearchInput(userSearch);}
               }
               />
