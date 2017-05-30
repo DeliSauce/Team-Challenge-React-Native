@@ -59,12 +59,12 @@ export default class ChallengeStandings extends Component {
       return {email: userObj.email, catCount};
     });
 
-
     const listOfUsers = leaderBoard.map((userObj) => {
       return (
-        <Text>
-          {userObj.email} with {userObj.catCount.reduce((sum, x) => sum + x)} total points
-        </Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={{flex: 5}}>{userObj.email}</Text>
+          <Text style={{flex: 1, textAlign: 'center'}}>{userObj.catCount.reduce((sum, x) => sum + x)}</Text>
+        </View>
       );
     });
 
@@ -80,11 +80,15 @@ export default class ChallengeStandings extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={{borderWidth: 1, borderColor: 'black'}} >
-          <Text style={{fontSize:20}} >LeaderBoard</Text>
+        <View style={{flexDirection: 'column', width: '80%', marginTop: 30}} >
+          <Text style={{fontSize: 20, textAlign: 'center'}} >LeaderBoard: Total Points</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{flex: 5, textDecorationLine: 'underline'}}>User</Text>
+            <Text style={{flex: 1, textDecorationLine: 'underline', textAlign: 'center'}}>Points</Text>
+          </View>
           {this.renderLeaderBoard()}
         </View>
-        <View style={{borderWidth: 1, borderColor: 'black'}} >
+        <View style={{marginTop: 30, borderWidth: 1, borderColor: 'black'}} >
           <Text style={{fontSize:20}} >Category Leaders</Text>
           {}
         </View>
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'lightgray',
   },
