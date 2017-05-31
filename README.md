@@ -76,6 +76,15 @@ https://firebase.google.com/docs/database/web/structure-data
         }
       }
 
+## Firebase CLI commands
+- react-native run-android
+- react-native run-ios
+
+#### creating APK
+creating apk (and deleting old apk)
+- cd android && ./gradlew clean && ./gradlew assembleRelease
+loading apk to phone
+- react-native run-android --variant=release
 
 
 Modules

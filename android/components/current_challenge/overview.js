@@ -100,9 +100,17 @@ export default class ChallengeOverview extends Component {
       this.props.navigation.setParams({challengeData: snap.val()});
     });
   }
-  // componentWillReceiveProps(nextProps) {
-  //   console.log("componentWillReceiveProps: ", nextProps);
-  // }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("OVERVIEWcomponentWillReceiveProps: ", nextProps);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("OVEWVIEWcomponentDidUpdate: ", this.props, prevProps);
+    if (this.props != prevProps) {
+
+    }
+  }
 
 
   renderOverviewMatrix(numRows, numCols){
@@ -121,7 +129,7 @@ export default class ChallengeOverview extends Component {
   }
 
   render() {
-    console.log('RENDER: overview');
+    console.log('RENDER: overview', this.props.navigation.state.params.challengeData);
     return (
       <View
         style={styles.container}

@@ -18,7 +18,7 @@ export default class ChallengeStandings extends Component {
     this.userData = this.challengeData.userData;
     this.users = this.challengeData.users;
     this.categories = this.challengeData.categories;
-    console.log('CONSTRUCTOR: STANDINGS');
+    // console.log('CONSTRUCTOR: STANDINGS');
     this.state = {
       leaderBoard: []
     }
@@ -37,11 +37,13 @@ export default class ChallengeStandings extends Component {
   };
 
   componentWillMount() {
-    console.log('WILL MOUNT: challenge standings');
+    // console.log('WILL MOUNT: challenge standings');
     this.listenForUpdatesToChallenge();
   }
 
   componentDidUpdate(prevProps, prevState) {
+    // console.log("STANDINGScomponentDidUpdate: ", this.props, prevProps);
+
     if (this.props != prevProps) {
       this.calculatePoints();
     }
@@ -50,7 +52,7 @@ export default class ChallengeStandings extends Component {
   listenForUpdatesToChallenge() {
     const challengeData = firebase.database().ref('challenges/' + this.challengeKey + '/userData');
     challengeData.on('value', (snap) => {
-      console.log("standings LISTENER", snap.val());
+      // console.log("standings LISTENER", snap.val());
       this.props.navigation.setParams({challengeData: snap.val()});
     });
   }
@@ -128,7 +130,7 @@ export default class ChallengeStandings extends Component {
 
 
   render() {
-    console.log('RENDER: STANDINGS');
+    // console.log('RENDER: STANDINGS');
 
     return (
       <ScrollView>
@@ -157,7 +159,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: 'lightgray',
+    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
