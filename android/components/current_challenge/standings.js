@@ -1,8 +1,9 @@
 import * as firebase from 'firebase';
 import React, {Component} from 'react';
 import {
-  View,
+  ScrollView,
   Text,
+  View,
   StyleSheet
 } from 'react-native';
 
@@ -16,6 +17,7 @@ export default class ChallengeStandings extends Component {
 
     this.userData = this.challengeData.userData;
     this.users = this.challengeData.users;
+    this.categories = this.challengeData.categories;
     console.log('CONSTRUCTOR: STANDINGS');
     this.state = {
       leaderBoard: []
@@ -69,7 +71,6 @@ export default class ChallengeStandings extends Component {
   }
 
   renderLeaderBoard () {
-    // if (this.state.challengeData === undefined) return;
     const listOfUsers = this.state.leaderBoard.map((userObj) => {
       return (
         <View style={{flexDirection: 'row'}}>
@@ -86,30 +87,66 @@ export default class ChallengeStandings extends Component {
     );
   }
 
-  renderCategoryLeaders () {
+  renderCategoryLeaders(idx) {
+    // console.log('renderCategoryLeaders', idx, this.state.leaderBoard);
+    let listOfUsers = this.state.leaderBoard.map((userObj) => {
+      return (
+        <View style={{flexDirection: 'row'}} key={userObj.email}>
+          <Text style={{flex: 5}}>{userObj.email}</Text>
+          <Text style={{flex: 1, textAlign: 'center'}}>{userObj.catCount[idx]}</Text>
+        </View>
+      );
+    });
+
     return (
-      <View></View>
+      <View style={{flexDirection: 'column'}}>
+        {listOfUsers}
+      </View>
+    );
+  }
+
+  renderCategories() {
+    let categories = this.categories.map((cat, idx) => {
+      return (
+        <View style={{marginTop: 30}} key={idx}>
+          <Text style={{fontSize: 15, textDecorationLine: 'underline'}}>{cat}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{flex: 5, textDecorationLine: 'underline'}}>User</Text>
+            <Text style={{flex: 1, textDecorationLine: 'underline', textAlign: 'center'}}>Points</Text>
+          </View>
+          {this.renderCategoryLeaders(idx)}
+        </View>
+      )
+    });
+
+    return (
+      <View style={{}}>
+        {categories}
+      </View>
     )
   }
+
 
   render() {
     console.log('RENDER: STANDINGS');
 
     return (
-      <View style={styles.container}>
-        <View style={{flexDirection: 'column', width: '80%', marginTop: 30}} >
-          <Text style={{fontSize: 20, textAlign: 'center'}} >LeaderBoard: Total Points</Text>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{flex: 5, textDecorationLine: 'underline'}}>User</Text>
-            <Text style={{flex: 1, textDecorationLine: 'underline', textAlign: 'center'}}>Points</Text>
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={{flexDirection: 'column', width: '90%', marginTop: 30}} >
+            <Text style={{fontSize: 20, textAlign: 'center'}} >Total Points</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{flex: 5, textDecorationLine: 'underline'}}>User</Text>
+              <Text style={{flex: 1, textDecorationLine: 'underline', textAlign: 'center'}}>Points</Text>
+            </View>
+            {this.renderLeaderBoard()}
           </View>
-          {this.renderLeaderBoard()}
+          <View style={{width: '90%', marginTop: 30}} >
+            <Text style={{fontSize: 20, textAlign: 'center'}} >Category Leaders</Text>
+            {this.renderCategories()}
+          </View>
         </View>
-        <View style={{marginTop: 30, borderWidth: 1, borderColor: 'black'}} >
-          <Text style={{fontSize:20}} >Category Leaders</Text>
-          {this.renderCategoryLeaders()}
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 }
