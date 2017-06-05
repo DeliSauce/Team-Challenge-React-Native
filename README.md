@@ -84,7 +84,7 @@ https://firebase.google.com/docs/database/web/structure-data
 creating apk (and deleting old apk)
 - cd android && ./gradlew clean && ./gradlew assembleRelease
 loading apk to phone
-- react-native run-android --variant=release
+- cd .. && react-native run-android --variant=release
 
 
 Modules
@@ -102,3 +102,9 @@ https://github.com/react-native-material-design/react-native-material-design#ins
    -- did not have to use rnpm as it is now a merged into React Native Core
    (just need to enter in CLI: <react-native link>)
 https://github.com/oblador/react-native-vector-icons#installation
+
+
+#### Privacy Policy
+The app uses your contacts to search for friends to join a challenge.
+At no point will we use your contact information for personal or
+financial gains.
