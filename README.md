@@ -1,6 +1,7 @@
 ## To Do
 - currently no way to add users to challenge if they haven't already created an account
 - add OmniAuth and figure out how to log in automatically
+- fix overview rendering so that all boxes are not red 
 
 
 # Team Challenge
