@@ -16,7 +16,7 @@ import Contacts from 'react-native-contacts';
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: '', pass: '', authMessage: ''};
+    this.state = {email: 'pjdelfausse@gmail.com', pass: '123456', authMessage: ''};
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
   }

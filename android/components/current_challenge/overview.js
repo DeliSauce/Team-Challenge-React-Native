@@ -124,7 +124,7 @@ export default class ChallengeOverview extends Component {
           key={i}
           row={i}
           numCols={numCols}
-          rowData={this.state.myData}
+          rowData={this.state.myData[i]}
           boxSize={this.state.boxSize}/>
       );
     }
@@ -132,7 +132,7 @@ export default class ChallengeOverview extends Component {
   }
 
   render() {
-    console.log('RENDER: overview', this.state.myData);
+    console.log('RENDER: overview');
     return (
       <View
         style={styles.container}
