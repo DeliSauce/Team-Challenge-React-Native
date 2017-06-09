@@ -97,7 +97,6 @@ export default class ChallengeOverview extends Component {
   listenForUpdatesToChallenge() {
     const challengeData = firebase.database().ref('challenges/' + this.challengeKey + '/userData/' + this.userID);
     challengeData.on('value', (snap) => {
-      console.log("overview LISTENER", snap.val());
       // this.props.navigation.setParams({challengeData: snap.val()});
       this.setState({myData: snap.val()});
     });
@@ -139,7 +138,6 @@ export default class ChallengeOverview extends Component {
         onLayout={(event) => {
           const boxSize = (event.nativeEvent.layout.width - 20)/ (this.numCats + 1);
           if (boxSize < this.state.boxSize) this.setState({boxSize});
-          console.log("onlayout of view: box size", this.boxSize);
         }}
       >
         <HeaderComponent categories={this.challengeData.categories} boxSize={this.state.boxSize}/>
