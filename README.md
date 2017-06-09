@@ -2,6 +2,8 @@
 - currently no way to add users to challenge if they haven't already created an account
 - add OmniAuth and figure out how to log in automatically
 - convert app to Redux state management
+- style header component (Login and LoaderPage)
+- add spinner to LoaderPage
 
 # Team Challenge
 Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and syncing data in real time.
