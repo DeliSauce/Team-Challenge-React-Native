@@ -11,6 +11,7 @@ import {
 import store from 'react-native-simple-store';
 import merge from 'lodash/merge';
 import Contacts from 'react-native-contacts';
+import LoginHeader from './header';
 
 
 export default class Login extends Component {
@@ -134,6 +135,7 @@ export default class Login extends Component {
     console.log("renderLogin");
     return (
       <View style={styles.container}>
+        <LoginHeader/>
         <Text style={styles.welcome}>
           Welcome to TeamChallenge App
         </Text>

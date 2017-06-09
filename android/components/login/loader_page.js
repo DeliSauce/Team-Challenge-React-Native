@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import * as firebase from 'firebase';
+import LoginHeader from './header';
 
 import {
   View,
@@ -30,12 +31,7 @@ export default class LoaderPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 20, margin: 10}}>
-          Currenty Determining Your Log In Status.
-         </Text>
-        <Text style={{fontSize: 20, margin: 10}}>
-          Please Hold.
-         </Text>
+        <LoginHeader/>
       </View>
     );
   }
@@ -47,5 +43,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'lightgray',
+  },
+  header: {
+    fontSize: 40,
+    alignItems: 'center',
+    fontWeight: 'bold',
   }
 });
