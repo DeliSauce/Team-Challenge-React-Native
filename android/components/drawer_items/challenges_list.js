@@ -29,7 +29,7 @@ export default class AllChallenges extends Component {
   static navigationOptions = ({navigation}) => {
     //it appears that you can set the icon size about 5 pixels greater than fontSize
     return {
-      drawerLabel: 'HOME',
+      drawerLabel: 'My Challenges',
       drawerIcon: ({tintColor}) => (
         <Icon name="home" size={25} color={tintColor} />
       ),

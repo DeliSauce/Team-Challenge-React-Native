@@ -8,6 +8,8 @@ import ChallengeOverview from './current_challenge/overview';
 import ChallengeStandings from './current_challenge/standings';
 import Login from './login/login';
 import LoaderPage from './login/loader_page';
+import {COLOR} from 'react-native-material-ui';
+
 
 export const DetailsTabs = TabNavigator({
   'Enter Data': {
@@ -44,8 +46,8 @@ export const MainNav = DrawerNavigator({
 {
   drawerWidth: 300,
   contentOptions: {
-    activeTintColor: 'red',
-    inactiveTintColor: 'black',
+    activeTintColor: COLOR.grey700,
+    inactiveTintColor: COLOR.grey700,
     activeBackgroundColor: 'white',
     inactiveBackgroundColor: 'white',
 
@@ -55,7 +57,7 @@ export const MainNav = DrawerNavigator({
     },
     labelStyle: {
       marginVertical: 10,
-      fontSize: 20,
+      fontSize: 15,
     }
   },
   drawerPosition: 'left',
