@@ -295,12 +295,19 @@ export default class CreateChallenge extends Component {
   }
 
   renderCategories(){
-    console.log(this.state.categories);
+    // console.log(this.state.categories);
     if (this.state.categories.length > 0) {
       return (
-        <View>
+        <View style={{}}>
           {this.state.categories.map((cat, idx) => <Text key={idx} > {idx + 1 + '. ' + cat} </Text>)}
+          <View style={{height: 20}}></View>
         </View>
+      )
+    } else {
+      return (
+        <Text style={{color: COLOR.red900}}>
+          Please select challenge categories from the default list or create your own.
+        </Text>
       )
     }
   }
@@ -334,22 +341,26 @@ export default class CreateChallenge extends Component {
           style={{flex: 1, alignSelf: 'stretch'}}
           />
         <ScrollView>
-          <View style={styles.inputContainer}>
-            <Text style={{fontSize: 17}}> Challenge Name </Text>
+          <View style={styles.input_container}>
+            <Text style={{fontSize: 22, fontWeight: 'bold', marginRight: 10}}>
+              Challenge Name:
+            </Text>
             <TextInput
               placeholder={"Name Your Challenge"}
-              style={{height: 40, width: 160}}
+              style={{fontSize: 17, color: COLOR.orange800, flex: 1}}
               onChangeText={(name) => this.setState({name})}
               value={this.state.name}
               autoCapitalize={'words'}
-              autoFocus={true}
+              autoFocus={false}
               />
           </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={{fontSize: 17}}> Start Date </Text>
+          <View style={styles.input_container}>
+            <Text style={{fontSize: 22, fontWeight: 'bold', marginRight: 10}}>
+              Start Date:
+            </Text>
             <DatePicker
-              style={{width: 200}}
+              style={{width: 250}}
               mode="date"
               placeholder="select date"
               date={moment(this.state.startDate).format("dddd, MMMM DD, YYYY")}
@@ -371,7 +382,7 @@ export default class CreateChallenge extends Component {
                   marginLeft: 0
                 },
                 dateInput: {
-                  marginLeft: 36
+                  marginLeft: 35,
                 }
                 // ... You can check the source to find the other keys.
               }}
@@ -379,7 +390,9 @@ export default class CreateChallenge extends Component {
           </View>
 
           <View style={styles.slider_container}>
-            <Text style={{fontSize: 17}}> Length of Challenge (days) </Text>
+            <Text style={{fontSize: 22, fontWeight: 'bold'}}>
+              Challenge Length (days):
+            </Text>
             <View style={{flexDirection: 'row'}}>
               <Slider
                 style={{height: 40, width: 260}}
@@ -395,24 +408,26 @@ export default class CreateChallenge extends Component {
             </View>
           </View>
 
-          <View style={styles.row_container}>
-            <View style= {{flex: 3}}>
-              <Text style={{fontSize: 17}}> Categories: </Text>
-              <View>{this.renderCategories()}</View>
+          <View style={styles.column_container}>
+            <Text style={{fontSize: 22, fontWeight: 'bold', textAlign: 'center'}}>
+              Challenge Categories:
+            </Text>
+            <View style={{width: '100%'}}>
+              {this.renderCategories()}
             </View>
-            <View style= {{flex: 2, margin: 10}}>
-              <Button
-                accent
-                raised
-                text='Choose Categories'
-                onPress={() => this.setState({categoriesModalVisible: true})}>
-              </Button>
-            </View>
+            <Button
+              accent
+              raised
+              text='Select Categories'
+              onPress={() => this.setState({categoriesModalVisible: true})}>
+            </Button>
           </View>
 
           <View style={styles.row_container}>
             <View style= {{flex: 3}}>
-              <Text style={{fontSize: 17}}> Competitors: </Text>
+              <Text style={{fontSize: 22, fontWeight: 'bold'}}>
+                Competitors:
+              </Text>
               {this.renderUsers()}
             </View>
             <View style= {{flex: 2, margin: 10}}>
@@ -593,8 +608,8 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     // marginTop: 10,
   },
-  inputContainer: {
-    flexDirection: 'column',
+  input_container: {
+    flexDirection: 'row',
     // borderColor: 'gray',
     // borderWidth: 1,
     borderColor: COLOR.grey200,
@@ -603,8 +618,10 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
+    marginLeft: 10,
     marginBottom: 5,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   row_container: {
     flexDirection: 'row',
@@ -614,11 +631,26 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
+    marginLeft: 10,
+    marginBottom: 5,
+    justifyContent: 'space-between',
+  },
+  column_container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderColor: COLOR.grey200,
+    borderWidth: 1,
+    backgroundColor: COLOR.grey100,
+    paddingTop: 5,
+    paddingBottom: 5,
+    marginTop: 5,
+    marginLeft: 10,
     marginBottom: 5,
     justifyContent: 'space-between',
   },
   slider_container: {
     flexDirection: 'column',
+    alignItems: 'center',
     // borderColor: 'gray',
     // borderWidth: 1,
     borderColor: COLOR.grey200,
