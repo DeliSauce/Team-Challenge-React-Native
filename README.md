@@ -4,6 +4,7 @@
 - convert app to Redux state management
 - style header component (Login and LoaderPage)
 - add spinner to LoaderPage
+- deal with offline status???
 
 # Team Challenge
 Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and syncing data in real time.
