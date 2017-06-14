@@ -299,20 +299,20 @@ export default class CreateChallenge extends Component {
     if (this.state.categories.length > 0) {
       return (
         <View style={{}}>
-          {this.state.categories.map((cat, idx) => <Text style={{fontSize: 15}} key={idx} > {idx + 1 + '. ' + cat} </Text>)}
+          {this.state.categories.map((cat, idx) => <Text style={{fontSize: 15, fontWeight: 'bold', color: 'black'}} key={idx} > {idx + 1 + '. ' + cat} </Text>)}
           <View style={{height: 20}}></View>
         </View>
       )
     } else {
       return (
-        <Text style={{color: COLOR.red900, fontSize: 15}}>   Please select challenge categories from the default list or create your own.
+        <Text style={{fontSize: 15}}>   Please select challenge categories from the default list or create your own.
         </Text>
       )
     }
   }
 
   renderUsers() {
-    const listOfUsers = this.state.competitors.map((userObj, idx) => <Text style={{fontSize: 15}} key={idx} > {idx + 1 + '. ' + userObj.email} </Text>)
+    const listOfUsers = this.state.competitors.map((userObj, idx) => <Text style={{fontSize: 15, fontWeight: 'bold', color: 'black'}} key={idx} > {idx + 1 + '. ' + userObj.email} </Text>)
 
     return (
       <View>
@@ -354,6 +354,8 @@ export default class CreateChallenge extends Component {
               />
           </View>
 
+          <View style={styles.section_divider}></View>
+
           <View style={styles.input_container}>
             <Text style={{fontSize: 22, fontWeight: 'bold', marginRight: 10}}>
               Start Date:
@@ -392,6 +394,8 @@ export default class CreateChallenge extends Component {
               />
           </View>
 
+          <View style={styles.section_divider}></View>
+
           <View style={styles.row_container}>
             <View style= {{flex: 3}}>
               <Text style={{fontSize: 22, fontWeight: 'bold'}}>
@@ -422,10 +426,15 @@ export default class CreateChallenge extends Component {
             </View>
           </View>
 
+          <View style={styles.section_divider}></View>
+
           <View style={styles.slider_container}>
-            <Text style={{fontSize: 22, fontWeight: 'bold'}}>
-              Challenge Length (days):
-            </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{fontSize: 22, fontWeight: 'bold'}}>
+                Challenge Length (days):
+              </Text>
+              <Text style={{fontSize: 22, fontWeight: 'bold', color: 'black'}}>    {this.state.days}</Text>
+            </View>
             <View style={{flexDirection: 'row'}}>
               <Slider
                 style={{height: 40, width: '90%'}}
@@ -437,9 +446,10 @@ export default class CreateChallenge extends Component {
                 step={1}
                 >
               </Slider>
-              <Text> {this.state.days} </Text>
             </View>
           </View>
+
+          <View style={styles.section_divider}></View>
 
           <View style={styles.column_container}>
             <Text style={{fontSize: 22, fontWeight: 'bold', textAlign: 'left', width: '100%'}}>
@@ -457,6 +467,8 @@ export default class CreateChallenge extends Component {
               onPress={() => this.setState({categoriesModalVisible: true})}>
             </Button>
           </View>
+
+          <View style={styles.section_divider}></View>
 
           <View style={{
               marginTop: 10,
@@ -594,16 +606,6 @@ const styles = StyleSheet.create({
     width: 400,
     height: 60,
   },
-
-  addChallengeButton: {
-    height: 60,
-    width: 100,
-    borderColor: 'skyblue',
-    borderWidth: 1,
-    backgroundColor: 'powderblue',
-    marginTop: 40,
-    justifyContent: 'center',
-  },
   input: {
     height: 50,
     width: 150,
@@ -619,43 +621,54 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     // marginTop: 10,
   },
+  section_divider: {
+    width: '100%',
+    borderColor: COLOR.grey200,
+    borderBottomWidth: 1,
+    height: 1,
+    marginTop: 5,
+    marginBottom: 5,
+  },
   input_container: {
     flexDirection: 'row',
     // borderColor: 'gray',
     // borderWidth: 1,
-    borderColor: COLOR.grey200,
-    borderWidth: 1,
-    backgroundColor: COLOR.grey100,
+    // borderColor: COLOR.grey200,
+    // borderWidth: 1,
+    // backgroundColor: COLOR.grey100,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
     marginLeft: 10,
+    marginRight: 10,
     marginBottom: 5,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
   row_container: {
     flexDirection: 'row',
-    borderColor: COLOR.grey200,
-    borderWidth: 1,
-    backgroundColor: COLOR.grey100,
+    // borderColor: COLOR.grey200,
+    // borderWidth: 1,
+    // backgroundColor: COLOR.grey100,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
     marginLeft: 10,
+    marginRight: 10,
     marginBottom: 5,
     justifyContent: 'space-between',
   },
   column_container: {
     flexDirection: 'column',
     alignItems: 'center',
-    borderColor: COLOR.grey200,
-    borderWidth: 1,
-    backgroundColor: COLOR.grey100,
+    // borderColor: COLOR.grey200,
+    // borderWidth: 1,
+    // backgroundColor: COLOR.grey100,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
     marginLeft: 10,
+    marginRight: 10,
     marginBottom: 5,
     justifyContent: 'space-between',
   },
@@ -664,13 +677,14 @@ const styles = StyleSheet.create({
     // alignItems: 'flex-start',
     // borderColor: 'gray',
     // borderWidth: 1,
-    borderColor: COLOR.grey200,
-    borderWidth: 1,
-    backgroundColor: COLOR.grey100,
+    // borderColor: COLOR.grey200,
+    // borderWidth: 1,
+    // backgroundColor: COLOR.grey100,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
     marginLeft: 10,
+    marginRight: 10,
     marginBottom: 5,
   },
   container: {
