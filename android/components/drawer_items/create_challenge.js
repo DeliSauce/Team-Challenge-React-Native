@@ -416,10 +416,11 @@ export default class CreateChallenge extends Component {
               {this.renderCategories()}
             </View>
             <Button
+              style={{container: {marginTop: 10, marginBottom: 10, height: 45, width: 160}, text: {fontSize: 18}}}
               primary
               raised
               upperCase={false}
-              text='Select Categories'
+              text='Add Categories'
               onPress={() => this.setState({categoriesModalVisible: true})}>
             </Button>
           </View>
@@ -434,7 +435,7 @@ export default class CreateChallenge extends Component {
             <View style= {{flex: 2, margin: 10, justifyContent: 'space-around'}}>
 
               <Button
-                style={{container: {marginTop: 5, marginBottom: 5}, text: {fontSize: 18}}}
+                style={{container: {width: 130, height: 45, marginTop: 10, marginBottom: 10}, text: {fontSize: 18}}}
                 primary
                 raised
                 upperCase={false}
@@ -443,7 +444,7 @@ export default class CreateChallenge extends Component {
               </Button>
 
               <Button
-                style={{marginTop: 5, marginBottom: 5}}
+                style={{container: {width: 130, height: 45, marginTop: 10, marginBottom: 10}, text: {fontSize: 18}}}
                 primary
                 raised
                 upperCase={false}
@@ -463,9 +464,9 @@ export default class CreateChallenge extends Component {
               // borderWidth: 1,
               alignItems: 'center'}}>
               <Button
-                style={{ container: { backgroundColor: COLOR.yellow700 }}}
+                style={{container: {backgroundColor: COLOR.yellow700, marginTop: 10, marginBottom: 10, height: 60, width: 160}, text: {textAlign: 'center', color: 'white', fontSize: 20}}}
                 raised
-                text='Submit Challenge'
+                text='Create Challenge'
                 onPress={() => this.handleCreateChallenge()}>
               </Button>
 
