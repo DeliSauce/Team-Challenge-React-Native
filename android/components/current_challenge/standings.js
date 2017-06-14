@@ -16,7 +16,7 @@ export default class ChallengeStandings extends Component {
     this.challengeKey = this.props.navigation.state.params.challengeKey;
 
     this.userData = this.challengeData.userData;
-    this.users = this.challengeData.users;
+    this.competitors = this.challengeData.competitors;
     this.categories = this.challengeData.categories;
     // console.log('CONSTRUCTOR: STANDINGS');
     this.state = {
@@ -58,7 +58,7 @@ export default class ChallengeStandings extends Component {
   }
 
   calculatePoints() {
-    let leaderBoard = this.users.map((userObj) => {
+    let leaderBoard = this.competitors.map((userObj) => {
       const id = userObj.id;
       const dataMatrix = this.userData[id];
       const numCats = dataMatrix[0].length;

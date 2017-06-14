@@ -43,7 +43,7 @@ export default class CreateChallenge extends Component {
       startDate: moment().format("YYYY-MM-DD"),
       days: '30',
       adminID: this.userID,
-      users: [{id: this.userID, email: ''}],
+      competitors: [{id: this.userID, email: ''}],
       categoryOptions: this.defaultCategories,
       categories: [],
       name: '',
@@ -78,7 +78,7 @@ export default class CreateChallenge extends Component {
     store.get('userData').then((userData) => {
       //userData: name, email, photo, provider, id
       const user = {id: userData.id, email: userData.email}
-      this.setState({users: [user], currentUser: user})
+      this.setState({competitors: [user], currentUser: user})
     });
   }
 
@@ -103,9 +103,9 @@ export default class CreateChallenge extends Component {
 
   //TODO need better verification of challenge data
   handleCreateChallenge() {
-    let {name, adminID, users, categories, startDate, days} = this.state;
+    let {name, adminID, competitors, categories, startDate, days} = this.state;
     console.log(startDate);
-    const challenge = {name, adminID, users, categories, startDate, days}
+    const challenge = {name, adminID, competitors, categories, startDate, days}
     // console.log(challenge);
     let errorMessage = "";
     if (categories.length === 0) {
@@ -145,7 +145,7 @@ export default class CreateChallenge extends Component {
       if (snap.val() !== null) {
         const searchObj = snap.val();
         console.log(searchObj);
-        const usersIDs = this.state.users.map((userObj) => userObj.id);
+        const usersIDs = this.state.competitors.map((userObj) => userObj.id);
         userSearchResults = Object.keys(searchObj).filter((uid) => !usersIDs.includes(uid));
         userSearchResults = userSearchResults.map((key) => {
           let contact = this.contacts[searchObj[key].email];
@@ -165,8 +165,8 @@ export default class CreateChallenge extends Component {
   handleSelectUser(userObj) {
     console.log('handleSelectUser', userObj);
     //use the concat method so as not to mutate state
-    let users = this.state.users.concat(userObj);
-    this.setState({users, userSearch: ''});
+    let competitors = this.state.competitors.concat(userObj);
+    this.setState({competitors, userSearch: ''});
     Alert.alert('Title', `${userObj.email} has been added.`, []);
   }
 
@@ -312,7 +312,7 @@ export default class CreateChallenge extends Component {
   }
 
   renderUsers() {
-    const listOfUsers = this.state.users.map((userObj, idx) => <Text key={idx} > {idx + 1 + '. ' + userObj.email} </Text>)
+    const listOfUsers = this.state.competitors.map((userObj, idx) => <Text key={idx} > {idx + 1 + '. ' + userObj.email} </Text>)
 
     return (
       <View>
@@ -412,7 +412,7 @@ export default class CreateChallenge extends Component {
                 raised
                 upperCase={false}
                 text='Clear Users'
-                onPress={ () => this.setState({ users: [this.state.currentUser] }) }>
+                onPress={ () => this.setState({ competitors: [this.state.currentUser] }) }>
               </Button>
 
             </View>
