@@ -299,20 +299,20 @@ export default class CreateChallenge extends Component {
     if (this.state.categories.length > 0) {
       return (
         <View style={{}}>
-          {this.state.categories.map((cat, idx) => <Text key={idx} > {idx + 1 + '. ' + cat} </Text>)}
+          {this.state.categories.map((cat, idx) => <Text style={{fontSize: 15}} key={idx} > {idx + 1 + '. ' + cat} </Text>)}
           <View style={{height: 20}}></View>
         </View>
       )
     } else {
       return (
-        <Text style={{color: COLOR.red900}}>   Please select challenge categories from the default list or create your own.
+        <Text style={{color: COLOR.red900, fontSize: 15}}>   Please select challenge categories from the default list or create your own.
         </Text>
       )
     }
   }
 
   renderUsers() {
-    const listOfUsers = this.state.competitors.map((userObj, idx) => <Text key={idx} > {idx + 1 + '. ' + userObj.email} </Text>)
+    const listOfUsers = this.state.competitors.map((userObj, idx) => <Text style={{fontSize: 15}} key={idx} > {idx + 1 + '. ' + userObj.email} </Text>)
 
     return (
       <View>
@@ -346,7 +346,7 @@ export default class CreateChallenge extends Component {
             </Text>
             <TextInput
               placeholder={"Fitness, Diet, etc."}
-              style={{fontSize: 17, color: COLOR.orange800, flex: 1}}
+              style={{fontSize: 17, flex: 1, fontWeight: 'bold'}}
               onChangeText={(name) => this.setState({name})}
               value={this.state.name}
               autoCapitalize={'words'}
@@ -382,6 +382,10 @@ export default class CreateChallenge extends Component {
                 },
                 dateInput: {
                   marginLeft: 35,
+                },
+                dateText: {
+                  fontSize: 15,
+                  fontWeight: 'bold'
                 }
                 // ... You can check the source to find the other keys.
               }}
