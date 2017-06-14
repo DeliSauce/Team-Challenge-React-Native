@@ -305,8 +305,7 @@ export default class CreateChallenge extends Component {
       )
     } else {
       return (
-        <Text style={{color: COLOR.red900}}>
-          Please select challenge categories from the default list or create your own.
+        <Text style={{color: COLOR.red900}}>   Please select challenge categories from the default list or create your own.
         </Text>
       )
     }
@@ -346,7 +345,7 @@ export default class CreateChallenge extends Component {
               Challenge Name:
             </Text>
             <TextInput
-              placeholder={"Name Your Challenge"}
+              placeholder={"Fitness, Diet, etc."}
               style={{fontSize: 17, color: COLOR.orange800, flex: 1}}
               onChangeText={(name) => this.setState({name})}
               value={this.state.name}
@@ -389,13 +388,43 @@ export default class CreateChallenge extends Component {
               />
           </View>
 
+          <View style={styles.row_container}>
+            <View style= {{flex: 3}}>
+              <Text style={{fontSize: 22, fontWeight: 'bold'}}>
+                Competitors:
+              </Text>
+              {this.renderUsers()}
+            </View>
+            <View style= {{flex: 2, margin: 10, justifyContent: 'space-around'}}>
+
+              <Button
+                style={{container: {width: 130, height: 45, marginTop: 5, marginBottom: 5}, text: {fontSize: 18}}}
+                primary
+                raised
+                upperCase={false}
+                text='Add Users'
+                onPress={() => this.setState({userSearchModalVisible: true})}>
+              </Button>
+
+              <Button
+                style={{container: {width: 130, height: 45, marginTop: 5, marginBottom: 5}, text: {fontSize: 18}}}
+                primary
+                raised
+                upperCase={false}
+                text='Clear Users'
+                onPress={ () => this.setState({ users: [this.state.currentUser] }) }>
+              </Button>
+
+            </View>
+          </View>
+
           <View style={styles.slider_container}>
             <Text style={{fontSize: 22, fontWeight: 'bold'}}>
               Challenge Length (days):
             </Text>
             <View style={{flexDirection: 'row'}}>
               <Slider
-                style={{height: 40, width: 260}}
+                style={{height: 40, width: '90%'}}
                 onSlidingComplete={(days) => {}}
                 onValueChange={(days) => this.setState({days})}
                 minimumValue={1}
@@ -409,7 +438,7 @@ export default class CreateChallenge extends Component {
           </View>
 
           <View style={styles.column_container}>
-            <Text style={{fontSize: 22, fontWeight: 'bold', textAlign: 'center'}}>
+            <Text style={{fontSize: 22, fontWeight: 'bold', textAlign: 'left', width: '100%'}}>
               Challenge Categories:
             </Text>
             <View style={{width: '100%'}}>
@@ -423,36 +452,6 @@ export default class CreateChallenge extends Component {
               text='Add Categories'
               onPress={() => this.setState({categoriesModalVisible: true})}>
             </Button>
-          </View>
-
-          <View style={styles.row_container}>
-            <View style= {{flex: 3}}>
-              <Text style={{fontSize: 22, fontWeight: 'bold'}}>
-                Competitors:
-              </Text>
-              {this.renderUsers()}
-            </View>
-            <View style= {{flex: 2, margin: 10, justifyContent: 'space-around'}}>
-
-              <Button
-                style={{container: {width: 130, height: 45, marginTop: 10, marginBottom: 10}, text: {fontSize: 18}}}
-                primary
-                raised
-                upperCase={false}
-                text='Add Users'
-                onPress={() => this.setState({userSearchModalVisible: true})}>
-              </Button>
-
-              <Button
-                style={{container: {width: 130, height: 45, marginTop: 10, marginBottom: 10}, text: {fontSize: 18}}}
-                primary
-                raised
-                upperCase={false}
-                text='Clear Users'
-                onPress={ () => this.setState({ users: [this.state.currentUser] }) }>
-              </Button>
-
-            </View>
           </View>
 
           <View style={{
@@ -658,7 +657,7 @@ const styles = StyleSheet.create({
   },
   slider_container: {
     flexDirection: 'column',
-    alignItems: 'center',
+    // alignItems: 'flex-start',
     // borderColor: 'gray',
     // borderWidth: 1,
     borderColor: COLOR.grey200,
@@ -667,6 +666,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
+    marginLeft: 10,
     marginBottom: 5,
   },
   container: {
