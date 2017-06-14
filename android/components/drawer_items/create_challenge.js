@@ -78,7 +78,7 @@ export default class CreateChallenge extends Component {
     store.get('userData').then((userData) => {
       //userData: name, email, photo, provider, id
       const user = {id: userData.id, email: userData.email}
-      this.setState({users: [user]})
+      this.setState({users: [user], currentUser: user})
     });
   }
 
@@ -416,8 +416,9 @@ export default class CreateChallenge extends Component {
               {this.renderCategories()}
             </View>
             <Button
-              accent
+              primary
               raised
+              upperCase={false}
               text='Select Categories'
               onPress={() => this.setState({categoriesModalVisible: true})}>
             </Button>
@@ -430,13 +431,26 @@ export default class CreateChallenge extends Component {
               </Text>
               {this.renderUsers()}
             </View>
-            <View style= {{flex: 2, margin: 10}}>
+            <View style= {{flex: 2, margin: 10, justifyContent: 'space-around'}}>
+
               <Button
-                accent
+                style={{container: {marginTop: 5, marginBottom: 5}, text: {fontSize: 18}}}
+                primary
                 raised
-                text='Select Users'
+                upperCase={false}
+                text='Add Users'
                 onPress={() => this.setState({userSearchModalVisible: true})}>
               </Button>
+
+              <Button
+                style={{marginTop: 5, marginBottom: 5}}
+                primary
+                raised
+                upperCase={false}
+                text='Clear Users'
+                onPress={ () => this.setState({ users: [this.state.currentUser] }) }>
+              </Button>
+
             </View>
           </View>
 
@@ -453,13 +467,6 @@ export default class CreateChallenge extends Component {
                 raised
                 text='Submit Challenge'
                 onPress={() => this.handleCreateChallenge()}>
-              </Button>
-
-              <Button
-                accent
-                raised
-                text='Clear'
-                onPress={() => Alert.alert('','not operational yet')}>
               </Button>
 
             </View>
