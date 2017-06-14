@@ -397,7 +397,7 @@ export default class CreateChallenge extends Component {
           <View style={styles.section_divider}></View>
 
           <View style={styles.row_container}>
-            <View style= {{flex: 3}}>
+            <View style= {{flex: 4}}>
               <Text style={{fontSize: 22, fontWeight: 'bold'}}>
                 Competitors:
               </Text>
@@ -416,7 +416,7 @@ export default class CreateChallenge extends Component {
 
               <Button
                 style={{container: {width: 130, height: 45, marginTop: 5, marginBottom: 5}, text: {fontSize: 18}}}
-                primary
+                accent
                 raised
                 upperCase={false}
                 text='Clear Users'
@@ -470,23 +470,23 @@ export default class CreateChallenge extends Component {
 
           <View style={styles.section_divider}></View>
 
-          <View style={{
-              marginTop: 10,
-              marginBottom: 10,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              // borderColor: 'black',
-              // borderWidth: 1,
-              alignItems: 'center'}}>
-              <Button
-                style={{container: {backgroundColor: COLOR.yellow700, marginTop: 10, marginBottom: 10, height: 60, width: 160}, text: {textAlign: 'center', color: 'white', fontSize: 20}}}
-                raised
-                text='Create Challenge'
-                onPress={() => this.handleCreateChallenge()}>
-              </Button>
-
-            </View>
         </ScrollView>
+        <View style={{
+          width: '100%',
+          marginTop: 10,
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          // borderColor: 'black',
+          // borderWidth: 1,
+          alignItems: 'center'}}>
+          <Button
+            style={{container: {backgroundColor: COLOR.yellow700, marginTop: 10, height: 60, width: '100%'}, text: {textAlign: 'center', color: 'white', fontSize: 28, }}}
+            raised
+            text='Create Challenge'
+            onPress={() => this.handleCreateChallenge()}>
+          </Button>
+
+        </View>
 
         <Modal
           animationType={"slide"}

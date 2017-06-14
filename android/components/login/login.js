@@ -12,6 +12,7 @@ import store from 'react-native-simple-store';
 import merge from 'lodash/merge';
 import Contacts from 'react-native-contacts';
 import LoginHeader from './header';
+import {COLOR} from 'react-native-material-ui';
 
 
 export default class Login extends Component {
@@ -136,45 +137,65 @@ export default class Login extends Component {
     return (
       <View style={styles.container}>
         <LoginHeader/>
-        <Text style={styles.welcome}>
-          Welcome to TeamChallenge App
-        </Text>
         <Text style={styles.instructions}>
-          Enter email and password
+          Enter your email and password
         </Text>
         <TextInput
           placeholder={"email address"}
-          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+          style={styles.text_input}
           onChangeText={(email) => this.setState({email})}
           value={this.state.email}
           keyboardType="email-address"
           />
         <TextInput
           placeholder={"password"}
-          style={{height: 40, width: 160, borderColor: 'gray', borderWidth: 1}}
+          style={styles.text_input}
           onChangeText={(pass) => this.setState({pass})}
           value={this.state.pass}
           />
 
-        <Text
-          style={styles.errors}
-          >
+        <Text style={styles.errors}>
           {this.state.authMessage}
         </Text>
+        <View style={{flexDirection: 'row'}}>
+          <Button
+            primary
+            raised
+            upperCase={false}
+            style={{container: {margin: 10, height: 50, width: 100}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
 
-        <Button
-          primary
-          raised
-          style={{flex: 1, margin: 10}}
-          onPress={() => this.signup()}
-          text={'Sign Up'}>
-        </Button>
+            onPress={() => this.signup()}
+            text={'Sign Up'}>
+          </Button>
+
+          <Button
+            accent
+            raised
+            upperCase={false}
+            style={{container: {margin: 10, height: 50, width: 100}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+
+            onPress={() => this.login()}
+            text={'Log In'}>
+          </Button>
+        </View>
 
         <Button
           accent
           raised
+          upperCase={false}
+          style={{container: {margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+
           onPress={() => this.login()}
-          text={'Log In'}>
+          text={'Sign up with Google Account'}>
+        </Button>
+
+        <Button
+          raised
+          upperCase={false}
+          style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+
+          onPress={() => this.login()}
+          text={'Sign up with Facebook Account'}>
         </Button>
 
       </View>
@@ -187,7 +208,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#F5FCFF',
+    backgroundColor: COLOR.blue200,
   },
   welcome: {
     fontSize: 20,
@@ -198,6 +219,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  text_input: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    height: 40,
+    width: 260,
+    marginBottom: 5,
+    marginTop: 5,
+    borderColor: 'gray',
+    borderWidth: 1,
   },
   errors: {
     textAlign: 'center',
