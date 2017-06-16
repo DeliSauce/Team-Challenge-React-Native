@@ -13,6 +13,8 @@ export default class TeamChallenge extends Component {
   }
 
   render(){
+    //TODO remove next line at some point (firebase listener is triggering this -> annoying for debug/dev)
+    console.disableYellowBox =['Setting a timer for a long period'];
     const uiTheme = {
       // palette is lightTheme by default but can override values
       palette: {
