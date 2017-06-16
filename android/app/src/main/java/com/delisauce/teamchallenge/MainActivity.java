@@ -1,6 +1,8 @@
 package com.delisauce.teamchallenge;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.CallbackManager;
+import android.content.Intent;
 
 public class MainActivity extends ReactActivity {
 

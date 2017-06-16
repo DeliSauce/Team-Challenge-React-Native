@@ -11,6 +11,10 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import java.util.Arrays;
 import java.util.List;
 
