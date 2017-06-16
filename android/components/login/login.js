@@ -2,6 +2,7 @@ import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import {Button} from 'react-native-material-ui';
 import {
+  Alert,
   StyleSheet,
   Text,
   TextInput,
@@ -13,6 +14,7 @@ import merge from 'lodash/merge';
 import Contacts from 'react-native-contacts';
 import LoginHeader from './header';
 import {COLOR} from 'react-native-material-ui';
+// import FBSDK, {LoginManager} from 'react-native-fbsdk';
 
 
 export default class Login extends Component {
@@ -132,36 +134,36 @@ export default class Login extends Component {
 
   //NOT CURRENTLY FUNCTIONING
   facebookAuth() {
-
+    Alert.alert("Facebook Login", 'Not currently functioning.');
   }
 
   //NOT CURRENTLY FUNCTIONING
-  // googleAuth() {
-  //   const provider = new firebase.auth.GoogleAuthProvider();
-  //   const token = '99575308379-vhlb8ppp3i683g0ldvq7rqkt4adhma25.apps.googleusercontent.com';
-  //   var credential = firebase.auth.GoogleAuthProvider.credential(
-  //             googleUser.getAuthResponse().id_token);
-  //   const credential = provider.credential(token);
-  //
-  //   firebase.auth().signInWithCredential(credential).then(function(result) {
-  //     console.log('success!!!!', result);
-  //     // This gives you a Google Access Token. You can use it to access the Google API.
-  //     // var token = result.credential.accessToken;
-  //     // The signed-in user info.
-  //     var user = result.user;
-  //     // ...
-  //   }).catch(function(error) {
-  //     console.log('failure!!!!', error);
-  //     // Handle Errors here.
-  //     var errorCode = error.code;
-  //     var errorMessage = error.message;
-  //     // The email of the user's account used.
-  //     var email = error.email;
-  //     // The firebase.auth.AuthCredential type that was used.
-  //     var credential = error.credential;
-  //     // ...
-  //   });
-  // }
+  googleAuth() {
+    // const provider = new firebase.auth.GoogleAuthProvider();
+    // const token = '99575308379-vhlb8ppp3i683g0ldvq7rqkt4adhma25.apps.googleusercontent.com';
+    // var credential = firebase.auth.GoogleAuthProvider.credential(
+    //           googleUser.getAuthResponse().id_token);
+    // const credential = provider.credential(token);
+    //
+    // firebase.auth().signInWithCredential(credential).then(function(result) {
+    //   console.log('success!!!!', result);
+    //   // This gives you a Google Access Token. You can use it to access the Google API.
+    //   // var token = result.credential.accessToken;
+    //   // The signed-in user info.
+    //   var user = result.user;
+    //   // ...
+    // }).catch(function(error) {
+    //   console.log('failure!!!!', error);
+    //   // Handle Errors here.
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   // The email of the user's account used.
+    //   var email = error.email;
+    //   // The firebase.auth.AuthCredential type that was used.
+    //   var credential = error.credential;
+    //   // ...
+    // });
+  }
 
 
   render() {
@@ -170,7 +172,7 @@ export default class Login extends Component {
       <View style={styles.container}>
         <LoginHeader/>
         <Text style={styles.instructions}>
-          Enter your email and password
+          Don't forget to add a photo and user id/name in account settings so that you can be more easily identifiable!!!
         </Text>
         <TextInput
           placeholder={"email address"}
@@ -211,6 +213,15 @@ export default class Login extends Component {
           </Button>
         </View>
 
+        <Button
+          raised
+          upperCase={false}
+          style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+
+          onPress={() => this.facebookAuth()}
+          text={'Sign up with Facebook Account'}>
+        </Button>
+
       </View>
     );
   }
@@ -224,15 +235,6 @@ export default class Login extends Component {
 //
 //   onPress={() => this.googleAuth()}
 //   text={'Sign up with Google Account'}>
-// </Button>
-//
-// <Button
-//   raised
-//   upperCase={false}
-//   style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
-//
-//   onPress={() => this.facebookAuth()}
-//   text={'Sign up with Facebook Account'}>
 // </Button>
 
 const styles = StyleSheet.create({
@@ -249,6 +251,7 @@ const styles = StyleSheet.create({
   },
   instructions: {
     textAlign: 'center',
+    fontSize: 17,
     color: '#333333',
     marginBottom: 5,
   },
