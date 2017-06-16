@@ -15,10 +15,10 @@ import {
 export var ModalAlert = React.createClass({
   mixins: [TimerMixin],
   componentDidUpdate: function() {
-    this.setTimeout(
-      () => { this.setState({visible: false}); },
-      2000
-    );
+    // this.setTimeout(
+    //   () => { this.setState({visible: false}); },
+    //   2000
+    // );
   },
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.email) {
