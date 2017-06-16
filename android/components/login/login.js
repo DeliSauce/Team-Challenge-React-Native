@@ -136,32 +136,32 @@ export default class Login extends Component {
   }
 
   //NOT CURRENTLY FUNCTIONING
-  googleAuth() {
-    // const provider = new firebase.auth.GoogleAuthProvider();
-    // const token = '99575308379-vhlb8ppp3i683g0ldvq7rqkt4adhma25.apps.googleusercontent.com';
-    // var credential = firebase.auth.GoogleAuthProvider.credential(
-    //           googleUser.getAuthResponse().id_token);
-    // const credential = provider.credential(token);
-
-    // firebase.auth().signInWithCredential(credential).then(function(result) {
-    //   console.log('success!!!!', result);
-    //   // This gives you a Google Access Token. You can use it to access the Google API.
-    //   // var token = result.credential.accessToken;
-    //   // The signed-in user info.
-    //   var user = result.user;
-    //   // ...
-    // }).catch(function(error) {
-    //   console.log('failure!!!!', error);
-    //   // Handle Errors here.
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message;
-    //   // The email of the user's account used.
-    //   var email = error.email;
-    //   // The firebase.auth.AuthCredential type that was used.
-    //   var credential = error.credential;
-    //   // ...
-    // });
-  }
+  // googleAuth() {
+  //   const provider = new firebase.auth.GoogleAuthProvider();
+  //   const token = '99575308379-vhlb8ppp3i683g0ldvq7rqkt4adhma25.apps.googleusercontent.com';
+  //   var credential = firebase.auth.GoogleAuthProvider.credential(
+  //             googleUser.getAuthResponse().id_token);
+  //   const credential = provider.credential(token);
+  //
+  //   firebase.auth().signInWithCredential(credential).then(function(result) {
+  //     console.log('success!!!!', result);
+  //     // This gives you a Google Access Token. You can use it to access the Google API.
+  //     // var token = result.credential.accessToken;
+  //     // The signed-in user info.
+  //     var user = result.user;
+  //     // ...
+  //   }).catch(function(error) {
+  //     console.log('failure!!!!', error);
+  //     // Handle Errors here.
+  //     var errorCode = error.code;
+  //     var errorMessage = error.message;
+  //     // The email of the user's account used.
+  //     var email = error.email;
+  //     // The firebase.auth.AuthCredential type that was used.
+  //     var credential = error.credential;
+  //     // ...
+  //   });
+  // }
 
 
   render() {
@@ -211,29 +211,29 @@ export default class Login extends Component {
           </Button>
         </View>
 
-        <Button
-          accent
-          raised
-          upperCase={false}
-          style={{container: {margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
-
-          onPress={() => this.googleAuth()}
-          text={'Sign up with Google Account'}>
-        </Button>
-
-        <Button
-          raised
-          upperCase={false}
-          style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
-
-          onPress={() => this.facebookAuth()}
-          text={'Sign up with Facebook Account'}>
-        </Button>
-
       </View>
     );
   }
 }
+//
+// <Button
+//   accent
+//   raised
+//   upperCase={false}
+//   style={{container: {margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+//
+//   onPress={() => this.googleAuth()}
+//   text={'Sign up with Google Account'}>
+// </Button>
+//
+// <Button
+//   raised
+//   upperCase={false}
+//   style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+//
+//   onPress={() => this.facebookAuth()}
+//   text={'Sign up with Facebook Account'}>
+// </Button>
 
 const styles = StyleSheet.create({
   container: {

@@ -1,6 +1,8 @@
 ## To Do
 - currently no way to add users to challenge if they haven't already created an account
 - add OmniAuth and figure out how to log in automatically
+-- issues implementing FB auth using fbsdk module.
+-- Google auth?
 - convert app to Redux state management
 - style header component (Login and LoaderPage)
 - add spinner to LoaderPage
