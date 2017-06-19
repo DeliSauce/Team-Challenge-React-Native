@@ -14,8 +14,10 @@ import merge from 'lodash/merge';
 import Contacts from 'react-native-contacts';
 import LoginHeader from './header';
 import {COLOR} from 'react-native-material-ui';
-// import FBSDK, {LoginManager} from 'react-native-fbsdk';
-
+import FBSDK, {LoginManager} from 'react-native-fbsdk';
+const {
+    AccessToken
+} = FBSDK;
 
 export default class Login extends Component {
   constructor(props) {
@@ -132,10 +134,66 @@ export default class Login extends Component {
   // firebase.auth().onAuthStateChanged(function(user) {
   // });
 
-  //NOT CURRENTLY FUNCTIONING
+
+
+
+
+  //TODO add permissions??
+  // console.log(result.grantedPermissions.toString());
   facebookAuth() {
-    Alert.alert("Facebook Login", 'Not currently functioning.');
+    LoginManager.logInWithReadPermissions(['public_profile', 'email'])
+      .then((result) => {
+        if (result.isCancelled) {
+          console.log('log in was cancelled' + result);
+        } else {
+
+          AccessToken.getCurrentAccessToken().then((data) => {
+            let accessToken = data.accessToken
+            console.log('FB accessToken: ' + accessToken)
+
+            var credential = new firebase.auth.FacebookAuthProvider.credential(accessToken);
+            console.log('FB credential: ' + credential)
+
+            firebase.auth().signInWithCredential(credential)
+              .then((user) => {
+                console.log('success!!!!', user);
+                const userInfo = {
+                  name: user.providerData[0].displayName,
+                  email: user.providerData[0].email,
+                  photo: user.providerData[0].photoURL,
+                  provider: user.providerData[0].providerId,
+                  id: user.uid}
+                store.save('userData', userInfo);
+                })
+              .catch((error) => {
+                console.log('failure!!!!', error);
+                })
+          })
+        }
+
+      }, function(error) {
+        console.log('was an error' + error);
+      })
   }
+  // firebase.auth().signInWithCredential(credential).then(function(result) {
+  //   console.log('success!!!!', result);
+  //
+  //   // This gives you a Google Access Token. You can use it to access the Google API.
+  //   var token = result.credential.accessToken;
+  //   // The signed-in user info.
+  //   var user = result.user;
+  //   // ...
+  // }).catch(function(error) {
+  //   console.log('failure!!!!', error);
+  //   // Handle Errors here.
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   // The email of the user's account used.
+  //   var email = error.email;
+  //   // The firebase.auth.AuthCredential type that was used.
+  //   var credential = error.credential;
+  //   // ...
+  // });
 
   //NOT CURRENTLY FUNCTIONING
   googleAuth() {
