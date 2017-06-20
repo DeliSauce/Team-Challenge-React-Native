@@ -35,7 +35,7 @@ export default class AccountDetails extends Component {
     try {
         await firebase.auth().signOut();
         store.save('userData', {})
-        this.props.navigation.navigate('Login');
+        this.props.navigation.navigate('LoaderPage');
     } catch (error) {
         console.log(error);
     }

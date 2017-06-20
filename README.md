@@ -1,6 +1,7 @@
 ## To Do
 - currently no way to add users to challenge if they haven't already created an account
 - add OmniAuth and figure out how to log in automatically
+-- there are resources for RN + oAuth and firebase + oAuth but nothing for RN + oAuth + firebase
 -- issues implementing FB auth using fbsdk module.
 -- Google auth?
 - convert app to Redux state management
