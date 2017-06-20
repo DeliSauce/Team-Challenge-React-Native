@@ -26,15 +26,19 @@ export default class Login extends Component {
     // this.state = {email: '', pass: '', authMessage: ''};
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
+    this.state = {
+      FBSignedUp: false
+    }
   }
 
-  //TODO remove this code -- only for testing purposes
   componentWillMount() {
-    // this.login();
-    // this.getAuthStatus()
-    // if (this.getAuthStatus()) {
-    //   this.props.navigation.navigate('MainNav')
-    // }
+    // Async call to refresh FB access token status. Necessary if user removes
+    // app from facebook recognized apps, as user would otherwise get an oauth error
+    // declaring "user has not authorized application"
+    // AccessToken.refreshCurrentAccessTokenAsync()
+    //   .then( (result) => { console.log('permissions: ', result ) } )
+    //   .catch( (error) => {console.log(error);} );
+    // AccessToken.setCurrentAccessToken(null);
   }
 
   getContacts() {
@@ -134,47 +138,119 @@ export default class Login extends Component {
   // firebase.auth().onAuthStateChanged(function(user) {
   // });
 
-
-
-
-
   //TODO add permissions??
   // console.log(result.grantedPermissions.toString());
+
+  save_UserInfo_To_Store_And_Firebase (user) {
+    const userInfo = {
+      name: user.providerData[0].displayName,
+      email: user.providerData[0].email,
+      photo: user.providerData[0].photoURL,
+      provider: user.providerData[0].providerId,
+      id: user.uid
+    };
+    store.save('userData', userInfo);
+    firebaseUpdates = {}
+    firebaseUpdates['users/' + user.uid] = userInfo;
+    firebaseUpdates['userLookup/' + user.uid] = userInfo;
+    firebase.database().ref().update(firebaseUpdates);
+  }
+
   facebookAuth() {
-    LoginManager.logInWithReadPermissions(['public_profile', 'email'])
-      .then((result) => {
-        if (result.isCancelled) {
-          console.log('log in was cancelled' + result);
+    console.log('hit the facebookAuth');
+    //FB AccessToken.getCurrentAccessToken() getter for application's current token
+    AccessToken.getCurrentAccessToken()
+      .then((data) => {
+        console.log('getCurrentAccessToken', data);
+        if (data === null) {
+          console.log('data === null');
+          this.facebookSignUp();
         } else {
-
-          AccessToken.getCurrentAccessToken().then((data) => {
-            let accessToken = data.accessToken
-            console.log('FB accessToken: ' + accessToken)
-
-            var credential = new firebase.auth.FacebookAuthProvider.credential(accessToken);
-            console.log('FB credential: ' + credential)
-
-            firebase.auth().signInWithCredential(credential)
-              .then((user) => {
-                console.log('success!!!!', user);
-                const userInfo = {
-                  name: user.providerData[0].displayName,
-                  email: user.providerData[0].email,
-                  photo: user.providerData[0].photoURL,
-                  provider: user.providerData[0].providerId,
-                  id: user.uid}
-                store.save('userData', userInfo);
-                })
-              .catch((error) => {
-                console.log('failure!!!!', error);
-                })
-          })
+          this.facebookLogIn(data.accessToken);
         }
+      })
+      .catch((error) => {console.log('getCurrentAccessToken error: ', error);})
 
-      }, function(error) {
-        console.log('was an error' + error);
+  }
+
+  facebookSignUp() {
+    //FB LoginManager allows user to confirm auth permissions
+    LoginManager.logInWithReadPermissions(['public_profile', 'email'])
+    .then((result) => {
+      if (result.isCancelled) {
+        console.log('log in was cancelled' + result);
+      } else {
+        this.facebookLogIn();
+      }
+    })
+    .catch((error) => {
+      console.log('was an error' + error);
+    })
+  }
+
+  facebookLogIn(accessToken) {
+    // console.log('FB accessToken: ' + accessToken)
+
+    var credential = new firebase.auth.FacebookAuthProvider.credential(accessToken);
+    // console.log('FB credential: ' + credential)
+
+    firebase.auth().signInWithCredential(credential)
+      .then((user) => {
+        console.log('success!!!!', user);
+        this.save_UserInfo_To_Store_And_Firebase(user);
+        this.props.navigation.navigate('MainNav');
+      })
+      .catch((error) => {
+        console.log('firebase signInWithCredential error', error);
+        AccessToken.refreshCurrentAccessTokenAsync(this.facebookAuth);
       })
   }
+
+  // facebookAuth2() {
+  //   AccessToken.getCurrentAccessToken().then((data) => {
+  //     let accessToken = data.accessToken
+  //     console.log('FB accessToken: ' + accessToken)
+  //
+  //     var credential = new firebase.auth.FacebookAuthProvider.credential(accessToken);
+  //     console.log('FB credential: ' + credential)
+  //
+  //     firebase.auth().signInWithCredential(credential)
+  //       .then((user) => {
+  //         console.log('success!!!!', user);
+  //         const userInfo = {
+  //           name: user.providerData[0].displayName,
+  //           email: user.providerData[0].email,
+  //           photo: user.providerData[0].photoURL,
+  //           provider: user.providerData[0].providerId,
+  //           id: user.uid}
+  //
+  //         store.save('userData', userInfo);
+  //
+  //         this.props.navigation.navigate('MainNav');
+  //
+  //         firebaseUpdates = {}
+  //         firebaseUpdates['users/' + user.uid] = userInfo;
+  //         firebaseUpdates['userLookup/' + user.uid] = userInfo;
+  //         firebase.database().ref().update(firebaseUpdates);
+  //
+  //         })
+  //       .catch((error) => {
+  //         console.log('have not set permission yet', error);
+  //         LoginManager.logInWithReadPermissions(['public_profile', 'email'])
+  //           .then((result) => {
+  //             if (result.isCancelled) {
+  //               console.log('log in was cancelled' + result);
+  //             } else {
+  //
+  //             }
+  //
+  //           }, function(error) {
+  //             console.log('was an error' + error);
+  //           })
+  //         })
+  //   })
+  // }
+
   // firebase.auth().signInWithCredential(credential).then(function(result) {
   //   console.log('success!!!!', result);
   //
@@ -222,7 +298,6 @@ export default class Login extends Component {
     //   // ...
     // });
   }
-
 
   render() {
     console.log("renderLogin");

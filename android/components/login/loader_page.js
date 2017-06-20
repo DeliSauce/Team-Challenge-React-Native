@@ -7,6 +7,10 @@ import {
   Text,
   StyleSheet
 } from 'react-native';
+import FBSDK, {LoginManager} from 'react-native-fbsdk';
+const {
+    AccessToken
+} = FBSDK;
 
 
 export default class LoaderPage extends Component {
@@ -15,8 +19,12 @@ export default class LoaderPage extends Component {
   }
 
   componentWillMount () {
-    //This does not require connection, looks for session token stored
-    //locally?
+    // Async call to refresh FB access token
+    AccessToken.refreshCurrentAccessTokenAsync()
+      .then( (result) => { console.log('permissions: ', result ); } )
+      .catch( (error) => {console.log(error);} );
+
+    //This does not require connection, looks for session token stored locally?
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log('User is signed in.');
