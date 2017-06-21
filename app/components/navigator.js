@@ -84,7 +84,7 @@ export const MainNav = DrawerNavigator({
   drawerPosition: 'left',
 });
 
-export const App = StackNavigator({
+export const Navigator = StackNavigator({
   'LoaderPage': { screen: LoaderPage },
   'Login': { screen: Login },
   'MainNav': { screen: MainNav }
