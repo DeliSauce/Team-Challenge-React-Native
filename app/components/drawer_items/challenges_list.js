@@ -75,6 +75,7 @@ export default class AllChallenges extends Component {
   // }
 
   listenForItems() {
+    console.log('userid in listener: ', this.userID);
     const challenges = [];
     const myChallengesRef = firebase.database().ref('users/' + this.userID + '/challenges');
     const challengesRef = firebase.database().ref('challenges');

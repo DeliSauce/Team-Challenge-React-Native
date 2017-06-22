@@ -23,7 +23,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'pjdelfausse@gamil.com',
+      email: 'pjdelfausse@gmail.com',
       pass: 'password',
       authMessage: '',
       FBSignedUp: false
