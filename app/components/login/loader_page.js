@@ -24,16 +24,25 @@ export default class LoaderPage extends Component {
       .then( (result) => { console.log('permissions: ', result ); } )
       .catch( (error) => {console.log(error);} );
 
-    //This does not require connection, looks for session token stored locally?
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log('User is signed in.');
-        this.props.navigation.navigate('MainNav');
-      } else {
-        console.log('No user is signed in.');
-        this.props.navigation.navigate('Login');
-      }
-    });
+    // // Async task to get current user?
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     console.log('User is signed in.');
+    //     this.props.navigation.navigate('MainNav');
+    //   } else {
+    //     console.log('No user is signed in.');
+    //     this.props.navigation.navigate('Login');
+    //   }
+    // });
+    const user = firebase.auth().currentUser;
+    if (user) {
+      console.log('User is signed in.');
+      this.props.navigation.navigate('MainNav');
+    } else {
+      console.log('No user is signed in.');
+      this.props.navigation.navigate('Login');
+    }
+
   }
 
   render() {
