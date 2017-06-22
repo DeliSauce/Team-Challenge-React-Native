@@ -17,13 +17,35 @@ import LoaderPage from './login/loader_page';
 export const DetailsTabs = TabNavigator({
   'Enter Data': {
     screen: ChallengeDataEntry,
+    title: 'enter'
+
   },
   'Overview': {
     screen: ChallengeOverview,
   },
   'Standings': {
     screen: ChallengeStandings,
-  }
+  },
+},
+{
+  tabBarPosition: 'top',
+  swipeEnabled: true,
+  animationEnabled: false,
+  lazy: false,
+  backBehavior: 'none',
+  tabBarOptions: {
+    activeTintColor: 'white',
+    inactiveTintColor: 'white',
+    activeBackgroundColor: COLOR.green300,
+    inactiveBackgroundColor: COLOR.green200,
+    upperCaseLabel: false,
+    labelStyle: {
+      fontSize: 15,
+    },
+    style: {
+      //  backgroundColor: 'yellow',
+     },
+  },
 });
 
 export const ChallengesStack = StackNavigator({
@@ -32,7 +54,20 @@ export const ChallengesStack = StackNavigator({
   },
   Details: {
     screen: DetailsTabs,
+    navigationOptions: ({navigation}) => ({
+      title: `${navigation.state.params.challengeData.name}`,
+      headerTitleStyle : {
+        textAlign: 'center',
+        alignSelf:'center'
+      },
+      headerStyle: {
+        backgroundColor: COLOR.green500,
+      }
+    }),
   }
+},
+{
+  mode: 'modal'
 });
 
 export const MainNav = DrawerNavigator({

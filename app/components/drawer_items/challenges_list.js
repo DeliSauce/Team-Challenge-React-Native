@@ -115,7 +115,7 @@ export default class AllChallenges extends Component {
         }}>
           <View style={[styles.list_item, {backgroundColor: backgroundColor}]}>
 
-            <View style={[styles.list_item_details, {flex: 4, borderWidth: 1, borderColor: 'black'}]}>
+            <View style={[styles.list_item_details, {flex: 4}]}>
               <Text style={{fontSize: 20, textAlign: 'center'}}> {item.challenge.name} </Text>
               <Text style={{fontSize: 15}}> Users: {Object.keys(item.challenge.userData).length} </Text>
               <Text style={{fontSize: 15}}> {item.challenge.startDate} </Text>

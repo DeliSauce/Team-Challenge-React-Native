@@ -35,18 +35,6 @@ export default class ChallengeDataEntry extends Component {
     // console.log(this.data);
   }
 
-  static navigationOptions = ({navigation}) => {
-    return {
-      headerRight:(
-        <View style={{alignSelf: 'stretch', justifyContent: 'space-between', flexDirection: 'row'}}>
-          <Text style={{marginRight: 90, fontSize: 25}}>
-            {navigation.state.params.challengeData.name}
-          </Text>
-        </View>
-      ),
-    };
-  };
-
   handleCatSwitch(catObj, idx, bool) {
     this.setState((previousState) => {
       previousState.userData[this.state.dayOfCycle][idx] = bool;
