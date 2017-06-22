@@ -1,14 +1,18 @@
 ## To Do
 - currently no way to add users to challenge if they haven't already created an account
 - add OmniAuth and figure out how to log in automatically
--- there are resources for RN + oAuth and firebase + oAuth but nothing for RN + oAuth + firebase
--- issues implementing FB auth using fbsdk module.
--- Google auth?
+    - Google auth?
+- disable drawer nav while in tab nav
+    - waiting for pull request #793 to go through which will resolve this
+    - https://github.com/react-community/react-navigation/pull/793
+    - https://github.com/react-community/react-navigation/issues/1082
+
 - convert app to Redux state management
 - style header component (Login and LoaderPage)
 - add spinner to LoaderPage
+- add spinner to AllChallenges while awaiting firebase data
 - deal with offline status???
-- add a header block to nav sidebar (w/ profile pic, etc.)
+- update header block in nav sidebar (w/ profile pic, etc.)
 
 # Team Challenge
 Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and syncing data in real time.
