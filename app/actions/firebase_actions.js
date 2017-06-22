@@ -71,6 +71,7 @@ export const createChallenge = (challengeOptions) => {
   create(firebaseUpdates);
 };
 
+//TODO understand why i wrote this as such
 const create = async (firebaseUpdates) => {
   try {
     response = await firebase.database().ref().update(firebaseUpdates);

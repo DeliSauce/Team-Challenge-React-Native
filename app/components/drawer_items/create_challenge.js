@@ -71,7 +71,7 @@ export default class CreateChallenge extends Component {
           this.contacts[contactObj.email] = {thumbnailPath: contactObj.thumbnailPath, givenName: contactObj.givenName, familyName: contactObj.familyName};
         });
       })
-      .catch((error) => console.log("data not saved: ", error));
+      .catch((error) => console.log("No contacts saved (contacts === null): ", error));
   }
 
   componentWillMount() {

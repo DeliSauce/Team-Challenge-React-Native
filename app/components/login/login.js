@@ -159,6 +159,7 @@ export default class Login extends Component {
   }
 
   saveUserToFirebase(user) {
+    console.log('saveUserToFirebase(user)');
     const userInfo = {
       name: user.providerData[0].displayName,
       email: user.providerData[0].email,
@@ -214,7 +215,10 @@ export default class Login extends Component {
       .then((user) => {
         console.log('success!!!!', user);
         this.saveUserToStore(user);
-        this.saveUserToFirebase(user);
+        firebase.database().ref('users/' + user.uid).once('value')
+          .then( (snapshot) => {
+            if (snapshot.val() === null) this.saveUserToFirebase(user);
+          });
         this.props.navigation.navigate('MainNav');
       })
       .catch((error) => {

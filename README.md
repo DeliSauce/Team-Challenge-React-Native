@@ -13,6 +13,8 @@
 - add spinner to AllChallenges while awaiting firebase data
 - deal with offline status???
 - update header block in nav sidebar (w/ profile pic, etc.)
+- autocomplete on TextInput does not update state (ios only?) need to fix this (turn it off?)
+- make user search case insensitive. Currently on ios search defaults to caps and emails are lower case
 
 # Team Challenge
 Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and syncing data in real time.
