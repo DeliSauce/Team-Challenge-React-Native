@@ -125,6 +125,8 @@ export const Navigator = StackNavigator({
   'MainNav': { screen: MainNav }
 },
 {
+  mode: 'modal',
+  gesturesEnabled: false,
   headerMode: 'none'
 });
 
