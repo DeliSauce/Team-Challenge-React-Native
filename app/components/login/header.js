@@ -6,9 +6,9 @@ import {
 } from 'react-native';
 
 
-const LoginHeader = () => {
+const LoginHeader = (props) => {
   return (
-    <View>
+    <View style={[styles.header_container, props.style]}>
       <Text style={styles.header}> TEAM CHALLENGE </Text>
     </View>
   );
@@ -16,9 +16,16 @@ const LoginHeader = () => {
 
 
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 30,
+  header_container: {
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
+    // borderWidth: 2,
+  },
+  header: {
+    // borderWidth: 2,
+    fontSize: 30,
+    // alignItems: 'center',
     fontWeight: 'bold',
   }
 });

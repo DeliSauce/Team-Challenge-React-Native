@@ -39,7 +39,8 @@ export default class LoaderPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <LoginHeader/>
+        <LoginHeader style={{flex: 3}}/>
+        <View style={{flex: 6}}/>
       </View>
     );
   }

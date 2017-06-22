@@ -22,13 +22,15 @@ const {
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: 'pjdelfausse@gamil.com', pass: 'password', authMessage: ''};
-    // this.state = {email: '', pass: '', authMessage: ''};
+    this.state = {
+      email: 'pjdelfausse@gamil.com',
+      pass: 'password',
+      authMessage: '',
+      FBSignedUp: false
+    };
+    // this.state = {email: '', pass: '', authMessage: '', FBSignedUp: false};
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
-    this.state = {
-      FBSignedUp: false
-    }
   }
 
   componentWillMount() {
@@ -303,58 +305,61 @@ export default class Login extends Component {
     console.log("renderLogin");
     return (
       <View style={styles.container}>
-        <LoginHeader/>
-        <Text style={styles.instructions}>
-          Don't forget to add a photo and user id/name in account settings so that you can be more easily identifiable!!!
-        </Text>
-        <TextInput
-          placeholder={"email address"}
-          style={styles.text_input}
-          onChangeText={(email) => this.setState({email})}
-          value={this.state.email}
-          keyboardType="email-address"
-          />
-        <TextInput
-          placeholder={"password"}
-          style={styles.text_input}
-          onChangeText={(pass) => this.setState({pass})}
-          value={this.state.pass}
-          />
+        <LoginHeader style={{flex: 3}}/>
+        <View style={[styles.container, {flex: 6}]}>
+          <Text style={styles.instructions}>
+            Sign in with an email/password or via facebook.
+          </Text>
+          <View>
+            <TextInput
+              placeholder={"email address"}
+              style={styles.text_input}
+              onChangeText={(email) => this.setState({email})}
+              value={this.state.email}
+              keyboardType="email-address"
+              />
+            <TextInput
+              placeholder={"password"}
+              style={styles.text_input}
+              onChangeText={(pass) => this.setState({pass})}
+              value={this.state.pass}
+              />
+          </View>
 
-        <Text style={styles.errors}>
-          {this.state.authMessage}
-        </Text>
-        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.errors}>
+            {this.state.authMessage}
+          </Text>
+          <View style={{flexDirection: 'row'}}>
+            <Button
+              primary
+              raised
+              upperCase={false}
+              style={{container: {margin: 10, height: 50, width: 100}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+
+              onPress={() => this.signup()}
+              text={'Sign Up'}>
+            </Button>
+
+            <Button
+              accent
+              raised
+              upperCase={false}
+              style={{container: {margin: 10, height: 50, width: 100}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+
+              onPress={() => this.login()}
+              text={'Log In'}>
+            </Button>
+
+          </View>
           <Button
-            primary
             raised
             upperCase={false}
-            style={{container: {margin: 10, height: 50, width: 100}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+            style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
 
-            onPress={() => this.signup()}
-            text={'Sign Up'}>
-          </Button>
-
-          <Button
-            accent
-            raised
-            upperCase={false}
-            style={{container: {margin: 10, height: 50, width: 100}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
-
-            onPress={() => this.login()}
-            text={'Log In'}>
+            onPress={() => this.facebookAuth()}
+            text={'Sign up with Facebook Account'}>
           </Button>
         </View>
-
-        <Button
-          raised
-          upperCase={false}
-          style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
-
-          onPress={() => this.facebookAuth()}
-          text={'Sign up with Facebook Account'}>
-        </Button>
-
       </View>
     );
   }
@@ -373,6 +378,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLOR.blue200,
@@ -391,8 +397,9 @@ const styles = StyleSheet.create({
   text_input: {
     backgroundColor: 'white',
     borderRadius: 5,
-    height: 40,
+    height: 50,
     width: 260,
+    paddingLeft: 10,
     marginBottom: 5,
     marginTop: 5,
     borderColor: 'gray',
@@ -400,7 +407,7 @@ const styles = StyleSheet.create({
   },
   errors: {
     textAlign: 'center',
-    alignSelf: "stretch",
+    // alignSelf: "stretch",
     color: 'red',
   }
 });
