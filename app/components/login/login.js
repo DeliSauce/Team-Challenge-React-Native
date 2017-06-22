@@ -43,7 +43,44 @@ export default class Login extends Component {
     // AccessToken.setCurrentAccessToken(null);
   }
 
+  componentDidMount() {
+    //TODO need to decide when/if I need to get contacts
+    // this.getContacts();
+  }
+
   getContacts() {
+    store.get('Contacts')
+      .then((data) => {
+        console.log("data saved: ", data);
+        if (data === null && this.contactsPermissionAllowed()) {
+          this.addContactsToStore();
+        }
+        })
+      .catch((error) => {
+        console.log("data not saved: ", error)
+        });
+  }
+
+  contactsPermissionAllowed() {
+    Contacts.checkPermission( (err, permission) => {
+      if (permission === 'authorized') {
+        return true;
+      }
+      if (permission === 'denied') {
+        return false;
+      }
+      //TODO don't know if request for permissions actually works
+      // if (permission === 'undefined'){
+      //   console.log('requesting permission for contacts');
+      //   Contacts.requestPermission( (err, permission) => {
+      //     // ...
+      //   })
+      // }
+      return false;
+    })
+  }
+
+  addContactsToStore() {
     let contactList = [];
     Contacts.getAll((err, contacts) => {
       if(err === 'denied'){
@@ -80,32 +117,11 @@ export default class Login extends Component {
   async signup() {
     try {
       const user = await firebase.auth()
-          .createUserWithEmailAndPassword(this.state.email, this.state.pass);
-
-      const userInfo = {
-        name: user.providerData[0].displayName,
-        email: user.providerData[0].email,
-        photo: user.providerData[0].photoURL,
-        provider: user.providerData[0].providerId,
-      }
-
-      this.getContacts();
-
-      // console.log("signup user: ", user);
-      store.save('userData', merge({id: user.uid}, userInfo))
-
-      // Code for getting userData from the store
-      // store.get('userData')
-      //   .then((data) => console.log("data saved: ", data))
-      //   .catch((error) => console.log("data not saved: ", error));
-
+        .createUserWithEmailAndPassword(this.state.email, this.state.pass);
+      console.log("sign up user: ", user);
+      this.saveUserToStore(user);
+      this.saveUserToFirebase(user);
       this.props.navigation.navigate('MainNav');
-      // AsyncStorage.setItem('userData', JSON.stringify(user.providerData[0]));
-
-      firebaseUpdates = {}
-      firebaseUpdates['users/' + user.uid] = userInfo;
-      firebaseUpdates['userLookup/' + user.uid] = userInfo;
-      firebase.database().ref().update(firebaseUpdates);
     } catch (error) {
         console.log("getting an auth error", error.toString());
         this.setState({authMessage: error.toString()});
@@ -115,18 +131,9 @@ export default class Login extends Component {
   async login() {
     try {
       const user = await firebase.auth()
-          .signInWithEmailAndPassword(this.state.email, this.state.pass);
+        .signInWithEmailAndPassword(this.state.email, this.state.pass);
       console.log("log in user: ", user);
-
-      const userInfo = {
-        name: user.providerData[0].displayName,
-        email: user.providerData[0].email,
-        photo: user.providerData[0].photoURL,
-        provider: user.providerData[0].providerId,
-        id: user.uid,
-      }
-      store.save('userData', userInfo);
-
+      this.saveUserToStore(user);
       this.props.navigation.navigate('MainNav');
 
     } catch (error) {
@@ -135,15 +142,7 @@ export default class Login extends Component {
     }
   }
 
-  //onAuthStateChanged is the preferred method for checking current user but
-  // I could not get it to work correctly. May require lifecycle methods?
-  // firebase.auth().onAuthStateChanged(function(user) {
-  // });
-
-  //TODO add permissions??
-  // console.log(result.grantedPermissions.toString());
-
-  save_UserInfo_To_Store_And_Firebase (user) {
+  saveUserToStore(user) {
     const userInfo = {
       name: user.providerData[0].displayName,
       email: user.providerData[0].email,
@@ -151,7 +150,23 @@ export default class Login extends Component {
       provider: user.providerData[0].providerId,
       id: user.uid
     };
+
     store.save('userData', userInfo);
+    // Code for getting userData from the store
+    // store.get('userData')
+    //   .then((data) => console.log("data saved: ", data))
+    //   .catch((error) => console.log("data not saved: ", error));
+  }
+
+  saveUserToFirebase(user) {
+    const userInfo = {
+      name: user.providerData[0].displayName,
+      email: user.providerData[0].email,
+      photo: user.providerData[0].photoURL,
+      provider: user.providerData[0].providerId,
+      id: user.uid
+    };
+
     firebaseUpdates = {}
     firebaseUpdates['users/' + user.uid] = userInfo;
     firebaseUpdates['userLookup/' + user.uid] = userInfo;
@@ -159,7 +174,7 @@ export default class Login extends Component {
   }
 
   facebookAuth() {
-    console.log('hit the facebookAuth');
+    console.log('facebookAuth()');
     //FB AccessToken.getCurrentAccessToken() getter for application's current token
     AccessToken.getCurrentAccessToken()
       .then((data) => {
@@ -168,7 +183,7 @@ export default class Login extends Component {
           console.log('data === null');
           this.facebookSignUp();
         } else {
-          this.facebookLogIn(data.accessToken);
+          this.loginWithToken(data.accessToken);
         }
       })
       .catch((error) => {console.log('getCurrentAccessToken error: ', error);})
@@ -176,13 +191,14 @@ export default class Login extends Component {
   }
 
   facebookSignUp() {
+    console.log('facebookSignUp()');
     //FB LoginManager allows user to confirm auth permissions
     LoginManager.logInWithReadPermissions(['public_profile', 'email'])
     .then((result) => {
       if (result.isCancelled) {
         console.log('log in was cancelled' + result);
       } else {
-        this.facebookLogIn();
+        this.facebookAuth();
       }
     })
     .catch((error) => {
@@ -190,16 +206,15 @@ export default class Login extends Component {
     })
   }
 
-  facebookLogIn(accessToken) {
-    // console.log('FB accessToken: ' + accessToken)
-
+  loginWithToken(accessToken) {
+    console.log('loginWithToken()');
     var credential = new firebase.auth.FacebookAuthProvider.credential(accessToken);
-    // console.log('FB credential: ' + credential)
 
     firebase.auth().signInWithCredential(credential)
       .then((user) => {
         console.log('success!!!!', user);
-        this.save_UserInfo_To_Store_And_Firebase(user);
+        this.saveUserToStore(user);
+        this.saveUserToFirebase(user);
         this.props.navigation.navigate('MainNav');
       })
       .catch((error) => {

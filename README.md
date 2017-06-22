@@ -6,7 +6,7 @@
     - waiting for pull request #793 to go through which will resolve this
     - https://github.com/react-community/react-navigation/pull/793
     - https://github.com/react-community/react-navigation/issues/1082
-
+- decide what to do with contacts on signup
 - convert app to Redux state management
 - style header component (Login and LoaderPage)
 - add spinner to LoaderPage
