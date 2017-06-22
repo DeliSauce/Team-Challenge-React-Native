@@ -306,7 +306,7 @@ export default class Login extends Component {
     return (
       <View style={styles.container}>
         <LoginHeader style={{flex: 3}}/>
-        <View style={[styles.container, {flex: 6}]}>
+        <View style={[styles.container, {flex: 6, justifyContent: 'flex-start'}]}>
           <Text style={styles.instructions}>
             Sign in with an email/password or via facebook.
           </Text>
@@ -354,10 +354,10 @@ export default class Login extends Component {
           <Button
             raised
             upperCase={false}
-            style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+            style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: 300}, text: {textAlign: 'center', color: 'white', fontSize: 20, }}}
 
             onPress={() => this.facebookAuth()}
-            text={'Sign up with Facebook Account'}>
+            text={'Sign up with Facebook'}>
           </Button>
         </View>
       </View>

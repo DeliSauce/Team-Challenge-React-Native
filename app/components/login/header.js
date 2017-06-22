@@ -20,12 +20,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 2,
   },
   header: {
-    // borderWidth: 2,
-    fontSize: 30,
-    // alignItems: 'center',
+    fontSize: 38,
     fontWeight: 'bold',
   }
 });
