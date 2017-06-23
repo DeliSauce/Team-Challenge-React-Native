@@ -14,7 +14,8 @@ import merge from 'lodash/merge';
 import Contacts from 'react-native-contacts';
 import LoginHeader from './header';
 import {COLOR} from 'react-native-material-ui';
-import FBSDK, {LoginManager} from 'react-native-fbsdk';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import FBSDK, {LoginButton, LoginManager} from 'react-native-fbsdk';
 const {
     AccessToken
 } = FBSDK;
@@ -372,11 +373,12 @@ export default class Login extends Component {
           </View>
           <Button
             raised
+            icon={<Icon name='facebook-square' size={24} style={{color: 'white'}}/>}
             upperCase={false}
-            style={{container: {backgroundColor: COLOR.blue500, margin: 10, height: 50, width: 300}, text: {textAlign: 'center', color: 'white', fontSize: 20, }}}
+            style={{container: {backgroundColor: COLOR.blue800, margin: 10, height: 50, width: 260}, text: {textAlign: 'center', color: 'white', fontSize: 20, }}}
 
             onPress={() => this.facebookAuth()}
-            text={'Sign up with Facebook'}>
+            text={'   Login with Facebook'}>
           </Button>
         </View>
       </View>
