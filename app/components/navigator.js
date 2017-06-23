@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {TabNavigator, StackNavigator, DrawerNavigator, DrawerItems} from 'react-navigation';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {COLOR} from 'react-native-material-ui';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -14,6 +14,27 @@ import ChallengeOverview from './current_challenge/overview';
 import ChallengeStandings from './current_challenge/standings';
 import Login from './login/login';
 import LoaderPage from './login/loader_page';
+
+const androidTabHeaders = {
+  upperCaseLabel: false,
+  labelStyle: {
+    fontSize: 15,
+  },
+  style: {
+    backgroundColor: COLOR.green300,
+  },
+};
+
+const iosTabHeaders = {
+  activeTintColor: 'white',
+  inactiveTintColor: 'white',
+  activeBackgroundColor: COLOR.green300,
+  inactiveBackgroundColor: COLOR.green200,
+  upperCaseLabel: false,
+  labelStyle: {
+    fontSize: 15,
+  },
+};
 
 export const DetailsTabs = TabNavigator({
   'Enter Data': {
@@ -34,20 +55,11 @@ export const DetailsTabs = TabNavigator({
   animationEnabled: false,
   lazy: false,
   backBehavior: 'none',
-  tabBarOptions: {
-    activeTintColor: 'white',
-    inactiveTintColor: 'white',
-    activeBackgroundColor: COLOR.green300,
-    inactiveBackgroundColor: COLOR.green200,
-    upperCaseLabel: false,
-    labelStyle: {
-      fontSize: 15,
-    },
-    style: {
-      //  backgroundColor: 'yellow',
-     },
-  },
+  tabBarOptions: Platform.OS === 'ios' ?
+    iosTabHeaders : androidTabHeaders
 });
+
+
 
 export const ChallengesStack = StackNavigator({
   Challenges: {
@@ -59,7 +71,8 @@ export const ChallengesStack = StackNavigator({
       title: `${navigation.state.params.challengeData.name}`,
       headerTitleStyle : {
         textAlign: 'center',
-        alignSelf:'center'
+        alignSelf:'center',
+        color: 'white'
       },
       headerStyle: {
         backgroundColor: COLOR.green500,
@@ -70,6 +83,8 @@ export const ChallengesStack = StackNavigator({
 {
   mode: 'modal'
 });
+
+
 
 export const MainNav = DrawerNavigator({
   'My Challenges': {
