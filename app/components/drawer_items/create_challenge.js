@@ -480,7 +480,7 @@ export default class CreateChallenge extends Component {
           // borderWidth: 1,
           alignItems: 'center'}}>
           <Button
-            style={{container: {backgroundColor: COLOR.yellow700, marginTop: 10, height: 60, width: '100%'}, text: {textAlign: 'center', color: 'white', fontSize: 28, }}}
+            style={{container: {backgroundColor: COLOR.yellow700, margin: 10, height: 60, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 28, }}}
             raised
             text='Create Challenge'
             onPress={() => this.handleCreateChallenge()}>
