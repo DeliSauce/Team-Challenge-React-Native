@@ -502,8 +502,11 @@ export default class CreateChallenge extends Component {
           />
           <View style={styles.container}>
             <TextInput
+              autoCapitalize='none'
+              autoFocus='true'
+              autoCorrect='false'
               keyboardType='email-address'
-              placeholder={"Enter User Email (or Name?)"}
+              placeholder={"Enter User Email"}
               style={styles.input2}
               value={this.state.userSearch}
               onChangeText={(userSearch) => {
