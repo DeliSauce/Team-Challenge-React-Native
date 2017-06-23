@@ -375,11 +375,12 @@ export default class Login extends Component {
             raised
             icon={<Icon name='facebook-square' size={24} style={{color: 'white'}}/>}
             upperCase={false}
-            style={{container: {backgroundColor: COLOR.blue800, margin: 10, height: 50, width: 260}, text: {textAlign: 'center', color: 'white', fontSize: 20, }}}
+            style={{container: {backgroundColor: '#3B5998', margin: 10, height: 50, width: 260}, text: {textAlign: 'center', color: 'white', fontSize: 20, }}}
 
             onPress={() => this.facebookAuth()}
             text={'   Login with Facebook'}>
           </Button>
+
         </View>
       </View>
     );
@@ -387,14 +388,15 @@ export default class Login extends Component {
 }
 //
 // <Button
-//   accent
 //   raised
+//   icon={<Icon name='google' size={24} style={{color: 'white'}}/>}
 //   upperCase={false}
-//   style={{container: {margin: 10, height: 50, width: '80%'}, text: {textAlign: 'center', color: 'white', fontSize: 18, }}}
+//   style={{container: {backgroundColor: '#dd4b39', margin: 10, height: 50, width: 260}, text: {textAlign: 'center', color: 'white', fontSize: 20, }}}
 //
 //   onPress={() => this.googleAuth()}
-//   text={'Sign up with Google Account'}>
+//   text={'   Login with Google'}>
 // </Button>
+
 
 const styles = StyleSheet.create({
   container: {
