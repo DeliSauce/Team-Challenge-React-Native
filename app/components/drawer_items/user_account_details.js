@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import store from 'react-native-simple-store';
 import {Button, Toolbar} from 'react-native-material-ui';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconMaterial from 'react-native-vector-icons/MaterialIcons';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as firebase from 'firebase';
 
 
@@ -26,7 +27,7 @@ export default class AccountDetails extends Component {
     return {
       drawerLabel: 'Account Details',
       drawerIcon: ({tintColor}) => (
-        <Icon name="info-outline" size={25} color={tintColor} />
+        <IconMaterial name="info-outline" size={25} color={tintColor} />
       )
     }
   };
@@ -41,6 +42,16 @@ export default class AccountDetails extends Component {
     }
   }
 
+
+  profilePhoto() {
+    console.log(this.state.photo);
+    if (this.state.photo) {
+      return (<Image style={{width: 140, height: 140, borderRadius: 70}} source={{uri: this.state.photo}} />);
+    } else {
+      return (<IconFontAwesome name="user-circle" size={140} color='black' />);
+    }
+  }
+
   render() {
     return (
       <View>
@@ -50,17 +61,23 @@ export default class AccountDetails extends Component {
           centerElement="User Account Details"
           style={{flex: 1, alignSelf: 'stretch'}}
           />
-        <View style={{flexDirection: 'column', justifyContent: 'space-between', height: 300}}>
+        <View style={{margin: 10, flexDirection: 'column', justifyContent: 'space-between', height: 300, width: 400}}>
+
+          {this.profilePhoto()}
+
           <Text style={{fontSize: 20}}> Name: {this.state.name ? this.state.name : "n/a"} </Text>
+
           <Text style={{fontSize: 20}}> Email: {this.state.email ? this.state.email : "n/a"} </Text>
-          <Text style={{fontSize: 20}}> Photo: {this.state.photo ? this.state.photo : "n/a"} </Text>
-          <Text style={{fontSize: 20}}> Provider: {this.state.provider ? this.state.provider : "n/a"} </Text>
-          <Button
-            accent
-            raised
-            text='Log Out'
-            onPress={() => this.logout()}>
-          </Button>
+
+          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+            <Button
+              style={{container: {width: 100, height: 50}}}
+              accent
+              raised
+              text='Log Out'
+              onPress={() => this.logout()}>
+            </Button>
+          </View>
         </View>
       </View>
     );

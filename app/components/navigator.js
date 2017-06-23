@@ -8,6 +8,7 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import AllChallenges from './drawer_items/challenges_list';
 import CreateChallenges from './drawer_items/create_challenge';
 import AccountDetails from './drawer_items/user_account_details';
+import DrawerComponent from './drawer_items/drawer';
 import ChallengeDataEntry from './current_challenge/data_entry';
 import ChallengeOverview from './current_challenge/overview';
 import ChallengeStandings from './current_challenge/standings';
@@ -83,24 +84,7 @@ export const MainNav = DrawerNavigator({
 },
 {
   drawerWidth: 300,
-  contentComponent: props => {
-
-    //TODO add Image if there is one (easier when Redux has been implemented)
-    // <Image style={{resizeMode: 'contain', flex: 1}} source={{uri: item.thumbnailPath}} />
-
-    return (
-      <View style={{flex:1}}>
-        <TouchableOpacity
-          style={styles.drawer_header}
-          onPress={() => {props.navigation.navigate('Account Info');}}>
-          <IconFontAwesome name="user-circle" size={50} color='black' />
-          <Text> User name goes here </Text>
-        </TouchableOpacity>
-
-        <DrawerItems {...props} />
-      </View>
-    );
-  },
+  contentComponent: DrawerComponent,
   contentOptions: {
     activeTintColor: COLOR.grey700,
     inactiveTintColor: COLOR.grey700,
@@ -128,14 +112,4 @@ export const Navigator = StackNavigator({
   mode: 'modal',
   gesturesEnabled: false,
   headerMode: 'none'
-});
-
-const styles = StyleSheet.create({
-  drawer_header: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    height: 100,
-    backgroundColor: COLOR.blue200,
-  },
 });
