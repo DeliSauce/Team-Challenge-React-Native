@@ -23,13 +23,13 @@ const {
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: 'pjdelfausse@gmail.com',
-      pass: 'password',
-      authMessage: '',
-      FBSignedUp: false
-    };
-    // this.state = {email: '', pass: '', authMessage: '', FBSignedUp: false};
+    // this.state = {
+    //   email: 'pjdelfausse@gmail.com',
+    //   pass: 'password',
+    //   authMessage: '',
+    //   FBSignedUp: false
+    // };
+    this.state = {email: '', pass: '', authMessage: '', FBSignedUp: false};
     this.signup = this.signup.bind(this);
     this.login = this.login.bind(this);
   }

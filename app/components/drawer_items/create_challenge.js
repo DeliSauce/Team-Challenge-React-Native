@@ -33,12 +33,14 @@ export default class CreateChallenge extends Component {
   constructor(props) {
     super(props);
     this.userID = firebase.auth().currentUser.uid;
-    this.defaultCategories = [
-      {name: 'Placeholder 1.', status: false},
-      {name: 'Placeholder 2.', status: false},
-      {name: 'Placeholder 3.', status: false},
-      {name: 'Placeholder 4.', status: false},
-    ];
+    // this.defaultCategories = [
+    //   {name: 'Placeholder 1.', status: false},
+    //   {name: 'Placeholder 2.', status: false},
+    //   {name: 'Placeholder 3.', status: false},
+    //   {name: 'Placeholder 4.', status: false},
+    // ];
+    this.defaultCategories = [];
+
     this.state = {
       startDate: moment().format("YYYY-MM-DD"),
       days: '30',

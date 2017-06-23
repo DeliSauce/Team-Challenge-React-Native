@@ -96,6 +96,7 @@ https://firebase.google.com/docs/database/web/structure-data
 #### creating APK
 creating apk (and deleting old apk)
 - cd android && ./gradlew clean && ./gradlew assembleRelease
+
 loading apk to phone
 - cd .. && react-native run-android --variant=release
 
