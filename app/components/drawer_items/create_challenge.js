@@ -231,7 +231,7 @@ export default class CreateChallenge extends Component {
 
     let userName = (item.givenName) ?
       item.givenName + " " + item.familyName :
-      "No Username"
+      "----"
 
     return(
       <TouchableOpacity
@@ -272,9 +272,9 @@ export default class CreateChallenge extends Component {
     console.log('HIT RENDER CATEGORIES');
     return(
       <View
-        style={styles.catContainer}
+        style={styles.category_container}
         >
-        <Text style={styles.catText}>
+        <Text style={styles.category_text}>
           {item.name}
         </Text>
         <Switch
@@ -307,7 +307,8 @@ export default class CreateChallenge extends Component {
       )
     } else {
       return (
-        <Text style={{fontSize: 15}}>   Please select challenge categories from the default list or create your own.
+        <Text style={{fontSize: 15, color: 'red'}}>
+          Please add challenge categories.
         </Text>
       )
     }
@@ -506,7 +507,7 @@ export default class CreateChallenge extends Component {
             <TextInput
               autoCapitalize='none'
               autoFocus='true'
-              autoCorrect='false'
+              autoCorrect={false}
               keyboardType='email-address'
               placeholder={"Enter User Email"}
               style={styles.input2}
@@ -544,9 +545,9 @@ export default class CreateChallenge extends Component {
               >
             </FlatList>
 
-            <View style={{backgroundColor: COLOR.red300, padding: 15}}>
+            <View style={{backgroundColor: COLOR.green500, padding: 15}}>
               <TextInput
-                placeholder={"Add Your Own Category"}
+                placeholder={"Add a category to your challenge..."}
                 style={styles.input2}
                 value={this.state.newCat}
                 onChangeText={(newCat) => {this.setState({newCat})}}
@@ -606,18 +607,11 @@ const styles = StyleSheet.create({
   },
   user_search_result: {
     flexDirection: 'row',
-    // flex: 1,
-    // alignSelf: 'stretch',
     width: 400,
     height: 60,
   },
   input_container: {
     flexDirection: 'row',
-    // borderColor: 'gray',
-    // borderWidth: 1,
-    // borderColor: COLOR.grey200,
-    // borderWidth: 1,
-    // backgroundColor: COLOR.grey100,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
@@ -636,11 +630,8 @@ const styles = StyleSheet.create({
   },
   input2: {
     height: 50,
-    // borderColor: 'gray',
-    // borderWidth: 1,
     backgroundColor: 'white',
     borderRadius: 3,
-    // marginTop: 10,
   },
   section_divider: {
     width: '100%',
@@ -652,9 +643,6 @@ const styles = StyleSheet.create({
   },
   row_container: {
     flexDirection: 'row',
-    // borderColor: COLOR.grey200,
-    // borderWidth: 1,
-    // backgroundColor: COLOR.grey100,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
@@ -666,9 +654,6 @@ const styles = StyleSheet.create({
   column_container: {
     flexDirection: 'column',
     alignItems: 'center',
-    // borderColor: COLOR.grey200,
-    // borderWidth: 1,
-    // backgroundColor: COLOR.grey100,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
@@ -679,12 +664,6 @@ const styles = StyleSheet.create({
   },
   slider_container: {
     flexDirection: 'column',
-    // alignItems: 'flex-start',
-    // borderColor: 'gray',
-    // borderWidth: 1,
-    // borderColor: COLOR.grey200,
-    // borderWidth: 1,
-    // backgroundColor: COLOR.grey100,
     paddingTop: 5,
     paddingBottom: 5,
     marginTop: 5,
@@ -696,9 +675,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignSelf: 'stretch',
-
-    // justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   searchContainer: {
@@ -709,21 +685,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgrey',
   },
 
-  catContainer: {
+  category_container: {
     height: 80,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'stretch',
-    backgroundColor: 'lightgrey',
-    borderColor: 'skyblue',
-    borderWidth: 1
+    backgroundColor: '#87edd7',
+    borderBottomColor: '#7bd8c4',
+    borderBottomWidth: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
-  catText: {
+  category_text: {
     fontSize: 20,
-    marginLeft: 15,
+    width: '80%'
   },
   toggle: {
-    marginRight: 15,
+    width: '20%'
   },
 });

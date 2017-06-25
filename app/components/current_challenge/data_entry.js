@@ -155,21 +155,21 @@ const styles = StyleSheet.create({
 
   category_container: {
     height: 80,
-    // width: 350,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    alignSelf: "stretch",
-    // margin: 10,
-    backgroundColor: 'lightgrey',
-    borderColor: 'skyblue',
-    borderWidth: 1
+    alignSelf: 'stretch',
+    backgroundColor: '#87edd7',
+    borderBottomColor: '#7bd8c4',
+    borderBottomWidth: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   category_text: {
     fontSize: 20,
-    marginLeft: 15,
+    width: '80%'
   },
   toggle: {
-    marginRight: 15,
+    width: '20%'
   },
 });
