@@ -1,10 +1,31 @@
-# ![logo](docs/TeamChallengeLogo_small.png) Team Challenge 
+# ![logo](docs/TeamChallengeLogo_small.png) Team Challenge
 Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and syncing data in real time.
 
 ###### Sample challenge: Fitness Challenge
 - 5 people, 30 days, 10 categories
 - receive 1 point per day for each category completed
 - person with the most points is the winner
+
+<!-- ![my challenges](docs/screenshots/Screenshot_my_challenges.png)
+![my challenges](docs/screenshots/Screenshot_new_challenge.png)
+![my challenges](docs/screenshots/Screenshot_enter_data.png)
+![my challenges](docs/screenshots/Screenshot_standings.png) -->
+
+#### New Challenges
+Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts. <br>
+<img width='40%' src="./docs/screenshots/Screenshot_new_challenge.png"/><br><br>
+<img width='70%' src="./docs/screenshots/Screenshot_my_challenges.png"/>
+
+<br>
+
+
+#### Challenge Information
+There are 3 screens for each challenge:
+- Enter Data: allows the user to select completed goals for any given day
+- Overview: provides a view of the individual user's accumulated points
+- Standings: provides a large picture view of how each user's points stack up against each other<br>
+<img width='30%' src="./docs/screenshots/Screenshot_enter_data.png"/>
+<img width='30%' src="./docs/screenshots/Screenshot_standings.png"/>
 
 ### Firebase
 - Provides user authentication.
