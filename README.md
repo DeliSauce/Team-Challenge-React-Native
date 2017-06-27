@@ -13,10 +13,10 @@ Mobile app built with React Native that allows groups of people to create and tr
 
 #### New Challenges
 <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start">
-<p width='60%' > Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts. </p>
-<img width='30%' src="./docs/screenshots/Screenshot_new_challenge.png"/>
-
+  <div width='50%' > Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts. </div>
+  <img width='30%' src="./docs/screenshots/Screenshot_new_challenge.png"/>
 </div>
+<br><br><br>
 <img src="./docs/screenshots/Screenshot_my_challenges.png"/>
 
 
@@ -26,8 +26,8 @@ There are 3 screens for each challenge:
 - Overview: provides a view of the individual user's accumulated points
 - Standings: provides a large picture view of how each user's points stack up against each other<br>
 <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start">
-<img width='30%' src="./docs/screenshots/Screenshot_enter_data.png"/>
-<img width='30%' src="./docs/screenshots/Screenshot_standings.png"/>
+  <img width='30%' src="./docs/screenshots/Screenshot_enter_data.png"/>
+  <img width='30%' src="./docs/screenshots/Screenshot_standings.png"/>
 </div>
 
 ### Firebase
