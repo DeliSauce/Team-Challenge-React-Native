@@ -18,7 +18,6 @@ Users can create a new challenge and it is instantly added to each user's "My Ch
 <br><br>
 <img src="./docs/screenshots/Screenshot_my_challenges.png"/>
 
-
 #### Challenge Information
 There are 3 screens for each challenge:
 - Enter Data: allows the user to select completed goals for any given day
