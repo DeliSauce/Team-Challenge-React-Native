@@ -10,7 +10,6 @@ Mobile app built with React Native that allows groups of people to create and tr
 - Provides user authentication.
 - Utilizes realtime database to update information for all users when changes are made.
 - NoSQL as opposed to a relational database. Data is stored in a JSON tree.
-https://firebase.google.com/docs/database/web/structure-data
 
       Firebase Database Model:
       {
@@ -93,6 +92,8 @@ https://firebase.google.com/docs/database/web/structure-data
 - Make user search more robust. Possibly even include the option to email non-users with a link to the app in the Play store.
 
 ### Other Important Information
-[Task List Items: completed and pending](docs/task_list.md)
-[Installation Instructions](docs/installation_instructions.md)
+[Task List Items (completed and pending)](docs/task_list.md)
+
+[Setup and Installation](docs/installation_instructions.md)
+
 [Privacy Policy](docs/privacy_policy.md)
