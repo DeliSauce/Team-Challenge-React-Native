@@ -1,4 +1,4 @@
-# Team Challenge
+# ![logo](docs/TeamChallengeLogo_small.png) Team Challenge 
 Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and syncing data in real time.
 
 ###### Sample challenge: Fitness Challenge
@@ -91,9 +91,10 @@ Mobile app built with React Native that allows groups of people to create and tr
 - "Beautify" challenge overview information and standings.
 - Make user search more robust. Possibly even include the option to email non-users with a link to the app in the Play store.
 
+
 ### Other Important Information
 [Task List Items (completed and pending)](docs/task_list.md)
-
+<br>
 [Setup and Installation](docs/installation_instructions.md)
-
+<br>
 [Privacy Policy](docs/privacy_policy.md)
