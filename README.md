@@ -18,8 +18,9 @@ Mobile app built with React Native that allows groups of people to create and tr
 
 <div width='50%'> Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts.</div>
 
-<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start">
+<div>
   <img src="./docs/screenshots/Screenshot_new_challenge.png"/ width='25%'>
+  <div width='10%'/>
   <img src="./docs/screenshots/Screenshot_my_challenges.png" width='50%'/>
 </div>
 
