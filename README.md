@@ -15,13 +15,24 @@ Mobile app built with React Native that allows groups of people to create and tr
 ![my challenges](docs/screenshots/Screenshot_standings.png) -->
 
 #### New Challenges
-Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts. <br>
+ <br>
 
-<img align="right" width='30%' src="./docs/screenshots/Screenshot_new_challenge.png"/>
+<div style='display: flex, flex-direction: row, height: 300px'>
+
+  <div>
+  Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts.
+  </div>
+
+
+    <img src="./docs/screenshots/Screenshot_new_challenge.png"/>
+
+
+</div>
+
 <br><br>
 <img src="./docs/screenshots/Screenshot_my_challenges.png"/>
 
-#### Challenge Information
+#### Challenge Status Information
 There are 3 screens for each challenge:
 - Enter Data: allows the user to select completed goals for any given day
 - Overview: provides a view of the individual user's accumulated points
