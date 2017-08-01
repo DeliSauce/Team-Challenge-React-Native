@@ -1,16 +1,14 @@
 # ![logo](docs/TeamChallengeLogo_small.png) Team Challenge
-Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and syncing data in real time.
+Team Challenge is a mobile app that allows users to set up challenges with their friends in order to push each other to meet individual goals (health, life, etc). Users can select the length and categories for the challenge and will receive a point for each category completed on any given day. The person with most points at the end of the challenge wins!!
+
+This app was built with React Native and can run on both Android and iOS devices. It utilizes Firebase for authentication and syncing data in real time.
 
 <strong>[Android Play Store](https://play.google.com/store/apps/details?id=com.delisauce.teamchallenge) </strong><br/>
 <strong>Apple App Store</strong> (pending)
 
-###### Sample challenge: Fitness Challenge
-- 5 people, 30 days, 10 categories
-- receive 1 point per day for each category completed
-- person with the most points is the winner
-
-Login with either an email/password or Facebook (via OAuth).
-When signing up with Facebook, the user's photo is added to the navigation drawer <br/>
+### Logging In
+Users can either log in with an email/password or via Facebook OAuth. <br/>
+When signing up with Facebook, the user's photo and name is included in the navigation drawer. <br/>
 
 <div>
   <img src="./docs/screenshots/login_page.png" width='24%'/>
@@ -19,8 +17,13 @@ When signing up with Facebook, the user's photo is added to the navigation drawe
   <img src="./docs/screenshots/navdrawer_anon_user.png" width='24%'/>
 </div>
 
-#### New Challenges
-Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts.<br/>
+### Setting Up New Challenges
+Users can create a new challenge and it is instantly added to each user's home page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts. <br/>
+
+###### Sample challenge: Health Challenge
+- 2 people, 10 days, 3 categories
+- receive 1 point per day for each category completed
+- person with the most points is the winner
 
 <div>
   <img src="./docs/screenshots/new_challenge.png" width='30%'/>
@@ -28,12 +31,13 @@ Users can create a new challenge and it is instantly added to each user's "My Ch
   <img src="./docs/screenshots/user_search.png" width='30%'/>
 </div>
 
-#### Challenge Status Data
+### Individual Challenge Status
 There are 3 screens for each challenge:
 - Enter Data: allows the user to select completed goals for any given day
 - Overview: provides a view of the individual user's accumulated points
 - Standings: provides a large picture view of how each user's points stack up against each other<br>
-<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start">
+
+<div style="display: flex, flex-direction: row, justify-content: space-between, align-items: flex-start">
   <img width='30%' src="./docs/screenshots/data_entry.png"/>
   <img width='30%' src="./docs/screenshots/data_overview.png"/>
   <img width='30%' src="./docs/screenshots/data_standings.png"/>
