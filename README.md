@@ -1,8 +1,8 @@
 # ![logo](docs/TeamChallengeLogo_small.png) Team Challenge
 Mobile app built with React Native that allows groups of people to create and track challenge benchmarks. Utilizes Firebase for authentication and syncing data in real time.
 
-[Android Play Store](https://play.google.com/store/apps/details?id=com.delisauce.teamchallenge) <br/>
-Apple App Store pending...
+<strong>[Android Play Store](https://play.google.com/store/apps/details?id=com.delisauce.teamchallenge) </strong><br/>
+<strong>Apple App Store</strong> (pending)
 
 ###### Sample challenge: Fitness Challenge
 - 5 people, 30 days, 10 categories
