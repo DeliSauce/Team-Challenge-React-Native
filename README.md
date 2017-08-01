@@ -6,7 +6,7 @@ This app was built with React Native and can run on both Android and iOS devices
 <strong>[Android Play Store](https://play.google.com/store/apps/details?id=com.delisauce.teamchallenge) </strong><br/>
 <strong>Apple App Store</strong> (pending)
 
-### Logging In
+## Logging In
 Users can either log in with an email/password or via Facebook OAuth. <br/>
 When signing up with Facebook, the user's photo and name is included in the navigation drawer. <br/>
 
@@ -17,7 +17,7 @@ When signing up with Facebook, the user's photo and name is included in the navi
   <img src="./docs/screenshots/navdrawer_anon_user.png" width='24%'/>
 </div>
 
-### Setting Up New Challenges
+## Setting Up New Challenges
 Users can create a new challenge and it is instantly added to each user's home page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts. <br/>
 
 ###### Sample challenge: Health Challenge
@@ -31,19 +31,19 @@ Users can create a new challenge and it is instantly added to each user's home p
   <img src="./docs/screenshots/user_search.png" width='30%'/>
 </div>
 
-### Individual Challenge Status
+## Individual Challenge Status
 There are 3 screens for each challenge:
 - Enter Data: allows the user to select completed goals for any given day
 - Overview: provides a view of the individual user's accumulated points
 - Standings: provides a large picture view of how each user's points stack up against each other<br>
 
-<div style="display: flex, flex-direction: row, justify-content: space-between, align-items: flex-start">
+<div style="{display: flex, flex-direction: row, justify-content: space-between, align-items: flex-start}">
   <img width='30%' src="./docs/screenshots/data_entry.png"/>
   <img width='30%' src="./docs/screenshots/data_overview.png"/>
   <img width='30%' src="./docs/screenshots/data_standings.png"/>
 </div>
 
-### Firebase
+## Firebase
 - Provides user authentication.
 - Utilizes realtime database to update information for all users when changes are made.
 - NoSQL as opposed to a relational database. Data is stored in a JSON tree.
@@ -123,7 +123,7 @@ There are 3 screens for each challenge:
         }
       }
 
-### Future goals
+## Future goals
 - Add Firebase notifications (updates regarding leaders, new challenges, etc).
   - this may require a iOS developer account...Android may be simpler
 - "Beautify" challenge overview information and standings.
@@ -132,7 +132,7 @@ There are 3 screens for each challenge:
   - include option to email non-users with a link to the app in the Play store.
 
 
-### Other Important Information
+## Other Important Information
 [Task List Items (completed and pending)](docs/task_list.md)
 <br>
 [Setup and Installation](docs/installation_instructions.md)
