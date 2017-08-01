@@ -9,11 +9,6 @@ Mobile app built with React Native that allows groups of people to create and tr
 - receive 1 point per day for each category completed
 - person with the most points is the winner
 
-<!-- ![my challenges](docs/screenshots/Screenshot_my_challenges.png)
-![my challenges](docs/screenshots/Screenshot_new_challenge.png)
-![my challenges](docs/screenshots/Screenshot_enter_data.png)
-![my challenges](docs/screenshots/Screenshot_standings.png) -->
-
 Login with either an email/password or Facebook (via OAuth).
 When signing up with Facebook, the user's photo is added to the navigation drawer <br/>
 
@@ -25,9 +20,7 @@ When signing up with Facebook, the user's photo is added to the navigation drawe
 </div>
 
 #### New Challenges
-
 Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts.<br/>
-
 
 <div>
   <img src="./docs/screenshots/new_challenge.png" width='30%'/>
