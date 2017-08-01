@@ -20,7 +20,7 @@ Mobile app built with React Native that allows groups of people to create and tr
 
 <div>
   <img src="./docs/screenshots/Screenshot_new_challenge.png"/ width='25%'>
-  <img src="" width='10%'/>
+  <img style="display: none" width='10%'/>
   <img src="./docs/screenshots/Screenshot_my_challenges.png" width='50%'/>
 </div>
 
