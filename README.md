@@ -14,14 +14,25 @@ Mobile app built with React Native that allows groups of people to create and tr
 ![my challenges](docs/screenshots/Screenshot_enter_data.png)
 ![my challenges](docs/screenshots/Screenshot_standings.png) -->
 
-#### New Challenges
-
-<div width='50%'> Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts.</div>
+Login with either an email/password or Facebook (via OAuth).
+When signing up with Facebook, the user's photo is added to the navigation drawer <br/>
 
 <div>
-  <img src="./docs/screenshots/Screenshot_new_challenge.png"/ width='25%'>
-  <img style="display: none" width='10%'/>
-  <img src="./docs/screenshots/Screenshot_my_challenges.png" width='50%'/>
+  <img src="./docs/screenshots/login_page.png" width='24%'/>
+  <img src="./docs/screenshots/my_challenges.png" width='24%'/>
+  <img src="./docs/screenshots/navdrawer_facebook_user.png" width='24%'/>
+  <img src="./docs/screenshots/navdrawer_anon_user.png" width='24%'/>
+</div>
+
+#### New Challenges
+
+Users can create a new challenge and it is instantly added to each user's "My Challenges" page. Incorporates dynamic Firebase database user search in conjunction with data from user contacts.<br/>
+
+
+<div>
+  <img src="./docs/screenshots/new_challenge.png" width='30%'/>
+  <img src="./docs/screenshots/category_selection.png" width='30%'/>
+  <img src="./docs/screenshots/user_search.png" width='30%'/>
 </div>
 
 #### Challenge Status Data
@@ -30,8 +41,9 @@ There are 3 screens for each challenge:
 - Overview: provides a view of the individual user's accumulated points
 - Standings: provides a large picture view of how each user's points stack up against each other<br>
 <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start">
-  <img width='30%' src="./docs/screenshots/Screenshot_enter_data.png"/>
-  <img width='30%' src="./docs/screenshots/Screenshot_standings.png"/>
+  <img width='30%' src="./docs/screenshots/data_entry.png"/>
+  <img width='30%' src="./docs/screenshots/data_overview.png"/>
+  <img width='30%' src="./docs/screenshots/data_standings.png"/>
 </div>
 
 ### Firebase
