@@ -37,8 +37,11 @@ export default class ChallengeStandings extends Component {
   // };
 
   componentWillMount() {
-    // console.log('WILL MOUNT: challenge standings');
+    console.log('WILL MOUNT: standings');
     this.listenForUpdatesToChallenge();
+  }
+  componentWillUnmount() {
+    console.log('WILL unmount: standings');
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -52,7 +55,7 @@ export default class ChallengeStandings extends Component {
   listenForUpdatesToChallenge() {
     const challengeData = firebase.database().ref('challenges/' + this.challengeKey + '/userData');
     challengeData.on('value', (snap) => {
-      // console.log("standings LISTENER", snap.val());
+      console.log("standings LISTENER", snap.val());
       this.props.navigation.setParams({challengeData: snap.val()});
     });
   }

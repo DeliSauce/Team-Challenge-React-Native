@@ -1,6 +1,10 @@
-## Firebase CLI commands
+## React Native CLI commands
 - react-native run-android
 - react-native run-ios
+
+## Debugger
+I set up a shortcut on my computer to enter debugging options screen instead of shaking phone:  Command + Option + E
+https://medium.com/delivery-com-engineering/react-native-stop-shaking-your-phone-1f4863140146
 
 ## creating APK
 creating apk (and deleting old apk)

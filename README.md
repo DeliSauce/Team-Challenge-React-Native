@@ -137,4 +137,6 @@ There are 3 screens for each challenge:
 <br>
 [Setup and Installation](docs/installation_instructions.md)
 <br>
+[Notes](docs/notes.md)
+<br>
 [Privacy Policy](docs/privacy_policy.md)

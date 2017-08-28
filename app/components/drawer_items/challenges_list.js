@@ -86,6 +86,9 @@ export default class AllChallenges extends Component {
     myChallengesRef.on('child_added', (snap) => {
       console.log("all_challenges LISTENER");
       const challengeRef = firebase.database().ref('challenges/' + snap.key);
+      // challenges.push({challengeKey: snapshot.key, challenge: snapshot.val()});
+      // this.setState({challenges});
+      
       challengeRef.once('value', (snapshot) => {
         console.log('LISTENER hit a new challenge ref, snap=', snap.key, 'snapshot=', snapshot.key);
         challenges.push({challengeKey: snapshot.key, challenge: snapshot.val()});
@@ -96,6 +99,12 @@ export default class AllChallenges extends Component {
 
   componentDidMount() {
     this.listenForItems();
+  }
+  componentWillMount() {
+    console.log('WILL MOUNT: list');
+  }
+  componentWillUnmount() {
+    console.log('WILL unmount: list');
   }
 
   renderChallengeItem({item, index}) {

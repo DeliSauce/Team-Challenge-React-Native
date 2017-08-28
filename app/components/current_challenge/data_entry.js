@@ -35,6 +35,14 @@ export default class ChallengeDataEntry extends Component {
     // console.log(this.data);
   }
 
+  componentWillMount() {
+    console.log('WILL MOUNT: data_entry');
+  }
+  componentWillUnmount() {
+    console.log('WILL unmount: data_entry');
+  }
+
+
   handleCatSwitch(catObj, idx, bool) {
     this.setState((previousState) => {
       previousState.userData[this.state.dayOfCycle][idx] = bool;

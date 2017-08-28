@@ -93,6 +93,9 @@ export default class ChallengeOverview extends Component {
     console.log('WILL MOUNT: overview');
     this.listenForUpdatesToChallenge();
   }
+  componentWillUnmount() {
+    console.log('WILL unmount: overview');
+  }
 
   listenForUpdatesToChallenge() {
     const challengeData = firebase.database().ref('challenges/' + this.challengeKey + '/userData/' + this.userID);
